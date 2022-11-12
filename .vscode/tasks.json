@@ -1,0 +1,43 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+		{
+            "label": "Compile MainWindow.ui",
+            "type": "shell",
+            "command": "pyuic5",
+            "args":["-o", "MainWindow.py", "./ui/MainWindow.ui"],
+            "group": {
+				"kind": "build",
+				"isDefault": true
+			},
+            "presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": true,
+				"panel": "shared",
+				"showReuseMessage": true,
+				"clear": true
+			}
+        },
+        {
+            "label": "Run Start.py",
+            "type": "shell",
+            "command": "${command:python.interpreterPath}",
+            "args":["Start.py"],
+            "group": {
+				"kind": "build",
+				"isDefault": true
+			},
+            "presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": true,
+				"panel": "shared",
+				"showReuseMessage": true,
+				"clear": true
+			}
+        }
+    ]
+}
