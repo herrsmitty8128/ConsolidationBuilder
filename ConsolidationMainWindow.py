@@ -184,27 +184,30 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
 
     @QtCore.pyqtSlot()
     def export_table(self):
-        def write_to_csv(file:str, data:list) -> None:
-            if len(data) > 0:
-                with open(file, 'w') as f:
-                    writer = csv.DictWriter(fieldnames=data[0].keys())
-                    writer.writeheader()
-                    writer.writerows(data)
         try:
             file,_ = QtWidgets.QFileDialog.getSaveFileName(self, 'Select a filename to save', filter='JSON Files (*.json)')
             sender = self.sender().objectName()
             if sender == 'actionExportEntities':
-                write_to_csv(file,self.document['Entities'])
+                data = self.document['Entities']
+                head = ['','','']
             elif sender == 'actionExportCostCenters':
-                write_to_csv(file,self.document['Cost Centers'])
+                data = self.document['Cost Centers']
+                head = ['','','']
             elif sender == 'actionExportAccounts':
-                write_to_csv(file,self.document['Accounts'])
+                data = self.document['Accounts']
+                head = ['','','']
             elif sender == 'actionExportTrialBalance':
-                write_to_csv(file,self.document['Trial Balance']['Entries'])
+                data = self.document['Trial Balance']['Entries']
+                head = ['','','']
             elif sender == 'actionExportAdjustments':
-                write_to_csv(file,self.document['Adjustments'])
+                data = self.document['Adjustments']
+                head = ['','','']
             else:
                 raise ValueError('Unrecognized export table')
+            with open(file, 'w') as f:
+                writer = csv.DictWriter(fieldnames=head)
+                writer.writeheader()
+                writer.writerows(data)
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
     
