@@ -4,6 +4,24 @@
     "version": "2.0.0",
     "tasks": [
 		{
+            "label": "Format python files",
+            "type": "shell",
+            "command": "autopep8",
+            "args":["--in-place", "--max-line-length", "250", "--aggressive", "--aggressive", "Start.py", "MainWindow.py", "ConsolidationMainWindow.py"],
+            "group": {
+				"kind": "build",
+				"isDefault": true
+			},
+            "presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": true,
+				"panel": "shared",
+				"showReuseMessage": true,
+				"clear": true
+			}
+        },
+		{
             "label": "Compile MainWindow.ui",
             "type": "shell",
             "command": "pyuic5",
@@ -22,7 +40,7 @@
 			}
         },
         {
-            "label": "Run Start.py",
+            "label": "Run the app",
             "type": "shell",
             "command": "${command:python.interpreterPath}",
             "args":["Start.py"],

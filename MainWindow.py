@@ -189,26 +189,26 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         self.tabWidget.setCurrentIndex(3)
-        self.actionNew.triggered.connect(MainWindow.new_document) # type: ignore
-        self.actionOpen.triggered.connect(MainWindow.open_document) # type: ignore
-        self.actionClose.triggered.connect(MainWindow.close_document) # type: ignore
-        self.actionSave.triggered.connect(MainWindow.save_document) # type: ignore
-        self.actionSaveAs.triggered.connect(MainWindow.save_as_document) # type: ignore
-        self.actionQuit.triggered.connect(MainWindow.quit_application) # type: ignore
-        self.actionBuild.triggered.connect(MainWindow.build_consolidation) # type: ignore
-        self.PYEDateEdit.dateChanged['QDate'].connect(MainWindow.set_beginning_date) # type: ignore
-        self.currentDateEdit.dateChanged['QDate'].connect(MainWindow.set_ending_date) # type: ignore
-        self.entityName.textChanged['QString'].connect(MainWindow.set_entity_name) # type: ignore
-        self.actionImportEntities.triggered.connect(MainWindow.import_table) # type: ignore
-        self.actionImportCostCenters.triggered.connect(MainWindow.import_table) # type: ignore
-        self.actionImportAccounts.triggered.connect(MainWindow.import_table) # type: ignore
-        self.actionImportTrialBalance.triggered.connect(MainWindow.import_table) # type: ignore
-        self.actionImportAdjustments.triggered.connect(MainWindow.import_table) # type: ignore
-        self.actionExportEntities.triggered.connect(MainWindow.export_table) # type: ignore
-        self.actionExportCostCenters.triggered.connect(MainWindow.export_table) # type: ignore
-        self.actionExportAccounts.triggered.connect(MainWindow.export_table) # type: ignore
-        self.actionExportTrialBalance.triggered.connect(MainWindow.export_table) # type: ignore
-        self.actionExportAdjustments.triggered.connect(MainWindow.export_table) # type: ignore
+        self.actionNew.triggered.connect(MainWindow.new_document)  # type: ignore
+        self.actionOpen.triggered.connect(MainWindow.open_document)  # type: ignore
+        self.actionClose.triggered.connect(MainWindow.close_document)  # type: ignore
+        self.actionSave.triggered.connect(MainWindow.save_document)  # type: ignore
+        self.actionSaveAs.triggered.connect(MainWindow.save_as_document)  # type: ignore
+        self.actionQuit.triggered.connect(MainWindow.quit_application)  # type: ignore
+        self.actionBuild.triggered.connect(MainWindow.build_consolidation)  # type: ignore
+        self.PYEDateEdit.dateChanged['QDate'].connect(MainWindow.set_beginning_date)  # type: ignore
+        self.currentDateEdit.dateChanged['QDate'].connect(MainWindow.set_ending_date)  # type: ignore
+        self.entityName.textChanged['QString'].connect(MainWindow.set_entity_name)  # type: ignore
+        self.actionImportEntities.triggered.connect(MainWindow.import_table)  # type: ignore
+        self.actionImportCostCenters.triggered.connect(MainWindow.import_table)  # type: ignore
+        self.actionImportAccounts.triggered.connect(MainWindow.import_table)  # type: ignore
+        self.actionImportTrialBalance.triggered.connect(MainWindow.import_table)  # type: ignore
+        self.actionImportAdjustments.triggered.connect(MainWindow.import_table)  # type: ignore
+        self.actionExportEntities.triggered.connect(MainWindow.export_table)  # type: ignore
+        self.actionExportCostCenters.triggered.connect(MainWindow.export_table)  # type: ignore
+        self.actionExportAccounts.triggered.connect(MainWindow.export_table)  # type: ignore
+        self.actionExportTrialBalance.triggered.connect(MainWindow.export_table)  # type: ignore
+        self.actionExportAdjustments.triggered.connect(MainWindow.export_table)  # type: ignore
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
