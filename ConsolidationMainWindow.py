@@ -2,17 +2,41 @@
 import MainWindow
 import json
 import csv
+from BaseTableModel import BaseTableModel
 from PyQt5 import QtWidgets, QtCore, QtGui
 
 
 class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
 
     def __init__(self, application: QtWidgets.QApplication):
+        
         super().__init__()
         self.setupUi(self)
         self.application = application
+
         self.create_new_document()
-        self.connect_new_document()
+        #self.connect_new_document()
+        
+        table = self.findChild(QtWidgets.QTableView, 'entityTableView')
+        model = BaseTableModel(self.document['Entities'], ['','','','',], table)
+        table.setModel(model)
+
+        table = self.findChild(QtWidgets.QTableView, 'costCenterTableView')
+        model = BaseTableModel(self.document['Cost Centers'], ['','','','',], table)
+        table.setModel(model)
+
+        table = self.findChild(QtWidgets.QTableView, 'accountsTableView')
+        model = BaseTableModel(self.document['Accounts'], ['','','','',], table)
+        table.setModel(model)
+
+        table = self.findChild(QtWidgets.QTableView, 'trialBalanceTableView')
+        model = BaseTableModel(self.document['Trial Balance']['Entries'], ['','','','',], table)
+        table.setModel(model)
+
+        table = self.findChild(QtWidgets.QTableView, 'adjustmentsTableView')
+        model = BaseTableModel(self.document['Adjustments'], ['','','','',], table)
+        table.setModel(model)
+
         errors = self.findChild(QtWidgets.QTextEdit, 'errorTextEdit')
         errors.setTextColor(QtGui.QColor('black'))
         errors.append('Welcome to Consolidation Station!\nVersion 1.0\n')
@@ -131,10 +155,11 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
     def connect_new_document(self):
         try:
             # connect the data to the table veiw data models
-            # refresh the table models
-            # add the data models to the table views here...
-            # tableView = self.findChild(QtWidgets.QTableView, 'invoiceLineItemsTableView')
-            # tableView.setModel(InvoiceLineItem.TableModel(parent=tableView))
+            self.findChild(QtWidgets.QTableView, 'entityTableView').getModel().replaceRows(self.document['Entities'])
+            self.findChild(QtWidgets.QTableView, 'costCenterTableView').getModel().replaceRows(self.document['Cost Centers'])
+            self.findChild(QtWidgets.QTableView, 'accountsTableView').getModel().replaceRows(self.document['Accounts'])
+            self.findChild(QtWidgets.QTableView, 'trialBalanceTableView').getModel().replaceRows(self.document['Trial Balance']['Entries'])
+            self.findChild(QtWidgets.QTableView, 'adjustmentsTableView').getModel().replaceRows(self.document['Adjustments'])
             pass
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
@@ -166,20 +191,22 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
     def import_table(self):
         try:
             file, _ = QtWidgets.QFileDialog.getOpenFileName(self, 'Select a file to open', filter='JSON Files (*.json)')
-            # Append or replace???
-            sender = self.sender().objectName()
-            if sender == 'actionImportEntities':
-                tablemodel = self.findChild(QtWidgets.QTableView, 'entityTableView')
-            elif sender == 'actionImportCostCenters':
-                pass
-            elif sender == 'actionImportAccounts':
-                pass
-            elif sender == 'actionImportTrialBalance':
-                pass
-            elif sender == 'actionImportAdjustments':
-                pass
-            else:
-                raise ValueError('Unrecognized import table')
+            if file:
+                replace = QtWidgets.QMessageBox.question(self, 'Replace rows?', 'Would you like to replace all rows of data?')
+                replace = True if replace == QtWidgets.QMessageBox.StandardButton.Yes else False
+                sender = self.sender().objectName()
+                if sender == 'actionImportEntities':
+                    self.findChild(QtWidgets.QTableView, 'entityTableView').getModel().importCSV(file,replace)
+                elif sender == 'actionImportCostCenters':
+                    self.findChild(QtWidgets.QTableView, 'costCenterTableView').getModel().importCSV(file,replace)
+                elif sender == 'actionImportAccounts':
+                    self.findChild(QtWidgets.QTableView, 'accountsTableView').getModel().importCSV(file,replace)
+                elif sender == 'actionImportTrialBalance':
+                    self.findChild(QtWidgets.QTableView, 'trialBalanceTableView').getModel().importCSV(file,replace)
+                elif sender == 'actionImportAdjustments':
+                    self.findChild(QtWidgets.QTableView, 'adjustmentsTableView').getModel().importCSV(file,replace)
+                else:
+                    raise ValueError('Unrecognized import table')
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
 
@@ -187,28 +214,20 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
     def export_table(self):
         try:
             file, _ = QtWidgets.QFileDialog.getSaveFileName(self, 'Select a filename to save', filter='JSON Files (*.json)')
-            sender = self.sender().objectName()
-            if sender == 'actionExportEntities':
-                data = self.document['Entities']
-                head = ['', '', '']
-            elif sender == 'actionExportCostCenters':
-                data = self.document['Cost Centers']
-                head = ['', '', '']
-            elif sender == 'actionExportAccounts':
-                data = self.document['Accounts']
-                head = ['', '', '']
-            elif sender == 'actionExportTrialBalance':
-                data = self.document['Trial Balance']['Entries']
-                head = ['', '', '']
-            elif sender == 'actionExportAdjustments':
-                data = self.document['Adjustments']
-                head = ['', '', '']
-            else:
-                raise ValueError('Unrecognized export table')
-            with open(file, 'w') as f:
-                writer = csv.DictWriter(fieldnames=head)
-                writer.writeheader()
-                writer.writerows(data)
+            if file:
+                sender = self.sender().objectName()
+                if sender == 'actionImportEntities':
+                    self.findChild(QtWidgets.QTableView, 'entityTableView').getModel().exportCSV(file)
+                elif sender == 'actionImportCostCenters':
+                    self.findChild(QtWidgets.QTableView, 'costCenterTableView').getModel().exportCSV(file)
+                elif sender == 'actionImportAccounts':
+                    self.findChild(QtWidgets.QTableView, 'accountsTableView').getModel().exportCSV(file)
+                elif sender == 'actionImportTrialBalance':
+                    self.findChild(QtWidgets.QTableView, 'trialBalanceTableView').getModel().exportCSV(file)
+                elif sender == 'actionImportAdjustments':
+                    self.findChild(QtWidgets.QTableView, 'adjustmentsTableView').getModel().exportCSV(file)
+                else:
+                    raise ValueError('Unrecognized export table')
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
 
