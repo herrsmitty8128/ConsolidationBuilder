@@ -34,12 +34,40 @@
           <item row="0" column="1">
            <widget class="QLineEdit" name="entityName"/>
           </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string>Beginning Balance Date:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QDateEdit" name="beginningBalanceDate">
+            <property name="displayFormat">
+             <string>M/d/yyyy</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_3">
+            <property name="text">
+             <string>Ending Balance Date:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QDateEdit" name="endingBalanceDate">
+            <property name="displayFormat">
+             <string>M/d/yyyy</string>
+            </property>
+           </widget>
+          </item>
          </layout>
         </item>
         <item>
          <widget class="QTabWidget" name="tabWidget">
           <property name="currentIndex">
-           <number>0</number>
+           <number>3</number>
           </property>
           <widget class="QWidget" name="EntitiesTab">
            <attribute name="title">
@@ -47,7 +75,17 @@
            </attribute>
            <layout class="QHBoxLayout" name="horizontalLayout_2">
             <item>
-             <widget class="QTableView" name="entityTableView"/>
+             <widget class="QTableView" name="entityTableView">
+              <property name="alternatingRowColors">
+               <bool>true</bool>
+              </property>
+              <property name="selectionMode">
+               <enum>QAbstractItemView::MultiSelection</enum>
+              </property>
+              <property name="selectionBehavior">
+               <enum>QAbstractItemView::SelectRows</enum>
+              </property>
+             </widget>
             </item>
            </layout>
           </widget>
@@ -57,7 +95,17 @@
            </attribute>
            <layout class="QHBoxLayout" name="horizontalLayout_3">
             <item>
-             <widget class="QTableView" name="costCenterTableView"/>
+             <widget class="QTableView" name="costCenterTableView">
+              <property name="alternatingRowColors">
+               <bool>true</bool>
+              </property>
+              <property name="selectionMode">
+               <enum>QAbstractItemView::MultiSelection</enum>
+              </property>
+              <property name="selectionBehavior">
+               <enum>QAbstractItemView::SelectRows</enum>
+              </property>
+             </widget>
             </item>
            </layout>
           </widget>
@@ -67,7 +115,17 @@
            </attribute>
            <layout class="QHBoxLayout" name="horizontalLayout_4">
             <item>
-             <widget class="QTableView" name="accountsTableView"/>
+             <widget class="QTableView" name="accountsTableView">
+              <property name="alternatingRowColors">
+               <bool>true</bool>
+              </property>
+              <property name="selectionMode">
+               <enum>QAbstractItemView::MultiSelection</enum>
+              </property>
+              <property name="selectionBehavior">
+               <enum>QAbstractItemView::SelectRows</enum>
+              </property>
+             </widget>
             </item>
            </layout>
           </widget>
@@ -79,78 +137,17 @@
             <item>
              <layout class="QVBoxLayout" name="verticalLayout_2">
               <item>
-               <layout class="QGridLayout" name="gridLayout">
-                <item row="0" column="1">
-                 <widget class="QLabel" name="label_2">
-                  <property name="text">
-                   <string>Consolidated Prior Year-End Date:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="4">
-                 <widget class="QLabel" name="label_3">
-                  <property name="text">
-                   <string>Unconsolidated Current Period-End Date:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="5">
-                 <widget class="QDateEdit" name="currentDateEdit">
-                  <property name="displayFormat">
-                   <string>M/d/yyyy</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="2">
-                 <widget class="QDateEdit" name="PYEDateEdit">
-                  <property name="displayFormat">
-                   <string>M/d/yyyy</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="0">
-                 <spacer name="horizontalSpacer_2">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>40</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-                <item row="0" column="3">
-                 <spacer name="horizontalSpacer">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>40</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-                <item row="0" column="6">
-                 <spacer name="horizontalSpacer_3">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>40</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-               </layout>
-              </item>
-              <item>
-               <widget class="QTableView" name="trialBalanceTableView"/>
+               <widget class="QTableView" name="trialBalanceTableView">
+                <property name="alternatingRowColors">
+                 <bool>true</bool>
+                </property>
+                <property name="selectionMode">
+                 <enum>QAbstractItemView::MultiSelection</enum>
+                </property>
+                <property name="selectionBehavior">
+                 <enum>QAbstractItemView::SelectRows</enum>
+                </property>
+               </widget>
               </item>
              </layout>
             </item>
@@ -162,7 +159,17 @@
            </attribute>
            <layout class="QHBoxLayout" name="horizontalLayout_6">
             <item>
-             <widget class="QTableView" name="adjustmentsTableView"/>
+             <widget class="QTableView" name="adjustmentsTableView">
+              <property name="alternatingRowColors">
+               <bool>true</bool>
+              </property>
+              <property name="selectionMode">
+               <enum>QAbstractItemView::MultiSelection</enum>
+              </property>
+              <property name="selectionBehavior">
+               <enum>QAbstractItemView::SelectRows</enum>
+              </property>
+             </widget>
             </item>
            </layout>
           </widget>
@@ -230,7 +237,8 @@
      <string>Consolidation</string>
     </property>
     <addaction name="actionBuild"/>
-    <addaction name="actionAudit_adjustments"/>
+    <addaction name="actionAudit"/>
+    <addaction name="actionCloseYear"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
@@ -299,7 +307,7 @@
     <string>Build</string>
    </property>
   </action>
-  <action name="actionAudit_adjustments">
+  <action name="actionAudit">
    <property name="text">
     <string>Audit</string>
    </property>
@@ -352,6 +360,11 @@
   <action name="actionExportAdjustments">
    <property name="text">
     <string>Adjustments</string>
+   </property>
+  </action>
+  <action name="actionCloseYear">
+   <property name="text">
+    <string>Close Year</string>
    </property>
   </action>
  </widget>
@@ -470,7 +483,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>PYEDateEdit</sender>
+   <sender>beginningBalanceDate</sender>
    <signal>dateChanged(QDate)</signal>
    <receiver>MainWindow</receiver>
    <slot>set_beginning_date(QDate)</slot>
@@ -486,7 +499,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>currentDateEdit</sender>
+   <sender>endingBalanceDate</sender>
    <signal>dateChanged(QDate)</signal>
    <receiver>MainWindow</receiver>
    <slot>set_ending_date(QDate)</slot>
@@ -677,6 +690,38 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionCloseYear</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close_year()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>501</x>
+     <y>383</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionAudit</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>audit()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>501</x>
+     <y>383</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>new_document()</slot>
@@ -691,5 +736,7 @@
   <slot>set_ending_date(QDate)</slot>
   <slot>import_table()</slot>
   <slot>export_table()</slot>
+  <slot>close_year()</slot>
+  <slot>audit()</slot>
  </slots>
 </ui>

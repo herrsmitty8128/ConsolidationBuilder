@@ -35,6 +35,18 @@ class Ui_MainWindow(object):
         self.entityName = QtWidgets.QLineEdit(self.verticalLayoutWidget)
         self.entityName.setObjectName("entityName")
         self.formLayout.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.entityName)
+        self.label_2 = QtWidgets.QLabel(self.verticalLayoutWidget)
+        self.label_2.setObjectName("label_2")
+        self.formLayout.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.label_2)
+        self.beginningBalanceDate = QtWidgets.QDateEdit(self.verticalLayoutWidget)
+        self.beginningBalanceDate.setObjectName("beginningBalanceDate")
+        self.formLayout.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.beginningBalanceDate)
+        self.label_3 = QtWidgets.QLabel(self.verticalLayoutWidget)
+        self.label_3.setObjectName("label_3")
+        self.formLayout.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.label_3)
+        self.endingBalanceDate = QtWidgets.QDateEdit(self.verticalLayoutWidget)
+        self.endingBalanceDate.setObjectName("endingBalanceDate")
+        self.formLayout.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.endingBalanceDate)
         self.verticalLayout.addLayout(self.formLayout)
         self.tabWidget = QtWidgets.QTabWidget(self.verticalLayoutWidget)
         self.tabWidget.setObjectName("tabWidget")
@@ -43,6 +55,9 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.EntitiesTab)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.entityTableView = QtWidgets.QTableView(self.EntitiesTab)
+        self.entityTableView.setAlternatingRowColors(True)
+        self.entityTableView.setSelectionMode(QtWidgets.QAbstractItemView.MultiSelection)
+        self.entityTableView.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
         self.entityTableView.setObjectName("entityTableView")
         self.horizontalLayout_2.addWidget(self.entityTableView)
         self.tabWidget.addTab(self.EntitiesTab, "")
@@ -51,6 +66,9 @@ class Ui_MainWindow(object):
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self.CostCentersTab)
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
         self.costCenterTableView = QtWidgets.QTableView(self.CostCentersTab)
+        self.costCenterTableView.setAlternatingRowColors(True)
+        self.costCenterTableView.setSelectionMode(QtWidgets.QAbstractItemView.MultiSelection)
+        self.costCenterTableView.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
         self.costCenterTableView.setObjectName("costCenterTableView")
         self.horizontalLayout_3.addWidget(self.costCenterTableView)
         self.tabWidget.addTab(self.CostCentersTab, "")
@@ -59,6 +77,9 @@ class Ui_MainWindow(object):
         self.horizontalLayout_4 = QtWidgets.QHBoxLayout(self.AccountsTab)
         self.horizontalLayout_4.setObjectName("horizontalLayout_4")
         self.accountsTableView = QtWidgets.QTableView(self.AccountsTab)
+        self.accountsTableView.setAlternatingRowColors(True)
+        self.accountsTableView.setSelectionMode(QtWidgets.QAbstractItemView.MultiSelection)
+        self.accountsTableView.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
         self.accountsTableView.setObjectName("accountsTableView")
         self.horizontalLayout_4.addWidget(self.accountsTableView)
         self.tabWidget.addTab(self.AccountsTab, "")
@@ -68,28 +89,10 @@ class Ui_MainWindow(object):
         self.horizontalLayout_5.setObjectName("horizontalLayout_5")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout()
         self.verticalLayout_2.setObjectName("verticalLayout_2")
-        self.gridLayout = QtWidgets.QGridLayout()
-        self.gridLayout.setObjectName("gridLayout")
-        self.label_2 = QtWidgets.QLabel(self.TrialBalanceTab)
-        self.label_2.setObjectName("label_2")
-        self.gridLayout.addWidget(self.label_2, 0, 1, 1, 1)
-        self.label_3 = QtWidgets.QLabel(self.TrialBalanceTab)
-        self.label_3.setObjectName("label_3")
-        self.gridLayout.addWidget(self.label_3, 0, 4, 1, 1)
-        self.currentDateEdit = QtWidgets.QDateEdit(self.TrialBalanceTab)
-        self.currentDateEdit.setObjectName("currentDateEdit")
-        self.gridLayout.addWidget(self.currentDateEdit, 0, 5, 1, 1)
-        self.PYEDateEdit = QtWidgets.QDateEdit(self.TrialBalanceTab)
-        self.PYEDateEdit.setObjectName("PYEDateEdit")
-        self.gridLayout.addWidget(self.PYEDateEdit, 0, 2, 1, 1)
-        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout.addItem(spacerItem, 0, 0, 1, 1)
-        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout.addItem(spacerItem1, 0, 3, 1, 1)
-        spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout.addItem(spacerItem2, 0, 6, 1, 1)
-        self.verticalLayout_2.addLayout(self.gridLayout)
         self.trialBalanceTableView = QtWidgets.QTableView(self.TrialBalanceTab)
+        self.trialBalanceTableView.setAlternatingRowColors(True)
+        self.trialBalanceTableView.setSelectionMode(QtWidgets.QAbstractItemView.MultiSelection)
+        self.trialBalanceTableView.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
         self.trialBalanceTableView.setObjectName("trialBalanceTableView")
         self.verticalLayout_2.addWidget(self.trialBalanceTableView)
         self.horizontalLayout_5.addLayout(self.verticalLayout_2)
@@ -99,6 +102,9 @@ class Ui_MainWindow(object):
         self.horizontalLayout_6 = QtWidgets.QHBoxLayout(self.AdjustmentsTab)
         self.horizontalLayout_6.setObjectName("horizontalLayout_6")
         self.adjustmentsTableView = QtWidgets.QTableView(self.AdjustmentsTab)
+        self.adjustmentsTableView.setAlternatingRowColors(True)
+        self.adjustmentsTableView.setSelectionMode(QtWidgets.QAbstractItemView.MultiSelection)
+        self.adjustmentsTableView.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
         self.adjustmentsTableView.setObjectName("adjustmentsTableView")
         self.horizontalLayout_6.addWidget(self.adjustmentsTableView)
         self.tabWidget.addTab(self.AdjustmentsTab, "")
@@ -138,8 +144,8 @@ class Ui_MainWindow(object):
         self.actionQuit.setObjectName("actionQuit")
         self.actionBuild = QtWidgets.QAction(MainWindow)
         self.actionBuild.setObjectName("actionBuild")
-        self.actionAudit_adjustments = QtWidgets.QAction(MainWindow)
-        self.actionAudit_adjustments.setObjectName("actionAudit_adjustments")
+        self.actionAudit = QtWidgets.QAction(MainWindow)
+        self.actionAudit.setObjectName("actionAudit")
         self.actionImportEntities = QtWidgets.QAction(MainWindow)
         self.actionImportEntities.setObjectName("actionImportEntities")
         self.actionImportCostCenters = QtWidgets.QAction(MainWindow)
@@ -160,6 +166,8 @@ class Ui_MainWindow(object):
         self.actionExportTrialBalance.setObjectName("actionExportTrialBalance")
         self.actionExportAdjustments = QtWidgets.QAction(MainWindow)
         self.actionExportAdjustments.setObjectName("actionExportAdjustments")
+        self.actionCloseYear = QtWidgets.QAction(MainWindow)
+        self.actionCloseYear.setObjectName("actionCloseYear")
         self.menuFile.addAction(self.actionNew)
         self.menuFile.addAction(self.actionOpen)
         self.menuFile.addSeparator()
@@ -182,46 +190,49 @@ class Ui_MainWindow(object):
         self.menuEdit.addAction(self.menuImport.menuAction())
         self.menuEdit.addAction(self.menuExport.menuAction())
         self.menuConsolidation.addAction(self.actionBuild)
-        self.menuConsolidation.addAction(self.actionAudit_adjustments)
+        self.menuConsolidation.addAction(self.actionAudit)
+        self.menuConsolidation.addAction(self.actionCloseYear)
         self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuEdit.menuAction())
         self.menubar.addAction(self.menuConsolidation.menuAction())
 
         self.retranslateUi(MainWindow)
         self.tabWidget.setCurrentIndex(3)
-        self.actionNew.triggered.connect(MainWindow.new_document)  # type: ignore
-        self.actionOpen.triggered.connect(MainWindow.open_document)  # type: ignore
-        self.actionClose.triggered.connect(MainWindow.close_document)  # type: ignore
-        self.actionSave.triggered.connect(MainWindow.save_document)  # type: ignore
-        self.actionSaveAs.triggered.connect(MainWindow.save_as_document)  # type: ignore
-        self.actionQuit.triggered.connect(MainWindow.quit_application)  # type: ignore
-        self.actionBuild.triggered.connect(MainWindow.build_consolidation)  # type: ignore
-        self.PYEDateEdit.dateChanged['QDate'].connect(MainWindow.set_beginning_date)  # type: ignore
-        self.currentDateEdit.dateChanged['QDate'].connect(MainWindow.set_ending_date)  # type: ignore
-        self.entityName.textChanged['QString'].connect(MainWindow.set_entity_name)  # type: ignore
-        self.actionImportEntities.triggered.connect(MainWindow.import_table)  # type: ignore
-        self.actionImportCostCenters.triggered.connect(MainWindow.import_table)  # type: ignore
-        self.actionImportAccounts.triggered.connect(MainWindow.import_table)  # type: ignore
-        self.actionImportTrialBalance.triggered.connect(MainWindow.import_table)  # type: ignore
-        self.actionImportAdjustments.triggered.connect(MainWindow.import_table)  # type: ignore
-        self.actionExportEntities.triggered.connect(MainWindow.export_table)  # type: ignore
-        self.actionExportCostCenters.triggered.connect(MainWindow.export_table)  # type: ignore
-        self.actionExportAccounts.triggered.connect(MainWindow.export_table)  # type: ignore
-        self.actionExportTrialBalance.triggered.connect(MainWindow.export_table)  # type: ignore
-        self.actionExportAdjustments.triggered.connect(MainWindow.export_table)  # type: ignore
+        self.actionNew.triggered.connect(MainWindow.new_document) # type: ignore
+        self.actionOpen.triggered.connect(MainWindow.open_document) # type: ignore
+        self.actionClose.triggered.connect(MainWindow.close_document) # type: ignore
+        self.actionSave.triggered.connect(MainWindow.save_document) # type: ignore
+        self.actionSaveAs.triggered.connect(MainWindow.save_as_document) # type: ignore
+        self.actionQuit.triggered.connect(MainWindow.quit_application) # type: ignore
+        self.actionBuild.triggered.connect(MainWindow.build_consolidation) # type: ignore
+        self.beginningBalanceDate.dateChanged['QDate'].connect(MainWindow.set_beginning_date) # type: ignore
+        self.endingBalanceDate.dateChanged['QDate'].connect(MainWindow.set_ending_date) # type: ignore
+        self.entityName.textChanged['QString'].connect(MainWindow.set_entity_name) # type: ignore
+        self.actionImportEntities.triggered.connect(MainWindow.import_table) # type: ignore
+        self.actionImportCostCenters.triggered.connect(MainWindow.import_table) # type: ignore
+        self.actionImportAccounts.triggered.connect(MainWindow.import_table) # type: ignore
+        self.actionImportTrialBalance.triggered.connect(MainWindow.import_table) # type: ignore
+        self.actionImportAdjustments.triggered.connect(MainWindow.import_table) # type: ignore
+        self.actionExportEntities.triggered.connect(MainWindow.export_table) # type: ignore
+        self.actionExportCostCenters.triggered.connect(MainWindow.export_table) # type: ignore
+        self.actionExportAccounts.triggered.connect(MainWindow.export_table) # type: ignore
+        self.actionExportTrialBalance.triggered.connect(MainWindow.export_table) # type: ignore
+        self.actionExportAdjustments.triggered.connect(MainWindow.export_table) # type: ignore
+        self.actionCloseYear.triggered.connect(MainWindow.close_year) # type: ignore
+        self.actionAudit.triggered.connect(MainWindow.audit) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Consolidation Station"))
         self.label.setText(_translate("MainWindow", "Entity Name"))
+        self.label_2.setText(_translate("MainWindow", "Beginning Balance Date:"))
+        self.beginningBalanceDate.setDisplayFormat(_translate("MainWindow", "M/d/yyyy"))
+        self.label_3.setText(_translate("MainWindow", "Ending Balance Date:"))
+        self.endingBalanceDate.setDisplayFormat(_translate("MainWindow", "M/d/yyyy"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.EntitiesTab), _translate("MainWindow", "Entities"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.CostCentersTab), _translate("MainWindow", "Cost Centers"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.AccountsTab), _translate("MainWindow", "Accounts"))
-        self.label_2.setText(_translate("MainWindow", "Consolidated Prior Year-End Date:"))
-        self.label_3.setText(_translate("MainWindow", "Unconsolidated Current Period-End Date:"))
-        self.currentDateEdit.setDisplayFormat(_translate("MainWindow", "M/d/yyyy"))
-        self.PYEDateEdit.setDisplayFormat(_translate("MainWindow", "M/d/yyyy"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.TrialBalanceTab), _translate("MainWindow", "Trial Balance"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.AdjustmentsTab), _translate("MainWindow", "Adjustments"))
         self.menuFile.setTitle(_translate("MainWindow", "File"))
@@ -245,7 +256,7 @@ class Ui_MainWindow(object):
         self.actionQuit.setText(_translate("MainWindow", "Quit"))
         self.actionQuit.setShortcut(_translate("MainWindow", "Ctrl+Q"))
         self.actionBuild.setText(_translate("MainWindow", "Build"))
-        self.actionAudit_adjustments.setText(_translate("MainWindow", "Audit"))
+        self.actionAudit.setText(_translate("MainWindow", "Audit"))
         self.actionImportEntities.setText(_translate("MainWindow", "Entities"))
         self.actionImportCostCenters.setText(_translate("MainWindow", "Cost Centers"))
         self.actionImportAccounts.setText(_translate("MainWindow", "Accounts"))
@@ -256,3 +267,4 @@ class Ui_MainWindow(object):
         self.actionExportAccounts.setText(_translate("MainWindow", "Accounts"))
         self.actionExportTrialBalance.setText(_translate("MainWindow", "Trial Balance"))
         self.actionExportAdjustments.setText(_translate("MainWindow", "Adjustments"))
+        self.actionCloseYear.setText(_translate("MainWindow", "Close Year"))
