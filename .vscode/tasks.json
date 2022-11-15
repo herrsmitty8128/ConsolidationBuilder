@@ -7,7 +7,7 @@
             "label": "Format python files",
             "type": "shell",
             "command": "autopep8",
-            "args":["--in-place", "--max-line-length", "250", "--aggressive", "--aggressive", "Start.py", "MainWindow.py", "ConsolidationMainWindow.py"],
+            "args":["--in-place", "--max-line-length", "250", "--aggressive", "--aggressive", "Start.py", "TrialBalanceTableModel.py", "BaseTableModel.py", "MainWindow.py", "ConsolidationMainWindow.py"],
             "group": {
 				"kind": "build",
 				"isDefault": true
