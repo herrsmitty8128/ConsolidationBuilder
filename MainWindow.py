@@ -173,8 +173,6 @@ class Ui_MainWindow(object):
         self.actionExportAdjustments.setObjectName("actionExportAdjustments")
         self.actionCloseYear = QtWidgets.QAction(MainWindow)
         self.actionCloseYear.setObjectName("actionCloseYear")
-        self.actionImportOracleTrialBalance = QtWidgets.QAction(MainWindow)
-        self.actionImportOracleTrialBalance.setObjectName("actionImportOracleTrialBalance")
         self.menuFile.addAction(self.actionNew)
         self.menuFile.addAction(self.actionOpen)
         self.menuFile.addSeparator()
@@ -188,7 +186,6 @@ class Ui_MainWindow(object):
         self.menuImport.addAction(self.actionImportCostCenters)
         self.menuImport.addAction(self.actionImportAccounts)
         self.menuImport.addAction(self.actionImportTrialBalance)
-        self.menuImport.addAction(self.actionImportOracleTrialBalance)
         self.menuImport.addAction(self.actionImportAdjustments)
         self.menuExport.addAction(self.actionExportEntities)
         self.menuExport.addAction(self.actionExportCostCenters)
@@ -228,7 +225,6 @@ class Ui_MainWindow(object):
         self.actionExportAdjustments.triggered.connect(MainWindow.export_table) # type: ignore
         self.actionCloseYear.triggered.connect(MainWindow.close_year) # type: ignore
         self.actionAudit.triggered.connect(MainWindow.audit) # type: ignore
-        self.actionImportOracleTrialBalance.triggered.connect(MainWindow.import_table) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -277,4 +273,3 @@ class Ui_MainWindow(object):
         self.actionExportTrialBalance.setText(_translate("MainWindow", "Trial Balance"))
         self.actionExportAdjustments.setText(_translate("MainWindow", "Adjustments"))
         self.actionCloseYear.setText(_translate("MainWindow", "Close Year"))
-        self.actionImportOracleTrialBalance.setText(_translate("MainWindow", "Oracle Trial Balance"))
