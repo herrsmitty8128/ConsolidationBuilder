@@ -210,9 +210,6 @@ class Ui_MainWindow(object):
         self.actionSaveAs.triggered.connect(MainWindow.save_as_menu_item) # type: ignore
         self.actionQuit.triggered.connect(MainWindow.quit_menu_item) # type: ignore
         self.actionBuild.triggered.connect(MainWindow.build_menu_item) # type: ignore
-        self.beginningBalanceDate.dateChanged['QDate'].connect(MainWindow.set_beginning_date) # type: ignore
-        self.endingBalanceDate.dateChanged['QDate'].connect(MainWindow.set_ending_date) # type: ignore
-        self.entityName.textChanged['QString'].connect(MainWindow.set_entity_name) # type: ignore
         self.actionImportEntities.triggered.connect(MainWindow.import_menu_item) # type: ignore
         self.actionImportCostCenters.triggered.connect(MainWindow.import_menu_item) # type: ignore
         self.actionImportAccounts.triggered.connect(MainWindow.import_menu_item) # type: ignore
