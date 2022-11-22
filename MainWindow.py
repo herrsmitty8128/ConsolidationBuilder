@@ -202,7 +202,7 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuConsolidation.menuAction())
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(3)
         self.actionNew.triggered.connect(MainWindow.new_menu_item) # type: ignore
         self.actionOpen.triggered.connect(MainWindow.open_menu_item) # type: ignore
         self.actionClose.triggered.connect(MainWindow.close_menu_item) # type: ignore
@@ -222,6 +222,9 @@ class Ui_MainWindow(object):
         self.actionExportAdjustments.triggered.connect(MainWindow.export_menu_item) # type: ignore
         self.actionRollforward.triggered.connect(MainWindow.rollforward_menu_item) # type: ignore
         self.actionAudit.triggered.connect(MainWindow.audit_menu_item) # type: ignore
+        self.entityName.textEdited['QString'].connect(MainWindow.set_entity_name) # type: ignore
+        self.beginningBalanceDate.dateChanged['QDate'].connect(MainWindow.set_beginning_date) # type: ignore
+        self.endingBalanceDate.dateChanged['QDate'].connect(MainWindow.set_ending_date) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
