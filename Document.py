@@ -302,7 +302,7 @@ class Document:
             if len(diff) > 0:
                 error_log.append(f'Entities on the trial balance, but not on the entity tab: {diff}.')
 
-            cc_nums = set(x['Number'] for x in self.data['Cost Centers'])
+            cc_nums = set(x['Number'] for x in self.data['Cost_Centers'])
             bal_cc_nums = set(x['Cost Center'] for x in table)
             diff = bal_cc_nums.difference(cc_nums)
             if len(diff) > 0:
