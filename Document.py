@@ -143,11 +143,12 @@ class Document:
     def set_table_data(self, table_name: str, row: int, col: int, value: any) -> None:
         col = self.tables[table_name][col]
         if col == 'Beginning Balance' or col == 'Debits' or col == 'Credits':
-            self.data[table_name][row][col] = int(value)
-            self.data[table_name][row]['Ending Balance'] = self.data[table_name][row]['Beginning Balance'] + self.data[table_name][row]['Debits'] + self.data[table_name][row]['Credits']
+            r = self.data[table_name][row]
+            r[col] = int(value)
+            r['Ending Balance'] = r['Beginning Balance'] + r['Debits'] + r['Credits']
         #if col == 'Beginning Balance' or col == 'Debits' or col == 'Credits' or col == 'Ending Balance':
         #    self.data[table_name][row][col] = int(value)
-        if col == 'Ending Balance':
+        elif col == 'Ending Balance':
             self.data[table_name][row][col] = int(value)
         else:
             self.data[table_name][row][col] = value
