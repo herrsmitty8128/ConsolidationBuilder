@@ -13,6 +13,7 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
 
         self.setupUi(self)
         self.application = application
+        self.errors = self.findChild(QtWidgets.QTextEdit, 'errorTextEdit')
         self.document_filename = None
         self.document = Document()
 
