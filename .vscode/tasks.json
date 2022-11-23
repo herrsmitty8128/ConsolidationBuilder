@@ -18,6 +18,7 @@
 				"MainWindow.py",
 				"ConsolidationMainWindow.py",
 				"Document.py",
+				"SpreadsheetTools.py"
 			],
             "group": {
 				"kind": "build",

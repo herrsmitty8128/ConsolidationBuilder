@@ -180,7 +180,13 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
     @QtCore.pyqtSlot()
     def build_menu_item(self):
         try:
-            self.document.build_consolidation()
+            update = QtWidgets.QMessageBox.question(self, 'New or update file?', 'Would you like to update an existing file?')
+            update = False if update == QtWidgets.QMessageBox.StandardButton.No else True
+            if update:
+                file, _ = QtWidgets.QFileDialog.getOpenFileName(self, 'Select an existing file to update', filter='XLSL Files (*.xlsx)')
+            else:
+                file, _ = QtWidgets.QFileDialog.getSaveFileName(self, 'Select a new file to create', filter='XLSL Files (*.xlsx)')
+            self.document.write_to_workbook(file, update)
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
 

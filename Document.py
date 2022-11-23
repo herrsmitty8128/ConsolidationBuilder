@@ -125,7 +125,7 @@ class Document:
 
     def is_selectable(self, table_name: str, row: int, col: int) -> bool:
         return True
-    
+
     def get_alignment(self, table_name: str, col: int) -> int:
         header = self.tables[table_name][col]
         if header == 'Beginning Balance' or header == 'Debits' or header == 'Credits' or header == 'Ending Balance':
@@ -148,17 +148,17 @@ class Document:
             if col == 'Debits':
                 try:
                     v = abs(int(value))
-                except:
+                except BaseException:
                     pass
             elif col == 'Credits':
                 try:
                     v = -abs(int(value))
-                except:
+                except BaseException:
                     pass
             else:
                 try:
                     v = int(value)
-                except:
+                except BaseException:
                     pass
             r[col] = v
             r['Ending Balance'] = r['Beginning Balance'] + r['Debits'] + r['Credits']
@@ -290,8 +290,46 @@ class Document:
     # Methods to perform the consolidation
     ####################################################################################
 
-    def build_consolidation(self):
-        pass
+    def build_consolidation_table(self) -> list[dict]:
+        output_data = []
+        entities = {e['Number']: e for e in self.data['Entities']}
+        costctrs = {c['Number']: c for c in self.data['Cost_Centers']}
+        accounts = {a['Number']: a for a in self.data['Accounts']}
+        for name, table in (('Trial Balance', self.data['Trial_Balance']), ('Adjustments', self.data['Adjustments'])):
+            for row in table:
+                entity = entities[row['Entity']]
+                costctr = costctrs[row['Cost Center']]
+                account = accounts[row['Account']]
+                output_data.append({
+                    'Type': name,
+                    'Entity Number': entity['Number'],
+                    'Entity Name': entity['Name'],
+                    'Cost Ctr Number': costctr['Number'],
+                    'Cost Ctr Name': costctr['Name'],
+                    'Account Number': account['Number'],
+                    'Account Name': account['Name'],
+                    'Group': entity['Group'],
+                    'Level 1': account['Level 1'],
+                    'Level 2': account['Level 2'],
+                    'Level 3': account['Level 3'],
+                    'Level 4': account['Level 4'],
+                    'Beginning Balance': row['Beginning Balance'],
+                    'Debits': row['Debits'],
+                    'Credits': row['Credits'],
+                    'Ending Balance': row['Ending Balance']
+                })
+        return output_data
+
+    def write_to_workbook(self, filename: str, update_existing: bool) -> None:
+        import SpreadsheetTools
+        table = self.build_consolidation_table()
+        if len(table) < 1:
+            raise ValueError('Zero rows in the trial balance.')
+        headers = [h for h in table[0].keys()]
+        if update_existing:
+            SpreadsheetTools.replace_table_in_existing_wb(filename, headers, table, 'CONSOLIDATION_DATA')
+        else:
+            SpreadsheetTools.new_wb_with_table(filename, headers, table, 'CONSOLIDATION_DATA', 'Consolidation Data')
 
     def close_year(self):
         pass
@@ -308,7 +346,7 @@ class Document:
             for row in table:
                 num = row['Number']
                 counter[num] += 1
-                for k,v in row.items():
+                for k, v in row.items():
                     if len(v) < 1:
                         error_log.append(f'{k} without a value was detected on the {table_name}.')
             for num, cnt in counter.items():
@@ -345,6 +383,7 @@ class Document:
             if len(diff) > 0:
                 error_log.append(f'Accounts on the trial balance, but not on the accounts tab: {diff}.')
 
+            # need to verify that debits == credits by company
 
         if len(self.data['Entity Name']) < 1:
             error_log.append('Entity name is missing.')
@@ -361,6 +400,3 @@ class Document:
         audit_balances('Adjustments')
 
         return error_log
-
-            
-        

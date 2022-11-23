@@ -29,15 +29,15 @@ class BaseTableModel(QtCore.QAbstractTableModel):
                 return self.document.get_table_data(self.table_name, index.row(), index.column())
             elif role == QtCore.Qt.TextAlignmentRole:
                 a = self.document.get_alignment(self.table_name, index.column())
-                if a > 0: return QtCore.Qt.AlignRight
-                if a < 0: return QtCore.Qt.AlignLeft
+                if a > 0:
+                    return QtCore.Qt.AlignRight
+                if a < 0:
+                    return QtCore.Qt.AlignLeft
                 return QtCore.Qt.AlignVCenter
         return QtCore.QVariant()
 
     def setData(self, index: QtCore.QModelIndex, value: QtCore.QVariant, role: int = QtCore.Qt.EditRole) -> bool:
         if index.isValid():
-            #row = self._rows_[index.row()]
-            #header = self._headers_[index.column()]
             if role == QtCore.Qt.EditRole:
                 value = value.strip()
                 if len(value) > 0:
