@@ -42,6 +42,7 @@ oracle_tb_fieldnames = {
     'END_BALANCE'
 }
 
+
 class Document:
 
     def __init__(self):
@@ -161,13 +162,13 @@ class Document:
                 'Number': csv_row['Number'].strip(),
                 'Group': csv_row['Group'].strip()
             }
-        
+
         def cc_handler(csv_row: dict) -> dict:
             return {
                 'Name': csv_row['Name'].strip(),
                 'Number': csv_row['Number'].strip()
             }
-        
+
         def acc_handler(csv_row: dict) -> dict:
             return {
                 'Name': csv_row['Name'].strip(),
@@ -206,31 +207,27 @@ class Document:
                 'Entity': csv_row['PAGEBREAK_SEGMENT_VALUE'].strip(),
                 'Cost Center': csv_row['ADDITIONAL_SEGMENT_VALUE'].strip(),
                 'Account': csv_row['NAS_VALUE'].strip(),
-                'Beginning Balance': int(round(float(csv_row['BEGIN_BALANCE'].strip()),0)),
-                'Debits': int(round(float(csv_row['TOTAL_DR'].strip()),0)),
-                'Credits': int(round(-float(csv_row['TOTAL_CR'].strip()),0))
+                'Beginning Balance': int(round(float(csv_row['BEGIN_BALANCE'].strip()), 0)),
+                'Debits': int(round(float(csv_row['TOTAL_DR'].strip()), 0)),
+                'Credits': int(round(-float(csv_row['TOTAL_CR'].strip()), 0))
             }
             r['Ending Balance'] = r['Beginning Balance'] + r['Debits'] + r['Credits']
             return r
 
         with open(file, 'r', newline='') as f:
-            
+
             reader = csv.DictReader(f)
             fieldnames = set(reader.fieldnames)
-            headers = set(self.tables.get(table_name,[]))
-            
+            headers = set(self.tables.get(table_name, []))
+
             if table_name == 'Entities':
                 handler = ent_handler
-            
             elif table_name == 'Cost_Centers':
                 handler = cc_handler
-            
             elif table_name == 'Accounts':
                 handler = acc_handler
-            
             elif table_name == 'Adjustments':
                 handler = adj_handler
-            
             elif table_name == 'Trial_Balance':
                 if not headers.issubset(fieldnames):
                     headers = oracle_tb_fieldnames
@@ -239,29 +236,27 @@ class Document:
                     handler = tb_handler
             else:
                 raise ValueError('Unrecognized table name.')
-            
+
             if not headers.issubset(fieldnames):
-                raise ValueError('CSV file does not have the correct field names.')
-            
+                raise ValueError('CSV file has incorrect field names.')
+
             if replace:
                 self.data[table_name].clear()
-            
+
             for row in reader:
-                self.data[table_name].append(handler(row))        
-        
+                self.data[table_name].append(handler(row))
 
     def export_table(self, table_name: str, file: str):
         headers = self.tables.get(table_name, None)
-        if headers == None:
+        if headers is None:
             raise ValueError('CSV file does not have the correct field names.')
         with open(file, 'w', newline='') as f:
             writer = csv.DictWriter(f, fieldnames=headers)
             writer.writeheader()
             writer.writerows(self.data[table_name])
 
-
     ####################################################################################
-    # CONSOLIDATION MENU
+    # Methods to perform the consolidation
     ####################################################################################
 
     def build_consolidation(self):
@@ -270,80 +265,71 @@ class Document:
     def close_year(self):
         pass
 
-    def audit_data(self):
+    def audit_data(self) -> list:
+        '''
+        Writes error descriptions to the error log and returns the number of errors.
+        '''
+        error_log = []
 
-        def audit_list(errors: list, items: list, item_name: str):
+        def audit_list(table_name: str):
             counter = Counter()
-            for item in items:
-                num = item['Number']
-                if len(num) < 1:
-                    errors.append(f'{item_name} without a number was detected.')
-                if len(item['Name']) < 1:
-                    errors.append(f'{item_name} without a name was detected.')
+            table = self.data[table_name]
+            for row in table:
+                num = row['Number']
                 counter[num] += 1
+                for k,v in row.items():
+                    if len(v) < 1:
+                        error_log.append(f'{k} without a value was detected on the {table_name}.')
             for num, cnt in counter.items():
                 if cnt > 1:
-                    errors.append(f'{item_name} number {num} appears more than once on the list. Each {item_name} must have a unique number.')
+                    error_log.append(f'Number {num} appears more than once on the {table_name} list.')
 
-        def audit_balances(errors: list, items: list, item_name: str):
-            for item in items:
-                diff = round(item['Ending Balance'], 2) - round(item['Beginning Balance'] + item['Debits'] + item['Credits'], 2)
+        def audit_balances(table_name: str):
+            table = self.data[table_name]
+            for row in table:
+                diff = round(row['Ending Balance'], 2) - round(row['Beginning Balance'] + row['Debits'] + row['Credits'], 2)
                 if abs(diff) > 1.0:
-                    errors.append(f'Balance does not roll-forward for {item["Entity"]}-{item["Cost Center"]}-{item["Account"]} on the {item_name}. The difference is {diff}.')
+                    error_log.append(f'Balance does not roll-forward for {row["Entity"]}-{row["Cost Center"]}-{row["Account"]} on the {table_name} list. The difference is {diff}.')
                 else:
-                    item['Credits'] += diff
-                    diff = round(item['Ending Balance'], 2) - round(item['Beginning Balance'] + item['Debits'] + item['Credits'], 2)
+                    row['Credits'] += diff
+                    diff = round(row['Ending Balance'], 2) - round(row['Beginning Balance'] + row['Debits'] + row['Credits'], 2)
                     if diff != 0.00:
-                        errors.append(f'Balance does not roll-forward for {item["Entity"]}-{item["Cost Center"]}-{item["Account"]} on the {item_name}. The difference is {diff}.')
+                        error_log.append(f'Balance does not roll-forward for {row["Entity"]}-{row["Cost Center"]}-{row["Account"]} on the {table_name} list. The difference is {diff}.')
 
             ent_nums = set(x['Number'] for x in self.data['Entities'])
-            bal_ent_nums = set(x['Entity'] for x in items)
+            bal_ent_nums = set(x['Entity'] for x in table)
             diff = bal_ent_nums.difference(ent_nums)
             if len(diff) > 0:
-                errors.append(f'Entities on the trial balance, but not on the entity tab: {diff}.')
+                error_log.append(f'Entities on the trial balance, but not on the entity tab: {diff}.')
 
             cc_nums = set(x['Number'] for x in self.data['Cost Centers'])
-            bal_cc_nums = set(x['Cost Center'] for x in items)
+            bal_cc_nums = set(x['Cost Center'] for x in table)
             diff = bal_cc_nums.difference(cc_nums)
             if len(diff) > 0:
-                errors.append(f'Cost centers on the trial balance, but not on the cost center tab: {diff}.')
+                error_log.append(f'Cost centers on the trial balance, but not on the cost center tab: {diff}.')
 
             acct_nums = set(x['Number'] for x in self.data['Accounts'])
-            bal_acct_nums = set(x['Account'] for x in items)
+            bal_acct_nums = set(x['Account'] for x in table)
             diff = bal_acct_nums.difference(acct_nums)
             if len(diff) > 0:
-                errors.append(f'Accounts on the trial balance, but not on the accounts tab: {diff}.')
+                error_log.append(f'Accounts on the trial balance, but not on the accounts tab: {diff}.')
 
-        try:
-            errors = []
 
-            self.errors.append('Starting the audit process...')
+        if len(self.data['Entity Name']) < 1:
+            error_log.append('Entity name is missing.')
 
-            if len(self.data['Entity Name']) < 1:
-                errors.append('Entity name is missing.')
+        start_date = datetime.strptime(self.data['Beginning Balance Date'], '%m/%d/%Y')
+        end_date = datetime.strptime(self.data['Ending Balance Date'], '%m/%d/%Y')
+        if start_date >= end_date:
+            error_log.append('Beginning balance date is greater than or equal to the ending balance date.')
 
-            start_date = datetime.strptime(self.data['Beginning Balance Date'],'%m/%d/%Y')
-            end_date = datetime.strptime(self.data['Ending Balance Date'],'%m/%d/%Y')
-            if start_date >= end_date:
-                errors.append('Beginning balance date is greater than or equal to the ending balance date.')
+        audit_list('Entities')
+        audit_list('Cost_Centers')
+        audit_list('Accounts')
+        audit_balances(self.data['Trial Balance'], 'Trial balance')
+        audit_balances(self.data['Adjustments'], 'Adjustments')
 
-            audit_list(errors, self.data['Entities'], 'Entity')
-            audit_list(errors, self.data['Cost Centers'], 'Cost center')
-            audit_list(errors, self.data['Accounts'], 'Account')
-            audit_balances(errors, self.data['Trial Balance'], 'Trial balance')
-            audit_balances(errors, self.data['Adjustments'], 'Adjustments')
+        return error_log
 
-            if len(errors) > 0:
-                self.errors.setTextColor(QtGui.QColor('red'))
-                for err in errors:
-                    self.errors.append(err)
-                self.errors.append(f'{len(errors)} were detected. You must resolve these errors before you can proceed with the consolidation process.')
-                self.errors.setTextColor(QtGui.QColor('black'))
-                raise ValueError(f'The audit process identified {len(errors)} errors. Please check the error log below.')
-            else:
-                self.errors.setTextColor(QtGui.QColor('green'))
-                self.errors.append('Audit completed successfully. No errors were found.')
-                self.errors.setTextColor(QtGui.QColor('black'))
-
-        except Exception as err:
-            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
+            
+        
