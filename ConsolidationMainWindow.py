@@ -1,6 +1,6 @@
 
 import MainWindow
-from PyQt5 import QtWidgets, QtCore, QtGui
+from PyQt5 import QtWidgets, QtCore
 from Document import Document
 from BaseTableModel import BaseTableModel
 
@@ -133,7 +133,7 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
     @QtCore.pyqtSlot()
     def import_menu_item(self):
         try:
-            table = self.table_names.get(self.sender().objectName(), None)
+            table = self.tables.get(self.sender().objectName(), None)
             if table is None:
                 raise ValueError('Unrecognize action name.')
             file, _ = QtWidgets.QFileDialog.getOpenFileName(self, 'Select a file to open', filter='CSV Files (*.csv)')
@@ -148,7 +148,7 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
     @QtCore.pyqtSlot()
     def export_menu_item(self):
         try:
-            table = self.table_names.get(self.sender().objectName(), None)
+            table = self.tables.get(self.sender().objectName(), None)
             if table is None:
                 raise ValueError('Unrecognize action name.')
             file, _ = QtWidgets.QFileDialog.getSaveFileName(self, 'Select a filename to save', filter='CSV Files (*.csv)')

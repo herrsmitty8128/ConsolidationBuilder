@@ -1,7 +1,46 @@
 
 import csv
 import json
+from collections import Counter
+from datetime import datetime
 
+oracle_tb_fieldnames = {
+    # 'DATA_ACCESS_SET_NAME',
+    'LEDGER_NAME_PARAM',
+    'P_AMOUNT_TYPE',
+    'ACCOUNTING_PERIOD_PARAM',
+    'LEDGER_CURRENCY_PARAM',
+    'P_CURRENCY_TYPE',
+    'CURRENCY_TYPE_PARAM',
+    'ENTERED_CURRENCY_PARAM',
+    'RESULTING_CURRENCY',
+    'P_SUM_BY',
+    'SUMMARIZE_BY_PARAM',
+    'BATCH_TYPE_PARAM',
+    'P_BATCH_TYPE',
+    'ENCUMBRANCE_TYPE_PARAM',
+    'FILTER_CONDITIONS_ATT',
+    'FILTER_CONDITIONS_OPT',
+    'REPT_EXECUTION_DATE',
+    'PAGEBREAK_SEGMENT_NAME',
+    'ADDL_SEGMENT_NAME',
+    'NAT_ACCT_SEGMENT_NAME',
+    'ENCUMBRANCE_ACCOUNTING_FLAG',
+    'LEDGER_NAME',
+    'PAGEBREAK_SEGMENT_VALUE',
+    'PAGEBREAK_SEGMENT_DESC',
+    'ADDITIONAL_SEGMENT_VALUE',
+    'ADDITIONAL_SEGMENT_DESC',
+    'ACCT',
+    'ACCT_DESC',
+    'ACCT_TYPE',
+    'NAS_VALUE',
+    'NAS_DESC',
+    'BEGIN_BALANCE',
+    'TOTAL_DR',
+    'TOTAL_CR',
+    'END_BALANCE'
+}
 
 class Document:
 
@@ -17,6 +56,10 @@ class Document:
 
         self.reset()
 
+    ####################################################################################
+    # Methods to read and write to and from json file format
+    ####################################################################################
+
     def dump(self, filename: str) -> None:
         if not filename.casefold().endswith('.json'.casefold()):
             filename += '.json'
@@ -31,12 +74,12 @@ class Document:
         f.close()
         self.changed_since_last_save = False
 
+    ####################################################################################
+    # Methods for interfacing with the underlying data
+    ####################################################################################
+
     def changed(self) -> bool:
         return self.changed_since_last_save
-
-    ####################################################################################
-    # CUSTOM METHODS AND SLOTS
-    ####################################################################################
 
     def set_entity_name(self, new_name: str):
         self.data['Entity Name'] = new_name
@@ -107,30 +150,122 @@ class Document:
         self.changed_since_last_save = False
 
     ####################################################################################
-    # DATA MENU
+    # Methods for importing and exporting tables
     ####################################################################################
 
     def import_table(self, table_name: str, file: str, replace: bool):
-        if table_name not in self.tables:
-            raise ValueError('Unrecognized import table')
-        headers = set(self.tables[table_name]['HeaderNames'])
-        model = self.tables[table_name]['TableModel']
-        reader = csv.DictReader(file)
-        if not headers.issubset(reader.fieldnames):
-            pass
+
+        def ent_handler(csv_row: dict) -> dict:
+            return {
+                'Name': csv_row['Name'].strip(),
+                'Number': csv_row['Number'].strip(),
+                'Group': csv_row['Group'].strip()
+            }
+        
+        def cc_handler(csv_row: dict) -> dict:
+            return {
+                'Name': csv_row['Name'].strip(),
+                'Number': csv_row['Number'].strip()
+            }
+        
+        def acc_handler(csv_row: dict) -> dict:
+            return {
+                'Name': csv_row['Name'].strip(),
+                'Number': csv_row['Number'].strip(),
+                'Level 1': csv_row['Level 1'].strip(),
+                'Level 2': csv_row['Level 2'].strip(),
+                'Level 3': csv_row['Level 3'].strip(),
+                'Level 4': csv_row['Level 4'].strip()
+            }
+
+        def adj_handler(csv_row: dict) -> dict:
+            return {
+                'Entity': csv_row['Entity'].strip(),
+                'Cost Center': csv_row['Cost Center'].strip(),
+                'Account': csv_row['Account'].strip(),
+                'Beginning Balance': int(csv_row['Beginning Balance'].strip()),
+                'Debits': int(csv_row['Debits'].strip()),
+                'Credits': int(csv_row['Credits'].strip()),
+                'Ending Balance': int(csv_row['Ending Balance'].strip()),
+                'Description': csv_row['Description'].strip()
+            }
+
+        def tb_handler(csv_row: dict) -> dict:
+            return {
+                'Entity': csv_row['Entity'].strip(),
+                'Cost Center': csv_row['Cost Center'].strip(),
+                'Account': csv_row['Account'].strip(),
+                'Beginning Balance': int(csv_row['Beginning Balance'].strip()),
+                'Debits': int(csv_row['Debits'].strip()),
+                'Credits': int(csv_row['Credits'].strip()),
+                'Ending Balance': int(csv_row['Ending Balance'].strip())
+            }
+
+        def orc_handler(csv_row: dict) -> dict:
+            r = {
+                'Entity': csv_row['PAGEBREAK_SEGMENT_VALUE'].strip(),
+                'Cost Center': csv_row['ADDITIONAL_SEGMENT_VALUE'].strip(),
+                'Account': csv_row['NAS_VALUE'].strip(),
+                'Beginning Balance': int(round(float(csv_row['BEGIN_BALANCE'].strip()),0)),
+                'Debits': int(round(float(csv_row['TOTAL_DR'].strip()),0)),
+                'Credits': int(round(-float(csv_row['TOTAL_CR'].strip()),0))
+            }
+            r['Ending Balance'] = r['Beginning Balance'] + r['Debits'] + r['Credits']
+            return r
+
+        with open(file, 'r', newline='') as f:
+            
+            reader = csv.DictReader(f)
+            fieldnames = set(reader.fieldnames)
+            headers = set(self.tables.get(table_name,[]))
+            
+            if table_name == 'Entities':
+                handler = ent_handler
+            
+            elif table_name == 'Cost_Centers':
+                handler = cc_handler
+            
+            elif table_name == 'Accounts':
+                handler = acc_handler
+            
+            elif table_name == 'Adjustments':
+                handler = adj_handler
+            
+            elif table_name == 'Trial_Balance':
+                if not headers.issubset(fieldnames):
+                    headers = oracle_tb_fieldnames
+                    handler = orc_handler
+                else:
+                    handler = tb_handler
+            else:
+                raise ValueError('Unrecognized table name.')
+            
+            if not headers.issubset(fieldnames):
+                raise ValueError('CSV file does not have the correct field names.')
+            
+            if replace:
+                self.data[table_name].clear()
+            
+            for row in reader:
+                self.data[table_name].append(handler(row))        
+        
 
     def export_table(self, table_name: str, file: str):
-        pass
+        headers = self.tables.get(table_name, None)
+        if headers == None:
+            raise ValueError('CSV file does not have the correct field names.')
+        with open(file, 'w', newline='') as f:
+            writer = csv.DictWriter(f, fieldnames=headers)
+            writer.writeheader()
+            writer.writerows(self.data[table_name])
+
 
     ####################################################################################
     # CONSOLIDATION MENU
     ####################################################################################
 
     def build_consolidation(self):
-        try:
-            pass
-        except Exception as err:
-            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
+        pass
 
     def close_year(self):
         pass
@@ -184,11 +319,11 @@ class Document:
 
             self.errors.append('Starting the audit process...')
 
-            if len(self.master.findChild(QtWidgets.QLineEdit, 'entityName').text()) < 1:
+            if len(self.data['Entity Name']) < 1:
                 errors.append('Entity name is missing.')
 
-            start_date = QtCore.QDate.fromString(self.data['Beginning Balance Date'], 'M/d/yyyy')
-            end_date = QtCore.QDate.fromString(self.data['Ending Balance Date'], 'M/d/yyyy')
+            start_date = datetime.strptime(self.data['Beginning Balance Date'],'%m/%d/%Y')
+            end_date = datetime.strptime(self.data['Ending Balance Date'],'%m/%d/%Y')
             if start_date >= end_date:
                 errors.append('Beginning balance date is greater than or equal to the ending balance date.')
 

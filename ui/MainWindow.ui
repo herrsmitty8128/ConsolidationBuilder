@@ -67,7 +67,7 @@
         <item>
          <widget class="QTabWidget" name="tabWidget">
           <property name="currentIndex">
-           <number>0</number>
+           <number>4</number>
           </property>
           <widget class="QWidget" name="EntitiesTab">
            <attribute name="title">
@@ -75,7 +75,7 @@
            </attribute>
            <layout class="QHBoxLayout" name="horizontalLayout_2">
             <item>
-             <widget class="QTableView" name="entityTableView">
+             <widget class="QTableView" name="Entities">
               <property name="alternatingRowColors">
                <bool>true</bool>
               </property>
@@ -98,7 +98,7 @@
            </attribute>
            <layout class="QHBoxLayout" name="horizontalLayout_3">
             <item>
-             <widget class="QTableView" name="costCenterTableView">
+             <widget class="QTableView" name="Cost_Centers">
               <property name="alternatingRowColors">
                <bool>true</bool>
               </property>
@@ -121,7 +121,7 @@
            </attribute>
            <layout class="QHBoxLayout" name="horizontalLayout_4">
             <item>
-             <widget class="QTableView" name="accountsTableView">
+             <widget class="QTableView" name="Accounts">
               <property name="alternatingRowColors">
                <bool>true</bool>
               </property>
@@ -146,7 +146,7 @@
             <item>
              <layout class="QVBoxLayout" name="verticalLayout_2">
               <item>
-               <widget class="QTableView" name="trialBalanceTableView">
+               <widget class="QTableView" name="Trial_Balance">
                 <property name="alternatingRowColors">
                  <bool>true</bool>
                 </property>
@@ -171,7 +171,7 @@
            </attribute>
            <layout class="QHBoxLayout" name="horizontalLayout_6">
             <item>
-             <widget class="QTableView" name="adjustmentsTableView">
+             <widget class="QTableView" name="Adjustments">
               <property name="alternatingRowColors">
                <bool>true</bool>
               </property>
@@ -253,7 +253,7 @@
     </property>
     <addaction name="actionBuild"/>
     <addaction name="actionAudit"/>
-    <addaction name="actionCloseYear"/>
+    <addaction name="actionRollforward"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
@@ -377,9 +377,9 @@
     <string>Adjustments</string>
    </property>
   </action>
-  <action name="actionCloseYear">
+  <action name="actionRollforward">
    <property name="text">
-    <string>Close Year</string>
+    <string>Rollforward Year</string>
    </property>
   </action>
  </widget>
@@ -389,7 +389,7 @@
    <sender>actionNew</sender>
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
-   <slot>new_document()</slot>
+   <slot>new_menu_item()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -405,7 +405,7 @@
    <sender>actionOpen</sender>
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
-   <slot>open_document()</slot>
+   <slot>open_menu_item()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -421,7 +421,7 @@
    <sender>actionClose</sender>
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
-   <slot>close_document()</slot>
+   <slot>close_menu_item()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -437,7 +437,7 @@
    <sender>actionSave</sender>
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
-   <slot>save_document()</slot>
+   <slot>save_menu_item()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -453,7 +453,7 @@
    <sender>actionSaveAs</sender>
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
-   <slot>save_as_document()</slot>
+   <slot>save_as_menu_item()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -469,7 +469,7 @@
    <sender>actionQuit</sender>
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
-   <slot>quit_application()</slot>
+   <slot>quit_menu_item()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -485,7 +485,7 @@
    <sender>actionBuild</sender>
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
-   <slot>build_consolidation()</slot>
+   <slot>build_menu_item()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -498,58 +498,10 @@
    </hints>
   </connection>
   <connection>
-   <sender>beginningBalanceDate</sender>
-   <signal>dateChanged(QDate)</signal>
-   <receiver>MainWindow</receiver>
-   <slot>set_beginning_date(QDate)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>381</x>
-     <y>117</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>501</x>
-     <y>383</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>endingBalanceDate</sender>
-   <signal>dateChanged(QDate)</signal>
-   <receiver>MainWindow</receiver>
-   <slot>set_ending_date(QDate)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>846</x>
-     <y>117</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>501</x>
-     <y>383</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>entityName</sender>
-   <signal>textChanged(QString)</signal>
-   <receiver>MainWindow</receiver>
-   <slot>set_entity_name(QString)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>544</x>
-     <y>45</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>501</x>
-     <y>383</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>actionImportEntities</sender>
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
-   <slot>import_table()</slot>
+   <slot>import_menu_item()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -565,7 +517,7 @@
    <sender>actionImportCostCenters</sender>
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
-   <slot>import_table()</slot>
+   <slot>import_menu_item()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -581,7 +533,7 @@
    <sender>actionImportAccounts</sender>
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
-   <slot>import_table()</slot>
+   <slot>import_menu_item()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -597,7 +549,7 @@
    <sender>actionImportTrialBalance</sender>
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
-   <slot>import_table()</slot>
+   <slot>import_menu_item()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -613,7 +565,7 @@
    <sender>actionImportAdjustments</sender>
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
-   <slot>import_table()</slot>
+   <slot>import_menu_item()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -629,7 +581,7 @@
    <sender>actionExportEntities</sender>
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
-   <slot>export_table()</slot>
+   <slot>export_menu_item()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -645,7 +597,7 @@
    <sender>actionExportCostCenters</sender>
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
-   <slot>export_table()</slot>
+   <slot>export_menu_item()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -661,7 +613,7 @@
    <sender>actionExportAccounts</sender>
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
-   <slot>export_table()</slot>
+   <slot>export_menu_item()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -677,7 +629,7 @@
    <sender>actionExportTrialBalance</sender>
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
-   <slot>export_table()</slot>
+   <slot>export_menu_item()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -693,7 +645,7 @@
    <sender>actionExportAdjustments</sender>
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
-   <slot>export_table()</slot>
+   <slot>export_menu_item()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -706,10 +658,10 @@
    </hints>
   </connection>
   <connection>
-   <sender>actionCloseYear</sender>
+   <sender>actionRollforward</sender>
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
-   <slot>close_year()</slot>
+   <slot>rollforward_menu_item()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -725,7 +677,7 @@
    <sender>actionAudit</sender>
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
-   <slot>audit()</slot>
+   <slot>audit_menu_item()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -737,21 +689,69 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>entityName</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>set_entity_name(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>584</x>
+     <y>45</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>501</x>
+     <y>383</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>beginningBalanceDate</sender>
+   <signal>dateChanged(QDate)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>set_beginning_date(QDate)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>584</x>
+     <y>76</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>501</x>
+     <y>383</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>endingBalanceDate</sender>
+   <signal>dateChanged(QDate)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>set_ending_date(QDate)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>584</x>
+     <y>108</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>501</x>
+     <y>383</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
-  <slot>new_document()</slot>
-  <slot>open_document()</slot>
-  <slot>save_document()</slot>
-  <slot>save_as_document()</slot>
-  <slot>close_document()</slot>
-  <slot>quit_application()</slot>
-  <slot>build_consolidation()</slot>
+  <slot>new_menu_item()</slot>
+  <slot>open_menu_item()</slot>
+  <slot>save_menu_item()</slot>
+  <slot>save_as_menu_item()</slot>
+  <slot>close_menu_item()</slot>
+  <slot>quit_menu_item()</slot>
+  <slot>build_menu_item()</slot>
   <slot>set_entity_name(QString)</slot>
   <slot>set_beginning_date(QDate)</slot>
   <slot>set_ending_date(QDate)</slot>
-  <slot>import_table()</slot>
-  <slot>export_table()</slot>
-  <slot>close_year()</slot>
-  <slot>audit()</slot>
+  <slot>import_menu_item()</slot>
+  <slot>export_menu_item()</slot>
+  <slot>rollforward_menu_item()</slot>
+  <slot>audit_menu_item()</slot>
  </slots>
 </ui>
