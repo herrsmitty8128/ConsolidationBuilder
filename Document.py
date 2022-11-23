@@ -113,6 +113,11 @@ class Document:
         return self.tables[table_name][col]
 
     def is_editable(self, table_name: str, row: int, col: int) -> bool:
+        if table_name == 'Trial_Balance':
+            return False
+        if table_name == 'Adjustments':
+            header = self.tables[table_name][col]
+            return True if header != 'Beginning Balance' and header != 'Ending Balance' else False
         return True
 
     def is_enabled(self, table_name: str, row: int, col: int) -> bool:
@@ -137,7 +142,12 @@ class Document:
 
     def set_table_data(self, table_name: str, row: int, col: int, value: any) -> None:
         col = self.tables[table_name][col]
-        if col == 'Beginning Balance' or col == 'Debits' or col == 'Credits' or col == 'Ending Balance':
+        if col == 'Beginning Balance' or col == 'Debits' or col == 'Credits':
+            self.data[table_name][row][col] = int(value)
+            self.data[table_name]['Ending Balance'] = self.data[table_name]['Beginning Balance'] + self.data[table_name]['Debits'] + self.data[table_name]['Credits']
+        #if col == 'Beginning Balance' or col == 'Debits' or col == 'Credits' or col == 'Ending Balance':
+        #    self.data[table_name][row][col] = int(value)
+        if col == 'Ending Balance':
             self.data[table_name][row][col] = int(value)
         else:
             self.data[table_name][row][col] = value
