@@ -144,7 +144,7 @@ class Document:
         col = self.tables[table_name][col]
         if col == 'Beginning Balance' or col == 'Debits' or col == 'Credits':
             self.data[table_name][row][col] = int(value)
-            self.data[table_name]['Ending Balance'] = self.data[table_name]['Beginning Balance'] + self.data[table_name]['Debits'] + self.data[table_name]['Credits']
+            self.data[table_name][row]['Ending Balance'] = self.data[table_name][row]['Beginning Balance'] + self.data[table_name][row]['Debits'] + self.data[table_name][row]['Credits']
         #if col == 'Beginning Balance' or col == 'Debits' or col == 'Credits' or col == 'Ending Balance':
         #    self.data[table_name][row][col] = int(value)
         if col == 'Ending Balance':
