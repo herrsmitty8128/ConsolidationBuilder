@@ -144,10 +144,11 @@ class Document:
         col = self.tables[table_name][col]
         if col == 'Beginning Balance' or col == 'Debits' or col == 'Credits':
             r = self.data[table_name][row]
-            r[col] = int(value)
+            if col == 'Debits':
+                r[col] = abs(int(value))
+            if col == 'Credits':
+                r[col] = -abs(int(value))
             r['Ending Balance'] = r['Beginning Balance'] + r['Debits'] + r['Credits']
-        #if col == 'Beginning Balance' or col == 'Debits' or col == 'Credits' or col == 'Ending Balance':
-        #    self.data[table_name][row][col] = int(value)
         elif col == 'Ending Balance':
             self.data[table_name][row][col] = int(value)
         else:
