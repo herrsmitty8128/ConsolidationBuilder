@@ -122,7 +122,7 @@ class Document:
         return True
     
     def get_alignment(self, table_name: str, col: int) -> int:
-        header = self.data[table_name][col]
+        header = self.tables[table_name][col]
         if header == 'Beginning Balance' or header == 'Debits' or header == 'Credits' or header == 'Ending Balance':
             return 1
         return -1
