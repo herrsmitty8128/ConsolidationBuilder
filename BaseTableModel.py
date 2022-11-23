@@ -28,7 +28,10 @@ class BaseTableModel(QtCore.QAbstractTableModel):
             if role == QtCore.Qt.DisplayRole:
                 return self.document.get_table_data(self.table_name, index.row(), index.column())
             elif role == QtCore.Qt.TextAlignmentRole:
-                return QtCore.Qt.AlignLeft  # QtCore.Qt.AlignRight # | QtCore.Qt.AlignVCenter
+                a = self.document.get_alignment(self.table_name, index.column())
+                if a > 0: return QtCore.Qt.AlignRight
+                if a < 0: return QtCore.Qt.AlignLeft
+                return QtCore.Qt.AlignVCenter
         return QtCore.QVariant()
 
     def setData(self, index: QtCore.QModelIndex, value: QtCore.QVariant, role: int = QtCore.Qt.EditRole) -> bool:

@@ -120,6 +120,12 @@ class Document:
 
     def is_selectable(self, table_name: str, row: int, col: int) -> bool:
         return True
+    
+    def get_alignment(self, table_name: str, col: int) -> int:
+        header = self.data[table_name][col]
+        if header == 'Beginning Balance' or header == 'Debits' or header == 'Credits' or header == 'Ending Balance':
+            return 1
+        return -1
 
     def sort_table(self, table_name: str, col: int, order: bool) -> None:
         col = self.tables[table_name][col]
