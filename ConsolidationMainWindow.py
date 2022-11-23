@@ -16,19 +16,32 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
         self.document_filename = None
         self.document = Document()
 
-        self.tables = {
-            'actionImportEntities': {'Name': 'Entities', 'Model': None},
-            'actionImportCostCenters': {'Name': 'Cost_Centers', 'Model': None},
-            'actionImportAccounts': {'Name': 'Accounts', 'Model': None},
-            'actionImportTrialBalance': {'Name': 'Trial_Balance', 'Model': None},
-            'actionImportAdjustments': {'Name': 'Adjustments', 'Model': None},
+        self.actions = {
+            'actionImportEntities': 'Entities',
+            'actionImportCostCenters': 'Cost_Centers',
+            'actionImportAccounts': 'Accounts',
+            'actionImportTrialBalance': 'Trial_Balance',
+            'actionImportAdjustments': 'Adjustments',
+            'actionExportEntities': 'Entities',
+            'actionExportCostCenters': 'Cost_Centers',
+            'actionExportAccounts': 'Accounts',
+            'actionExportTrialBalance': 'Trial_Balance',
+            'actionExportAdjustments': 'Adjustments'
         }
 
-        for t in self.tables.values():
-            table = self.findChild(QtWidgets.QTableView, t['Name'])
+        self.table_models = {
+            'Entities': None,
+            'Cost_Centers': None,
+            'Accounts': None,
+            'Trial_Balance': None,
+            'Adjustments': None
+        }
+
+        for table_name in self.table_models:
+            table = self.findChild(QtWidgets.QTableView, table_name)
             table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
-            model = BaseTableModel(table, self.document, t['Name'])
-            t['Model'] = model
+            model = BaseTableModel(table, self.document, table_name)
+            self.table_models[table_name] = model
             table.setModel(model)
 
         self.set_non_table_data()
@@ -73,8 +86,8 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
                 self.document_filename = file
                 self.document.load(self.document_filename)
                 self.set_non_table_data()
-                for table in self.tables.values():
-                    table['Model'].layoutChanged.emit()
+                for model in self.table_models.values():
+                    model.layoutChanged.emit()
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
 
@@ -114,8 +127,8 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
                     self.save_menu_item()
             self.document.reset()
             self.set_non_table_data()
-            for table in self.tables.values():
-                table['Model'].layoutChanged.emit()
+            for model in self.table_models.values():
+                model.layoutChanged.emit()
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
 
@@ -133,29 +146,29 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
     @QtCore.pyqtSlot()
     def import_menu_item(self):
         try:
-            table = self.tables.get(self.sender().objectName(), None)
-            if table is None:
+            table_name = self.actions.get(self.sender().objectName(), None)
+            if table_name is None:
                 raise ValueError('Unrecognize action name.')
             file, _ = QtWidgets.QFileDialog.getOpenFileName(self, 'Select a file to open', filter='CSV Files (*.csv)')
             if file:
                 response = QtWidgets.QMessageBox.question(self, 'Replace rows?', 'Would you like to replace all rows of data?')
                 response = False if response == QtWidgets.QMessageBox.StandardButton.No else True
-                self.document.import_table(table['Name'], file, response)
-                table['Model'].layoutChanged.emit()
+                self.document.import_table(table_name, file, response)
+                self.table_models[table_name].layoutChanged.emit()
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
 
     @QtCore.pyqtSlot()
     def export_menu_item(self):
         try:
-            table = self.tables.get(self.sender().objectName(), None)
-            if table is None:
+            table_name = self.actions.get(self.sender().objectName(), None)
+            if table_name is None:
                 raise ValueError('Unrecognize action name.')
             file, _ = QtWidgets.QFileDialog.getSaveFileName(self, 'Select a filename to save', filter='CSV Files (*.csv)')
             if file:
                 if not file.casefold().endswith('.csv'.casefold()):
                     file += '.csv'
-                self.document.export_table(table['Name'], file)
+                self.document.export_table(table_name, file)
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
 
