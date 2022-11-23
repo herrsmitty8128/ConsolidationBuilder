@@ -193,21 +193,21 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
 
     @QtCore.pyqtSlot()
     def audit_menu_item(self):
-        #try:
-        error_log = self.document.audit_data()
-        if len(error_log) > 0:
-            self.errors.setTextColor(QtGui.QColor('red'))
-            for err in error_log:
-                self.errors.append(err)
-            self.errors.append(f'{len(error_log)} were detected. You must resolve these errors before you can proceed with the consolidation process.')
-            self.errors.setTextColor(QtGui.QColor('black'))
-            raise ValueError(f'The audit process identified {len(error_log)} errors. Please check the error log below.')
-        else:
-            self.errors.setTextColor(QtGui.QColor('green'))
-            self.errors.append('Audit completed successfully. No errors were found.')
-            self.errors.setTextColor(QtGui.QColor('black'))
-        #except Exception as err:
-        #    QtWidgets.QMessageBox.critical(self, 'Error', str(err))
+        try:
+            error_log = self.document.audit_data()
+            if len(error_log) > 0:
+                self.errors.setTextColor(QtGui.QColor('red'))
+                for err in error_log:
+                    self.errors.append(err)
+                self.errors.append(f'{len(error_log)} were detected. You must resolve these errors before you can proceed with the consolidation process.')
+                self.errors.setTextColor(QtGui.QColor('black'))
+                raise ValueError(f'The audit process identified {len(error_log)} errors. Please check the error log below.')
+            else:
+                self.errors.setTextColor(QtGui.QColor('green'))
+                self.errors.append('Audit completed successfully. No errors were found.')
+                self.errors.setTextColor(QtGui.QColor('black'))
+        except Exception as err:
+            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
 
     ####################################################################################
     # Other Slots
