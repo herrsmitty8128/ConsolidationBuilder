@@ -1,6 +1,6 @@
 
 import MainWindow
-from PyQt5 import QtWidgets, QtCore
+from PyQt5 import QtWidgets, QtCore, QtGui
 from Document import Document
 from BaseTableModel import BaseTableModel
 
@@ -193,20 +193,18 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
     @QtCore.pyqtSlot()
     def audit_menu_item(self):
         try:
-            '''
-            if len(errors) > 0:
+            error_log = self.document.audit_data()
+            if len(error_log) > 0:
                 self.errors.setTextColor(QtGui.QColor('red'))
-                for err in errors:
+                for err in error_log:
                     self.errors.append(err)
-                self.errors.append(f'{len(errors)} were detected. You must resolve these errors before you can proceed with the consolidation process.')
+                self.errors.append(f'{len(error_log)} were detected. You must resolve these errors before you can proceed with the consolidation process.')
                 self.errors.setTextColor(QtGui.QColor('black'))
-                raise ValueError(f'The audit process identified {len(errors)} errors. Please check the error log below.')
+                raise ValueError(f'The audit process identified {len(error_log)} errors. Please check the error log below.')
             else:
                 self.errors.setTextColor(QtGui.QColor('green'))
                 self.errors.append('Audit completed successfully. No errors were found.')
                 self.errors.setTextColor(QtGui.QColor('black'))
-            '''
-            self.document.audit_data()
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
 

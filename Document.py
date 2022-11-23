@@ -326,8 +326,8 @@ class Document:
         audit_list('Entities')
         audit_list('Cost_Centers')
         audit_list('Accounts')
-        audit_balances(self.data['Trial Balance'], 'Trial balance')
-        audit_balances(self.data['Adjustments'], 'Adjustments')
+        audit_balances('Trial_Balance')
+        audit_balances('Adjustments')
 
         return error_log
 
