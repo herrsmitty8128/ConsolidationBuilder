@@ -102,7 +102,7 @@ def new_wb_with_tables(filename: str, descriptors: list[dict]) -> Workbook:
     wb.save(filename)
 
 
-def replace_table_in_existing_wb(filename: str, table_headers: list[str], table_rows: list[list | dict], table_name: str) -> None:
+def replace_table_in_existing_wb(filename: str, table_headers: list[str], table_rows: list[dict], table_name: str) -> None:
     '''
     Opens a workbook file, deletes the current table, then replaces it with the new table and saves the file.
     '''
