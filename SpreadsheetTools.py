@@ -28,7 +28,7 @@ def delete_table(workbook: Workbook, table_name: str) -> Worksheet:
     return None
 
 
-def new_table(ws: Worksheet, table_headers: list[str], table_rows: list[list | dict], table_name: str) -> None:
+def new_table(ws: Worksheet, table_headers: list[str], table_rows: list[dict], table_name: str) -> None:
 
     # Be sure to first delete the existing rows if you want the table to start on row 1
     delete_all_rows(ws)
@@ -64,7 +64,7 @@ def new_table(ws: Worksheet, table_headers: list[str], table_rows: list[list | d
     ws.add_table(table)
 
 
-def new_wb_with_table(filename: str, table_headers: list[str], table_rows: list[list | dict], table_name: str, sheet_name: str = 'Sheet1') -> Workbook:
+def new_wb_with_table(filename: str, table_headers: list[str], table_rows: list[dict], table_name: str, sheet_name: str = 'Sheet1') -> Workbook:
     '''
     Creates and returns a new workbook containing a new worksheet that contains the new table.
     '''
