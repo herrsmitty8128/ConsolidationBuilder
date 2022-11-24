@@ -244,7 +244,7 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuConsolidation.menuAction())
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(2)
         self.actionNew.triggered.connect(MainWindow.new_menu_item)  # type: ignore
         self.actionOpen.triggered.connect(MainWindow.open_menu_item)  # type: ignore
         self.actionClose.triggered.connect(MainWindow.close_menu_item)  # type: ignore
@@ -284,13 +284,13 @@ class Ui_MainWindow(object):
         self.label_3.setText(_translate("MainWindow", "Ending Balance Date:"))
         self.endingBalanceDate.setDisplayFormat(_translate("MainWindow", "M/d/yyyy"))
         self.addEntityButton.setText(_translate("MainWindow", "Add Entity"))
-        self.deleteEntityButton.setText(_translate("MainWindow", "Delete Entity(s)"))
+        self.deleteEntityButton.setText(_translate("MainWindow", "Delete Selected Entity(s)"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.EntitiesTab), _translate("MainWindow", "Entities"))
         self.addCostCenterButton.setText(_translate("MainWindow", "Add Cost Center"))
-        self.deleteCostCenterButton.setText(_translate("MainWindow", "Delete Cost Center(s)"))
+        self.deleteCostCenterButton.setText(_translate("MainWindow", "Delete Selected Cost Center(s)"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.CostCentersTab), _translate("MainWindow", "Cost Centers"))
         self.addAccountButton.setText(_translate("MainWindow", "Add Account"))
-        self.deleteAccountButton.setText(_translate("MainWindow", "Delete Account(s)"))
+        self.deleteAccountButton.setText(_translate("MainWindow", "Delete Selected Account(s)"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.AccountsTab), _translate("MainWindow", "Accounts"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.TrialBalanceTab), _translate("MainWindow", "Trial Balance"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.AdjustmentsTab), _translate("MainWindow", "Adjustments"))

@@ -62,16 +62,16 @@ class BaseTableModel(QtCore.QAbstractTableModel):
 
     def remove_selected_rows(self) -> bool:
         indexes = self.parent().selectionModel().selectedRows()
-        for i in sorted(indexes, key=lambda x : x.row(), reverse=True):
+        for i in sorted(indexes, key=lambda x: x.row(), reverse=True):
             row = i.row()
             self.beginRemoveRows(QtCore.QModelIndex(), row, row)
             self.document.remove_table_row(self.table_name, row)
             self.endRemoveRows()
-    
+
     def append_new_table_row(self) -> None:
         table = self.table_name
         row = self.document.row_count(table)
         self.beginInsertRows(QtCore.QModelIndex(), row, row)
         self.document.append_new_table_row(table)
         self.endInsertRows()
-        self.parent().scrollTo(self.index(row,0))
+        self.parent().scrollTo(self.index(row, 0))

@@ -139,19 +139,19 @@ class Document:
     def get_table_data(self, table_name: str, row: int, col: int) -> str:
         col = self.tables[table_name][col]
         return str(self.data[table_name][row][col])
-    
+
     def remove_table_row(self, table_name: str, row: int) -> None:
         del self.data[table_name][row]
-    
+
     def append_new_table_row(self, table_name: str) -> None:
         if table_name == 'Entities':
-            self.data[table_name].append({'Number': '','Name': '','Group': ''})
+            self.data[table_name].append({'Number': '', 'Name': '', 'Group': ''})
         elif table_name == 'Cost_Centers':
-            self.data[table_name].append({'Number': '','Name': ''})
+            self.data[table_name].append({'Number': '', 'Name': ''})
         elif table_name == 'Accounts':
-            self.data[table_name].append({'Number': '','Name': '','Level 1': '', 'Level 2': '', 'Level 3': '', 'Level 4': ''})
+            self.data[table_name].append({'Number': '', 'Name': '', 'Level 1': '', 'Level 2': '', 'Level 3': '', 'Level 4': ''})
         elif table_name == 'Adjustments':
-            self.data[table_name].append({'Entity': '','Cost Center': '','Account': '', 'Beginning Balance': 0, 'Debits': 0, 'Credits': 0, 'Ending Balance': 0, 'Description': ''})
+            self.data[table_name].append({'Entity': '', 'Cost Center': '', 'Account': '', 'Beginning Balance': 0, 'Debits': 0, 'Credits': 0, 'Ending Balance': 0, 'Description': ''})
 
     def set_table_data(self, table_name: str, row: int, col: int, value: any) -> None:
         col = self.tables[table_name][col]

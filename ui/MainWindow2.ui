@@ -67,7 +67,7 @@
         <item>
          <widget class="QTabWidget" name="tabWidget">
           <property name="currentIndex">
-           <number>0</number>
+           <number>2</number>
           </property>
           <widget class="QWidget" name="EntitiesTab">
            <attribute name="title">
@@ -117,7 +117,7 @@
                 <item>
                  <widget class="QPushButton" name="deleteEntityButton">
                   <property name="text">
-                   <string>Delete Entity(s)</string>
+                   <string>Delete Selected Entity(s)</string>
                   </property>
                  </widget>
                 </item>
@@ -175,7 +175,7 @@
                 <item>
                  <widget class="QPushButton" name="deleteCostCenterButton">
                   <property name="text">
-                   <string>Delete Cost Center(s)</string>
+                   <string>Delete Selected Cost Center(s)</string>
                   </property>
                  </widget>
                 </item>
@@ -233,7 +233,7 @@
                 <item>
                  <widget class="QPushButton" name="deleteAccountButton">
                   <property name="text">
-                   <string>Delete Account(s)</string>
+                   <string>Delete Selected Account(s)</string>
                   </property>
                  </widget>
                 </item>
