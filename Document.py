@@ -1,6 +1,7 @@
 
 import csv
 import json
+import SpreadsheetTools
 from collections import Counter
 from datetime import datetime
 
@@ -200,70 +201,11 @@ class Document:
 
     def import_table(self, table_name: str, file: str, replace: bool):
 
-        def ent_handler(csv_row: dict) -> dict:
-            return {
-                'Name': csv_row['Name'].strip(),
-                'Number': csv_row['Number'].strip(),
-                'Group': csv_row['Group'].strip()
-            }
-
-        def cc_handler(csv_row: dict) -> dict:
-            return {
-                'Name': csv_row['Name'].strip(),
-                'Number': csv_row['Number'].strip()
-            }
-
-        def acc_handler(csv_row: dict) -> dict:
-            return {
-                'Name': csv_row['Name'].strip(),
-                'Number': csv_row['Number'].strip(),
-                'Level 1': csv_row['Level 1'].strip(),
-                'Level 2': csv_row['Level 2'].strip(),
-                'Level 3': csv_row['Level 3'].strip(),
-                'Level 4': csv_row['Level 4'].strip()
-            }
-
-        def adj_handler(csv_row: dict) -> dict:
-            return {
-                'Entity': csv_row['Entity'].strip(),
-                'Cost Center': csv_row['Cost Center'].strip(),
-                'Account': csv_row['Account'].strip(),
-                'Beginning Balance': int(csv_row['Beginning Balance'].strip()),
-                'Debits': int(csv_row['Debits'].strip()),
-                'Credits': int(csv_row['Credits'].strip()),
-                'Ending Balance': int(csv_row['Ending Balance'].strip()),
-                'Description': csv_row['Description'].strip()
-            }
-
-        def tb_handler(csv_row: dict) -> dict:
-            return {
-                'Entity': csv_row['Entity'].strip(),
-                'Cost Center': csv_row['Cost Center'].strip(),
-                'Account': csv_row['Account'].strip(),
-                'Beginning Balance': int(csv_row['Beginning Balance'].strip()),
-                'Debits': int(csv_row['Debits'].strip()),
-                'Credits': int(csv_row['Credits'].strip()),
-                'Ending Balance': int(csv_row['Ending Balance'].strip())
-            }
-
         with open(file, 'r', newline='') as f:
 
             reader = csv.DictReader(f)
             fieldnames = set(reader.fieldnames)
             headers = set(self.tables.get(table_name, []))
-
-            if table_name == 'Entities':
-                handler = ent_handler
-            elif table_name == 'Cost_Centers':
-                handler = cc_handler
-            elif table_name == 'Accounts':
-                handler = acc_handler
-            elif table_name == 'Adjustments':
-                handler = adj_handler
-            elif table_name == 'Trial_Balance':
-                handler = tb_handler
-            else:
-                raise ValueError('Unrecognized table name.')
 
             if not headers.issubset(fieldnames):
                 raise ValueError('CSV file has incorrect field names.')
@@ -272,7 +214,14 @@ class Document:
                 self.data[table_name].clear()
 
             for row in reader:
-                self.data[table_name].append(handler(row))
+                r = {}
+                for header in headers:
+                    if header == 'Beginning Balance' or header == 'Debits' or header == 'Credits':
+                        r[header] = int(row[header].strip())
+                    else:
+                        r[header] = row[header].strip()
+                row['Ending Balance'] = row['Beginning Balance'] + row['Debits'] + row['Credits']
+                self.data[table_name].append(r)
 
     def import_oracle_tb(self, file: str, replace: bool) -> None:
 
@@ -376,7 +325,6 @@ class Document:
         return output_data
 
     def write_to_workbook(self, filename: str, update_existing: bool) -> None:
-        import SpreadsheetTools
         table = self.build_consolidation_table()
         if len(table) < 1:
             raise ValueError('Zero rows in the trial balance.')
