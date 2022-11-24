@@ -28,12 +28,12 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
             'actionExportAccounts': 'Accounts',
             'actionExportTrialBalance': 'Trial_Balance',
             'actionExportAdjustments': 'Adjustments',
-            'insertEntityButton': 'Entities',
+            'addEntityButton': 'Entities',
             'deleteEntityButton': 'Entities',
-            'insertCostCenterButton': 'Cost_Centers',
+            'addCostCenterButton': 'Cost_Centers',
             'deleteCostCenterButton': 'Cost_Centers',
             'insertAccountButton': 'Accounts',
-            'deleteAccountButton': 'Accounts',
+            'addAccountButton': 'Accounts',
         }
 
         self.table_models = {
