@@ -17,7 +17,7 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
         self.document_filename = None
         self.document = Document()
 
-        self.actions = {
+        self.menu_actions = {
             'actionImportEntities': 'Entities',
             'actionImportCostCenters': 'Cost_Centers',
             'actionImportAccounts': 'Accounts',
@@ -147,9 +147,9 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
     @QtCore.pyqtSlot()
     def import_menu_item(self):
         try:
-            table_name = self.actions.get(self.sender().objectName(), None)
+            table_name = self.menu_actions.get(self.sender().objectName(), None)
             if table_name is None:
-                raise ValueError('Unrecognize action name.')
+                raise ValueError('Unrecognized action name.')
             file, _ = QtWidgets.QFileDialog.getOpenFileName(self, 'Select a file to open', filter='CSV Files (*.csv)')
             if file:
                 response = QtWidgets.QMessageBox.question(self, 'Replace rows?', 'Would you like to replace all rows of data?')
@@ -162,9 +162,9 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
     @QtCore.pyqtSlot()
     def export_menu_item(self):
         try:
-            table_name = self.actions.get(self.sender().objectName(), None)
+            table_name = self.menu_actions.get(self.sender().objectName(), None)
             if table_name is None:
-                raise ValueError('Unrecognize action name.')
+                raise ValueError('Unrecognized action name.')
             file, _ = QtWidgets.QFileDialog.getSaveFileName(self, 'Select a filename to save', filter='CSV Files (*.csv)')
             if file:
                 if not file.casefold().endswith('.csv'.casefold()):
