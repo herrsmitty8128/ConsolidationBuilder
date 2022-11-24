@@ -339,7 +339,7 @@
      <addaction name="actionImportTrialBalance"/>
      <addaction name="actionImportAdjustments"/>
      <addaction name="separator"/>
-     <addaction name="actionOracle_Trial_Balance"/>
+     <addaction name="actionOracleTrialBalance"/>
     </widget>
     <widget class="QMenu" name="menuExport">
      <property name="title">
@@ -489,7 +489,7 @@
     <string>Rollforward Year</string>
    </property>
   </action>
-  <action name="actionOracle_Trial_Balance">
+  <action name="actionOracleTrialBalance">
    <property name="text">
     <string>Oracle Trial Balance</string>
    </property>
@@ -945,6 +945,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionOracleTrialBalance</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>import_oracle_tb()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>501</x>
+     <y>383</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>new_menu_item()</slot>
@@ -963,5 +979,6 @@
   <slot>audit_menu_item()</slot>
   <slot>insert_table_row()</slot>
   <slot>delete_table_row()</slot>
+  <slot>import_oracle_tb()</slot>
  </slots>
 </ui>

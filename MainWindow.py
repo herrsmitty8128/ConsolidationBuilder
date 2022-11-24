@@ -215,6 +215,8 @@ class Ui_MainWindow(object):
         self.actionExportAdjustments.setObjectName("actionExportAdjustments")
         self.actionRollforward = QtWidgets.QAction(MainWindow)
         self.actionRollforward.setObjectName("actionRollforward")
+        self.actionOracleTrialBalance = QtWidgets.QAction(MainWindow)
+        self.actionOracleTrialBalance.setObjectName("actionOracleTrialBalance")
         self.menuFile.addAction(self.actionNew)
         self.menuFile.addAction(self.actionOpen)
         self.menuFile.addSeparator()
@@ -229,6 +231,8 @@ class Ui_MainWindow(object):
         self.menuImport.addAction(self.actionImportAccounts)
         self.menuImport.addAction(self.actionImportTrialBalance)
         self.menuImport.addAction(self.actionImportAdjustments)
+        self.menuImport.addSeparator()
+        self.menuImport.addAction(self.actionOracleTrialBalance)
         self.menuExport.addAction(self.actionExportEntities)
         self.menuExport.addAction(self.actionExportCostCenters)
         self.menuExport.addAction(self.actionExportAccounts)
@@ -244,7 +248,7 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuConsolidation.menuAction())
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(2)
+        self.tabWidget.setCurrentIndex(0)
         self.actionNew.triggered.connect(MainWindow.new_menu_item)  # type: ignore
         self.actionOpen.triggered.connect(MainWindow.open_menu_item)  # type: ignore
         self.actionClose.triggered.connect(MainWindow.close_menu_item)  # type: ignore
@@ -273,6 +277,7 @@ class Ui_MainWindow(object):
         self.deleteCostCenterButton.clicked.connect(MainWindow.delete_table_row)  # type: ignore
         self.addAccountButton.clicked.connect(MainWindow.insert_table_row)  # type: ignore
         self.deleteAccountButton.clicked.connect(MainWindow.delete_table_row)  # type: ignore
+        self.actionOracleTrialBalance.triggered.connect(MainWindow.import_oracle_tb)  # type: ignore
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -327,3 +332,4 @@ class Ui_MainWindow(object):
         self.actionExportTrialBalance.setText(_translate("MainWindow", "Trial Balance"))
         self.actionExportAdjustments.setText(_translate("MainWindow", "Adjustments"))
         self.actionRollforward.setText(_translate("MainWindow", "Rollforward Year"))
+        self.actionOracleTrialBalance.setText(_translate("MainWindow", "Oracle Trial Balance"))

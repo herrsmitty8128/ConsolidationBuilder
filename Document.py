@@ -252,12 +252,18 @@ class Document:
             fieldnames = set(reader.fieldnames)
             headers = set(self.tables.get(table_name, []))
 
-            if table_name == 'Entities': handler = ent_handler
-            elif table_name == 'Cost_Centers': handler = cc_handler
-            elif table_name == 'Accounts': handler = acc_handler
-            elif table_name == 'Adjustments': handler = adj_handler
-            elif table_name == 'Trial_Balance': handler = tb_handler
-            else: raise ValueError('Unrecognized table name.')
+            if table_name == 'Entities':
+                handler = ent_handler
+            elif table_name == 'Cost_Centers':
+                handler = cc_handler
+            elif table_name == 'Accounts':
+                handler = acc_handler
+            elif table_name == 'Adjustments':
+                handler = adj_handler
+            elif table_name == 'Trial_Balance':
+                handler = tb_handler
+            else:
+                raise ValueError('Unrecognized table name.')
 
             if not headers.issubset(fieldnames):
                 raise ValueError('CSV file has incorrect field names.')
@@ -267,9 +273,9 @@ class Document:
 
             for row in reader:
                 self.data[table_name].append(handler(row))
-    
+
     def import_oracle_tb(self, file: str, replace: bool) -> None:
-        
+
         with open(file, 'r', newline='') as f:
 
             reader = csv.DictReader(f)
@@ -293,24 +299,24 @@ class Document:
                     'Debits': int(round(float(row['TOTAL_DR'].strip()), 0)),
                     'Credits': int(round(-float(row['TOTAL_CR'].strip()), 0))
                 }
-                
+
                 r['Ending Balance'] = r['Beginning Balance'] + r['Debits'] + r['Credits']
-                
+
                 self.data['Trial_Balance'].append(r)
-                
+
                 if r['Entity'] not in entities:
                     self.data['Entities'].append({
                         'Number': r['Entity'],
                         'Name': row['PAGEBREAK_SEGMENT_DESC'].strip(),
                         'Group': ''
                     })
-                
+
                 if r['Cost Center'] not in costctrs:
                     self.data['Cost_Centers'].append({
                         'Number': r['Cost Center'],
                         'Name': row['ADDITIONAL_SEGMENT_DESC'].strip()
                     })
-                
+
                 if r['Account'] not in accounts:
                     self.data['Accounts'].append({
                         'Number': r['Account'],
@@ -321,7 +327,6 @@ class Document:
                         'Level 4': ''
                     })
 
-    
     def export_table(self, table_name: str, file: str):
         headers = self.tables.get(table_name, None)
         if headers is None:

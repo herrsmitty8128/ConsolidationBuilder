@@ -164,7 +164,6 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
                 self.table_models[table_name].layoutChanged.emit()
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
-    
 
     @QtCore.pyqtSlot()
     def import_oracle_tb(self):
