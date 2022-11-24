@@ -164,6 +164,20 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
                 self.table_models[table_name].layoutChanged.emit()
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
+    
+
+    @QtCore.pyqtSlot()
+    def import_oracle_tb(self):
+        try:
+            file, _ = QtWidgets.QFileDialog.getOpenFileName(self, 'Select a file to open', filter='CSV Files (*.csv)')
+            if file:
+                response = QtWidgets.QMessageBox.question(self, 'Replace rows?', 'Would you like to replace all rows of data?')
+                response = False if response == QtWidgets.QMessageBox.StandardButton.No else True
+                self.document.import_oracle_tb(file, response)
+                for model in self.table_models.values():
+                    model.layoutChanged.emit()
+        except Exception as err:
+            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
 
     @QtCore.pyqtSlot()
     def export_menu_item(self):

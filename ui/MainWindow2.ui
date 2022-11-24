@@ -67,7 +67,7 @@
         <item>
          <widget class="QTabWidget" name="tabWidget">
           <property name="currentIndex">
-           <number>2</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="EntitiesTab">
            <attribute name="title">
@@ -338,6 +338,8 @@
      <addaction name="actionImportAccounts"/>
      <addaction name="actionImportTrialBalance"/>
      <addaction name="actionImportAdjustments"/>
+     <addaction name="separator"/>
+     <addaction name="actionOracle_Trial_Balance"/>
     </widget>
     <widget class="QMenu" name="menuExport">
      <property name="title">
@@ -485,6 +487,11 @@
   <action name="actionRollforward">
    <property name="text">
     <string>Rollforward Year</string>
+   </property>
+  </action>
+  <action name="actionOracle_Trial_Balance">
+   <property name="text">
+    <string>Oracle Trial Balance</string>
    </property>
   </action>
  </widget>
