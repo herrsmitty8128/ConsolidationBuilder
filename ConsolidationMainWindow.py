@@ -231,16 +231,20 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
             table_name = self.menu_actions.get(self.sender().objectName(), None)
             if table_name is None:
                 raise ValueError('Unrecognized button name.')
+            model = self.table_models[table_name]
+            model.append_new_table_row()
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
 
     @QtCore.pyqtSlot()
     def delete_table_row(self):
         try:
-            table_name = self.menu_actions.get(self.sender().objectName(), None)
-            if table_name is None:
-                raise ValueError('Unrecognized button name.')
-            self.table_models[table_name].remove_selected_rows()
+            response = QtWidgets.QMessageBox.question(self, 'Confirm deletion', 'Delete all selected rows?')
+            if response == QtWidgets.QMessageBox.StandardButton.Yes:
+                table_name = self.menu_actions.get(self.sender().objectName(), None)
+                if table_name is None:
+                    raise ValueError('Unrecognized button name.')
+                self.table_models[table_name].remove_selected_rows()
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
 

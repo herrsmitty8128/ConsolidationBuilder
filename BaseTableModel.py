@@ -60,12 +60,16 @@ class BaseTableModel(QtCore.QAbstractTableModel):
         self.document.sort_table(self.table_name, col, order)
         self.layoutChanged.emit()
 
-    def remove_selected_rows(self, row: int, count: int, parent: QtCore.QModelIndex = QtCore.QModelIndex()) -> bool:
-        indexes = self.parent().selectionModel().selectedIndexes()
-        print(indexes)
-        for i in indexes:
-            print(vars(i))
-        for i in sorted(indexes, reverse=True):
-            self.beginRemoveRows(parent, i, 0)
-            self.document.remove_table_row(self.table_name, i)
+    def remove_selected_rows(self) -> bool:
+        indexes = self.parent().selectionModel().selectedRows()
+        for i in sorted(indexes, key=lambda x : x.row(), reverse=True):
+            self.beginRemoveRows(QtCore.QModelIndex(), i.row(), 0)
+            self.document.remove_table_row(self.table_name, i.row())
             self.endRemoveRows()
+    
+    def append_new_table_row(self) -> None:
+        table = self.table_name
+        row = self.document.row_count(table)
+        self.beginInsertRows(QtCore.QModelIndex(), row, row)
+        self.document.append_new_table_row(table)
+        self.endInsertRows()
