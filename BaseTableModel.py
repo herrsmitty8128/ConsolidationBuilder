@@ -59,3 +59,13 @@ class BaseTableModel(QtCore.QAbstractTableModel):
         self.layoutAboutToBeChanged.emit()
         self.document.sort_table(self.table_name, col, order)
         self.layoutChanged.emit()
+
+    def remove_selected_rows(self, row: int, count: int, parent: QtCore.QModelIndex = QtCore.QModelIndex()) -> bool:
+        indexes = self.parent().selectionModel().selectedIndexes()
+        print(indexes)
+        for i in indexes:
+            print(vars(i))
+        for i in sorted(indexes, reverse=True):
+            self.beginRemoveRows(parent, i, 0)
+            self.document.remove_table_row(self.table_name, i)
+            self.endRemoveRows()

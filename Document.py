@@ -139,6 +139,9 @@ class Document:
     def get_table_data(self, table_name: str, row: int, col: int) -> str:
         col = self.tables[table_name][col]
         return str(self.data[table_name][row][col])
+    
+    def remove_table_row(self, table_name: str, row: int) -> None:
+        del self.data[table_name][row]
 
     def set_table_data(self, table_name: str, row: int, col: int, value: any) -> None:
         col = self.tables[table_name][col]

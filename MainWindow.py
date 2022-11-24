@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file './ui/MainWindow.ui'
+# Form implementation generated from reading ui file './ui/MainWindow2.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.6
 #
@@ -17,8 +17,8 @@ class Ui_MainWindow(object):
         MainWindow.resize(1003, 767)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
-        self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
-        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.horizontalLayout_9 = QtWidgets.QHBoxLayout(self.centralwidget)
+        self.horizontalLayout_9.setObjectName("horizontalLayout_9")
         self.splitter = QtWidgets.QSplitter(self.centralwidget)
         self.splitter.setOrientation(QtCore.Qt.Vertical)
         self.splitter.setObjectName("splitter")
@@ -54,37 +54,79 @@ class Ui_MainWindow(object):
         self.EntitiesTab.setObjectName("EntitiesTab")
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.EntitiesTab)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
+        self.verticalLayout_3 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_3.setObjectName("verticalLayout_3")
         self.Entities = QtWidgets.QTableView(self.EntitiesTab)
         self.Entities.setAlternatingRowColors(True)
         self.Entities.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
         self.Entities.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
         self.Entities.setSortingEnabled(True)
         self.Entities.setObjectName("Entities")
-        self.horizontalLayout_2.addWidget(self.Entities)
+        self.verticalLayout_3.addWidget(self.Entities)
+        self.horizontalLayout = QtWidgets.QHBoxLayout()
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.addEntityButton = QtWidgets.QPushButton(self.EntitiesTab)
+        self.addEntityButton.setObjectName("addEntityButton")
+        self.horizontalLayout.addWidget(self.addEntityButton)
+        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem)
+        self.deleteEntityButton = QtWidgets.QPushButton(self.EntitiesTab)
+        self.deleteEntityButton.setObjectName("deleteEntityButton")
+        self.horizontalLayout.addWidget(self.deleteEntityButton)
+        self.verticalLayout_3.addLayout(self.horizontalLayout)
+        self.horizontalLayout_2.addLayout(self.verticalLayout_3)
         self.tabWidget.addTab(self.EntitiesTab, "")
         self.CostCentersTab = QtWidgets.QWidget()
         self.CostCentersTab.setObjectName("CostCentersTab")
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self.CostCentersTab)
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
+        self.verticalLayout_4 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_4.setObjectName("verticalLayout_4")
         self.Cost_Centers = QtWidgets.QTableView(self.CostCentersTab)
         self.Cost_Centers.setAlternatingRowColors(True)
         self.Cost_Centers.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
         self.Cost_Centers.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
         self.Cost_Centers.setSortingEnabled(True)
         self.Cost_Centers.setObjectName("Cost_Centers")
-        self.horizontalLayout_3.addWidget(self.Cost_Centers)
+        self.verticalLayout_4.addWidget(self.Cost_Centers)
+        self.horizontalLayout_7 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_7.setObjectName("horizontalLayout_7")
+        self.addCostCenterButton = QtWidgets.QPushButton(self.CostCentersTab)
+        self.addCostCenterButton.setObjectName("addCostCenterButton")
+        self.horizontalLayout_7.addWidget(self.addCostCenterButton)
+        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_7.addItem(spacerItem1)
+        self.deleteCostCenterButton = QtWidgets.QPushButton(self.CostCentersTab)
+        self.deleteCostCenterButton.setObjectName("deleteCostCenterButton")
+        self.horizontalLayout_7.addWidget(self.deleteCostCenterButton)
+        self.verticalLayout_4.addLayout(self.horizontalLayout_7)
+        self.horizontalLayout_3.addLayout(self.verticalLayout_4)
         self.tabWidget.addTab(self.CostCentersTab, "")
         self.AccountsTab = QtWidgets.QWidget()
         self.AccountsTab.setObjectName("AccountsTab")
         self.horizontalLayout_4 = QtWidgets.QHBoxLayout(self.AccountsTab)
         self.horizontalLayout_4.setObjectName("horizontalLayout_4")
+        self.verticalLayout_5 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_5.setObjectName("verticalLayout_5")
         self.Accounts = QtWidgets.QTableView(self.AccountsTab)
         self.Accounts.setAlternatingRowColors(True)
         self.Accounts.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
         self.Accounts.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
         self.Accounts.setSortingEnabled(True)
         self.Accounts.setObjectName("Accounts")
-        self.horizontalLayout_4.addWidget(self.Accounts)
+        self.verticalLayout_5.addWidget(self.Accounts)
+        self.horizontalLayout_8 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_8.setObjectName("horizontalLayout_8")
+        self.addAccountButton = QtWidgets.QPushButton(self.AccountsTab)
+        self.addAccountButton.setObjectName("addAccountButton")
+        self.horizontalLayout_8.addWidget(self.addAccountButton)
+        spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_8.addItem(spacerItem2)
+        self.deleteAccountButton = QtWidgets.QPushButton(self.AccountsTab)
+        self.deleteAccountButton.setObjectName("deleteAccountButton")
+        self.horizontalLayout_8.addWidget(self.deleteAccountButton)
+        self.verticalLayout_5.addLayout(self.horizontalLayout_8)
+        self.horizontalLayout_4.addLayout(self.verticalLayout_5)
         self.tabWidget.addTab(self.AccountsTab, "")
         self.TrialBalanceTab = QtWidgets.QWidget()
         self.TrialBalanceTab.setObjectName("TrialBalanceTab")
@@ -116,7 +158,7 @@ class Ui_MainWindow(object):
         self.verticalLayout.addWidget(self.tabWidget)
         self.errorTextEdit = QtWidgets.QTextEdit(self.splitter)
         self.errorTextEdit.setObjectName("errorTextEdit")
-        self.horizontalLayout.addWidget(self.splitter)
+        self.horizontalLayout_9.addWidget(self.splitter)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1003, 22))
@@ -202,7 +244,7 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuConsolidation.menuAction())
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(4)
+        self.tabWidget.setCurrentIndex(0)
         self.actionNew.triggered.connect(MainWindow.new_menu_item)  # type: ignore
         self.actionOpen.triggered.connect(MainWindow.open_menu_item)  # type: ignore
         self.actionClose.triggered.connect(MainWindow.close_menu_item)  # type: ignore
@@ -225,6 +267,12 @@ class Ui_MainWindow(object):
         self.entityName.textEdited['QString'].connect(MainWindow.set_entity_name)  # type: ignore
         self.beginningBalanceDate.dateChanged['QDate'].connect(MainWindow.set_beginning_date)  # type: ignore
         self.endingBalanceDate.dateChanged['QDate'].connect(MainWindow.set_ending_date)  # type: ignore
+        self.addEntityButton.clicked.connect(MainWindow.insert_table_row)  # type: ignore
+        self.deleteEntityButton.clicked.connect(MainWindow.delete_table_row)  # type: ignore
+        self.addCostCenterButton.clicked.connect(MainWindow.insert_table_row)  # type: ignore
+        self.deleteCostCenterButton.clicked.connect(MainWindow.delete_table_row)  # type: ignore
+        self.addAccountButton.clicked.connect(MainWindow.insert_table_row)  # type: ignore
+        self.deleteAccountButton.clicked.connect(MainWindow.delete_table_row)  # type: ignore
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -235,8 +283,14 @@ class Ui_MainWindow(object):
         self.beginningBalanceDate.setDisplayFormat(_translate("MainWindow", "M/d/yyyy"))
         self.label_3.setText(_translate("MainWindow", "Ending Balance Date:"))
         self.endingBalanceDate.setDisplayFormat(_translate("MainWindow", "M/d/yyyy"))
+        self.addEntityButton.setText(_translate("MainWindow", "Add Entity"))
+        self.deleteEntityButton.setText(_translate("MainWindow", "Delete Entity(s)"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.EntitiesTab), _translate("MainWindow", "Entities"))
+        self.addCostCenterButton.setText(_translate("MainWindow", "Add Cost Center"))
+        self.deleteCostCenterButton.setText(_translate("MainWindow", "Delete Cost Center(s)"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.CostCentersTab), _translate("MainWindow", "Cost Centers"))
+        self.addAccountButton.setText(_translate("MainWindow", "Add Account"))
+        self.deleteAccountButton.setText(_translate("MainWindow", "Delete Account(s)"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.AccountsTab), _translate("MainWindow", "Accounts"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.TrialBalanceTab), _translate("MainWindow", "Trial Balance"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.AdjustmentsTab), _translate("MainWindow", "Adjustments"))

@@ -27,7 +27,13 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
             'actionExportCostCenters': 'Cost_Centers',
             'actionExportAccounts': 'Accounts',
             'actionExportTrialBalance': 'Trial_Balance',
-            'actionExportAdjustments': 'Adjustments'
+            'actionExportAdjustments': 'Adjustments',
+            'insertEntityButton': 'Entities',
+            'deleteEntityButton': 'Entities',
+            'insertCostCenterButton': 'Cost_Centers',
+            'deleteCostCenterButton': 'Cost_Centers',
+            'insertAccountButton': 'Accounts',
+            'deleteAccountButton': 'Accounts',
         }
 
         self.table_models = {
@@ -218,6 +224,25 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
     ####################################################################################
     # Other Slots
     ####################################################################################
+
+    @QtCore.pyqtSlot()
+    def insert_table_row(self):
+        try:
+            table_name = self.menu_actions.get(self.sender().objectName(), None)
+            if table_name is None:
+                raise ValueError('Unrecognized button name.')
+        except Exception as err:
+            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
+
+    @QtCore.pyqtSlot()
+    def delete_table_row(self):
+        try:
+            table_name = self.menu_actions.get(self.sender().objectName(), None)
+            if table_name is None:
+                raise ValueError('Unrecognized button name.')
+            self.table_models[table_name].remove_selected_rows()
+        except Exception as err:
+            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
 
     @QtCore.pyqtSlot(str)
     def set_entity_name(self, new_name: str):
