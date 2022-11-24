@@ -286,9 +286,9 @@ class Document:
             if replace:
                 self.data['Trial_Balance'].clear()
 
-            entities = {e['Number']: e for e in self.data['Entities']}
-            costctrs = {c['Number']: c for c in self.data['Cost_Centers']}
-            accounts = {a['Number']: a for a in self.data['Accounts']}
+            entities = set(e['Number'] for e in self.data['Entities'])
+            costctrs = set(c['Number'] for c in self.data['Cost_Centers'])
+            accounts = set(a['Number'] for a in self.data['Accounts'])
 
             for row in reader:
                 r = {
@@ -310,12 +310,15 @@ class Document:
                         'Name': row['PAGEBREAK_SEGMENT_DESC'].strip(),
                         'Group': ''
                     })
+                    entities.add(r['Entity'])
+
 
                 if r['Cost Center'] not in costctrs:
                     self.data['Cost_Centers'].append({
                         'Number': r['Cost Center'],
                         'Name': row['ADDITIONAL_SEGMENT_DESC'].strip()
                     })
+                    costctrs.add(r['Cost Center'])
 
                 if r['Account'] not in accounts:
                     self.data['Accounts'].append({
@@ -326,6 +329,8 @@ class Document:
                         'Level 3': '',
                         'Level 4': ''
                     })
+                    accounts.add(r['Account'])
+
 
     def export_table(self, table_name: str, file: str):
         headers = self.tables.get(table_name, None)
