@@ -252,6 +252,17 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
             model.append_new_table_row()
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
+    
+    @QtCore.pyqtSlot()
+    def rounding_diff_menu_item(self):
+        try:
+            msg = 'Are you sure you want to plug the rounding difference and post it to the trial balance?'
+            response = QtWidgets.QMessageBox.question(self, 'Plug rounding difference?', msg)
+            if response == QtWidgets.QMessageBox.StandardButton.Yes:
+                self.document.plug_rounding_diff()
+                self.table_models['Trial_Balance'].layoutChanged.emit()
+        except Exception as err:
+            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
 
     @QtCore.pyqtSlot()
     def delete_table_row(self):

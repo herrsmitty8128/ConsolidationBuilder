@@ -339,6 +339,58 @@ class Document:
             SpreadsheetTools.replace_table_in_existing_wb(filename, headers, table, 'CONSOLIDATION_DATA')
         else:
             SpreadsheetTools.new_wb_with_table(filename, headers, table, 'CONSOLIDATION_DATA', 'Consolidation Data')
+    
+    def plug_rounding_diff(self):
+        costctrs = set(c['Number'] for c in self.data['Cost_Centers'])
+        accounts = set(a['Number'] for a in self.data['Accounts'])
+        if 'ROUNDING' not in costctrs:
+            self.data['Cost_Centers'].append({
+                'Number': 'ROUNDING',
+                'Name': 'Plug rounding errror'
+            })
+        if 'ROUNDING' not in accounts:
+            self.data['Cost_Centers'].append({
+                'Number': 'ROUNDING',
+                'Name': 'Plug rounding errror',
+                'Level 1': '',
+                'Level 2': '',
+                'Level 3': '',
+                'Level 4': ''
+            })
+        bb_counter = Counter()
+        dr_counter = Counter()
+        cr_counter = Counter()
+        eb_counter = Counter()
+        for row in self.data['Trial_Balance']:
+            entity = row['Entity']
+            bb_counter[entity] += row['Beginning Balance']
+            dr_counter[entity] += row['Debits']
+            cr_counter[entity] += row['Credits']
+            eb_counter[entity] += row['Ending Balance']
+        for entity in bb_counter.keys():
+            x = False
+            r = {
+                'Entity': entity,
+                'Cost Center': 'ROUNDING',
+                'Account': 'ROUNDING',
+                'Beginning Balance': 0,
+                'Debits': 0,
+                'Credits': 0,
+                'Ending Balance': 0
+            }
+            if bb_counter[entity] != 0:
+                x = True
+                r['Beginning Balance'] = -bb_counter[entity]
+            diff = dr_counter[entity] + cr_counter[entity]
+            if diff > 0:
+                x = True
+                r['Credits'] = -diff
+            if diff < 0:
+                x = True
+                r['Debits'] = -diff
+            if x:
+                r['Ending Balance'] = r['Beginning Balance'] + r['Debits'] + r['Credits']
+                self.data['Trial_Balance'].append(r)
 
     def close_year(self):
         adjustments = self.data['Adjustments']
