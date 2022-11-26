@@ -252,7 +252,7 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
             model.append_new_table_row()
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
-    
+
     @QtCore.pyqtSlot()
     def rounding_diff_menu_item(self):
         try:

@@ -339,7 +339,7 @@ class Document:
             SpreadsheetTools.replace_table_in_existing_wb(filename, headers, table, 'CONSOLIDATION_DATA')
         else:
             SpreadsheetTools.new_wb_with_table(filename, headers, table, 'CONSOLIDATION_DATA', 'Consolidation Data')
-    
+
     def plug_rounding_diff(self):
         costctrs = set(c['Number'] for c in self.data['Cost_Centers'])
         accounts = set(a['Number'] for a in self.data['Accounts'])
