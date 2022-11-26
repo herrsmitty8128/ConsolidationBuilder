@@ -226,7 +226,8 @@ class Document:
                         pass  # do nothing
                     else:
                         r[header] = row[header].strip()
-                row['Ending Balance'] = row['Beginning Balance'] + row['Debits'] + row['Credits']
+                if table_name == 'Trial_Balance' or table_name == 'Adjustments':
+                    row['Ending Balance'] = row['Beginning Balance'] + row['Debits'] + row['Credits']
                 self.data[table_name].append(r)
 
     def import_oracle_tb(self, file: str, replace: bool) -> None:
@@ -246,6 +247,7 @@ class Document:
             accounts = set(a['Number'] for a in self.data['Accounts'])
 
             for row in reader:
+
                 r = {
                     'Entity': row['PAGEBREAK_SEGMENT_VALUE'].strip(),
                     'Cost Center': row['ADDITIONAL_SEGMENT_VALUE'].strip(),
