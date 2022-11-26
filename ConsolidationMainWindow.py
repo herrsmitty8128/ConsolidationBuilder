@@ -261,6 +261,8 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
             if response == QtWidgets.QMessageBox.StandardButton.Yes:
                 self.document.plug_rounding_diff()
                 self.table_models['Trial_Balance'].layoutChanged.emit()
+                self.table_models['Cost_Centers'].layoutChanged.emit()
+                self.table_models['Accounts'].layoutChanged.emit()
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
 
