@@ -413,11 +413,12 @@ class Document:
                 eb_counter[entity] += row['Ending Balance']
             for entity in bb_counter.keys():
                 if bb_counter[entity] != 0:
-                    error_log.append(f'Sum of beginning balance for entity {entity} does not equal zero.')
+                    error_log.append(f'Sum of beginning balance for entity {entity} does not equal zero. The difference is {bb_counter[entity]}')
                 if eb_counter[entity] != 0:
-                    error_log.append(f'Sum of ending balance for entity {entity} does not equal zero.')
-                if dr_counter[entity] != cr_counter[entity]:
-                    error_log.append(f'Debits do not equal credits for entity {entity}.')
+                    error_log.append(f'Sum of ending balance for entity {entity} does not equal zero. The difference is {eb_counter[entity]}')
+                diff = dr_counter[entity] + cr_counter[entity]
+                if diff != 0:
+                    error_log.append(f'Debits do not equal credits for entity {entity}. The difference is {diff}')
 
         if len(self.data['Entity Name']) < 1:
             error_log.append('Entity name is missing.')
