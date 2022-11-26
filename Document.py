@@ -341,15 +341,13 @@ class Document:
             SpreadsheetTools.new_wb_with_table(filename, headers, table, 'CONSOLIDATION_DATA', 'Consolidation Data')
 
     def plug_rounding_diff(self):
-        costctrs = set(c['Number'] for c in self.data['Cost_Centers'])
-        accounts = set(a['Number'] for a in self.data['Accounts'])
-        if 'ROUNDING' not in costctrs:
+        if 'ROUNDING' not in set(c['Number'] for c in self.data['Cost_Centers']):
             self.data['Cost_Centers'].append({
                 'Number': 'ROUNDING',
                 'Name': 'Plug rounding errror'
             })
-        if 'ROUNDING' not in accounts:
-            self.data['Cost_Centers'].append({
+        if 'ROUNDING' not in set(a['Number'] for a in self.data['Accounts']):
+            self.data['Accounts'].append({
                 'Number': 'ROUNDING',
                 'Name': 'Plug rounding errror',
                 'Level 1': '',
