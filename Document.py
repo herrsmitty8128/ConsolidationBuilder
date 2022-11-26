@@ -199,7 +199,7 @@ class Document:
     # Methods for importing and exporting tables
     ####################################################################################
 
-    def import_table(self, table_name: str, file: str, replace: bool):
+    def import_table(self, table_name: str, file: str, replace: bool) -> None:
 
         with open(file, 'r', newline='') as f:
 
@@ -214,7 +214,7 @@ class Document:
                 self.data[table_name].clear()
 
             for row in reader:
-                r = {}
+                r = dict()
                 for header in headers:
                     if header == 'Beginning Balance':
                         r[header] = int(row[header].strip())
@@ -227,7 +227,7 @@ class Document:
                     else:
                         r[header] = row[header].strip()
                 if table_name == 'Trial_Balance' or table_name == 'Adjustments':
-                    row['Ending Balance'] = row['Beginning Balance'] + row['Debits'] + row['Credits']
+                    r['Ending Balance'] = r['Beginning Balance'] + r['Debits'] + r['Credits']
                 self.data[table_name].append(r)
 
     def import_oracle_tb(self, file: str, replace: bool) -> None:
@@ -287,7 +287,7 @@ class Document:
                     })
                     accounts.add(r['Account'])
 
-    def export_table(self, table_name: str, file: str):
+    def export_table(self, table_name: str, file: str) -> None:
         headers = self.tables.get(table_name, None)
         if headers is None:
             raise ValueError('CSV file does not have the correct field names.')
