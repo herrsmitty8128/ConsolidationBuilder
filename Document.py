@@ -113,7 +113,7 @@ class Document:
     def column_header(self, table_name: str, col: int) -> str:
         return self.tables[table_name][col]
 
-    def is_editable(self, table_name: str, row: int, col: int) -> bool:
+    def is_editable(self, table_name: str, col: int) -> bool:
         if table_name == 'Trial_Balance':
             return False
         if table_name == 'Adjustments':
@@ -121,10 +121,10 @@ class Document:
             return True if header != 'Beginning Balance' and header != 'Ending Balance' else False
         return True
 
-    def is_enabled(self, table_name: str, row: int, col: int) -> bool:
+    def is_enabled(self, table_name: str, col: int) -> bool:
         return True
 
-    def is_selectable(self, table_name: str, row: int, col: int) -> bool:
+    def is_selectable(self, table_name: str, col: int) -> bool:
         return True
 
     def get_alignment(self, table_name: str, col: int) -> int:
@@ -216,8 +216,14 @@ class Document:
             for row in reader:
                 r = {}
                 for header in headers:
-                    if header == 'Beginning Balance' or header == 'Debits' or header == 'Credits':
+                    if header == 'Beginning Balance':
                         r[header] = int(row[header].strip())
+                    elif header == 'Debits':
+                        r[header] = abs(int(row[header].strip()))
+                    elif header == 'Credits':
+                        r[header] = -abs(int(row[header].strip()))
+                    elif header == 'Ending Balance':
+                        pass  # do nothing
                     else:
                         r[header] = row[header].strip()
                 row['Ending Balance'] = row['Beginning Balance'] + row['Debits'] + row['Credits']
@@ -245,8 +251,8 @@ class Document:
                     'Cost Center': row['ADDITIONAL_SEGMENT_VALUE'].strip(),
                     'Account': row['NAS_VALUE'].strip(),
                     'Beginning Balance': int(round(float(row['BEGIN_BALANCE'].strip()), 0)),
-                    'Debits': int(round(float(row['TOTAL_DR'].strip()), 0)),
-                    'Credits': int(round(-float(row['TOTAL_CR'].strip()), 0))
+                    'Debits': abs(int(round(float(row['TOTAL_DR'].strip()), 0))),
+                    'Credits': -abs(int(round(float(row['TOTAL_CR'].strip()), 0)))
                 }
 
                 r['Ending Balance'] = r['Beginning Balance'] + r['Debits'] + r['Credits']
@@ -260,7 +266,6 @@ class Document:
                         'Group': ''
                     })
                     entities.add(r['Entity'])
-
 
                 if r['Cost Center'] not in costctrs:
                     self.data['Cost_Centers'].append({
@@ -279,7 +284,6 @@ class Document:
                         'Level 4': ''
                     })
                     accounts.add(r['Account'])
-
 
     def export_table(self, table_name: str, file: str):
         headers = self.tables.get(table_name, None)
@@ -335,7 +339,11 @@ class Document:
             SpreadsheetTools.new_wb_with_table(filename, headers, table, 'CONSOLIDATION_DATA', 'Consolidation Data')
 
     def close_year(self):
-        pass
+        adjustments = self.data['Adjustments']
+        for adj in adjustments:
+            adj['Beginning Balance'] = adj['Ending Balance']
+            adj['Debits'] = 0
+            adj['Credits'] = 0
 
     def audit_data(self) -> list:
         '''
@@ -351,13 +359,14 @@ class Document:
                 counter[num] += 1
                 for k, v in row.items():
                     if len(v) < 1:
-                        error_log.append(f'{k} without a value was detected on the {table_name}.')
+                        error_log.append(f'{k} without a value was detected on the {table_name} tab.')
             for num, cnt in counter.items():
                 if cnt > 1:
-                    error_log.append(f'Number {num} appears more than once on the {table_name} list.')
+                    error_log.append(f'Number {num} appears more than once on the {table_name} tab.')
 
         def audit_balances(table_name: str):
             table = self.data[table_name]
+            '''
             for row in table:
                 diff = round(row['Ending Balance'], 2) - round(row['Beginning Balance'] + row['Debits'] + row['Credits'], 2)
                 if abs(diff) > 1.0:
@@ -367,26 +376,46 @@ class Document:
                     diff = round(row['Ending Balance'], 2) - round(row['Beginning Balance'] + row['Debits'] + row['Credits'], 2)
                     if diff != 0.00:
                         error_log.append(f'Balance does not roll-forward for {row["Entity"]}-{row["Cost Center"]}-{row["Account"]} on the {table_name} list. The difference is {diff}.')
-
-            ent_nums = set(x['Number'] for x in self.data['Entities'])
+            '''
+            # all entities numbers in the table must appear on the entities tab
+            entities = set(e['Number'] for e in self.data['Entities'])
             bal_ent_nums = set(x['Entity'] for x in table)
-            diff = bal_ent_nums.difference(ent_nums)
+            diff = bal_ent_nums.difference(entities)
             if len(diff) > 0:
                 error_log.append(f'Entities on the trial balance, but not on the entity tab: {diff}.')
 
-            cc_nums = set(x['Number'] for x in self.data['Cost_Centers'])
+            # all cost center numbers on the table must appear on the cost centers tab
+            costctrs = set(c['Number'] for c in self.data['Cost_Centers'])
             bal_cc_nums = set(x['Cost Center'] for x in table)
-            diff = bal_cc_nums.difference(cc_nums)
+            diff = bal_cc_nums.difference(costctrs)
             if len(diff) > 0:
                 error_log.append(f'Cost centers on the trial balance, but not on the cost center tab: {diff}.')
 
-            acct_nums = set(x['Number'] for x in self.data['Accounts'])
+            # all accounts on the table must appear on the accounts tab
+            accounts = set(a['Number'] for a in self.data['Accounts'])
             bal_acct_nums = set(x['Account'] for x in table)
-            diff = bal_acct_nums.difference(acct_nums)
+            diff = bal_acct_nums.difference(accounts)
             if len(diff) > 0:
                 error_log.append(f'Accounts on the trial balance, but not on the accounts tab: {diff}.')
 
-            # need to verify that debits == credits by company
+            # debits must equal credits for each entity number
+            bb_counter = Counter()
+            dr_counter = Counter()
+            cr_counter = Counter()
+            eb_counter = Counter()
+            for row in table:
+                entity = row['Entity']
+                bb_counter[entity] += row['Beginning Balance']
+                dr_counter[entity] += row['Debits']
+                cr_counter[entity] += row['Credits']
+                eb_counter[entity] += row['Ending Balance']
+            for entity in bb_counter.keys():
+                if bb_counter[entity] != 0:
+                    error_log.append(f'Sum of beginning balance for entity {entity} does not equal zero.')
+                if eb_counter[entity] != 0:
+                    error_log.append(f'Sum of ending balance for entity {entity} does not equal zero.')
+                if dr_counter[entity] != cr_counter[entity]:
+                    error_log.append(f'Debits do not equal credits for entity {entity}.')
 
         if len(self.data['Entity Name']) < 1:
             error_log.append('Entity name is missing.')

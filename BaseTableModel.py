@@ -47,12 +47,12 @@ class BaseTableModel(QtCore.QAbstractTableModel):
         return False
 
     def flags(self, index: QtCore.QModelIndex) -> QtCore.Qt.ItemFlags:
-        val = 0
-        if self.document.is_editable(self.table_name, index.row(), index.column()):
+        val = QtCore.Qt.NoItemFlags
+        if self.document.is_editable(self.table_name, index.column()):
             val = val | QtCore.Qt.ItemIsEditable
-        if self.document.is_enabled(self.table_name, index.row(), index.column()):
+        if self.document.is_enabled(self.table_name, index.column()):
             val = val | QtCore.Qt.ItemIsEnabled
-        if self.document.is_selectable(self.table_name, index.row(), index.column()):
+        if self.document.is_selectable(self.table_name, index.column()):
             val = val | QtCore.Qt.ItemIsSelectable
         return val
 

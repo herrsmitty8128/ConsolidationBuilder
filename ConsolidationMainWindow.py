@@ -212,7 +212,11 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
     @QtCore.pyqtSlot()
     def rollforward_menu_item(self):
         try:
-            self.document.close_year()
+            msg = 'Closing the year will perminently foll-forward the balance on the adjustments tab. This procedure can not be undone. Are you sure you want to proceed?'
+            response = QtWidgets.QMessageBox.question(self, 'Close the year?', msg)
+            if response == QtWidgets.QMessageBox.StandardButton.Yes:
+                self.document.close_year()
+                self.table_models['Adjustments'].layoutChanged.emit()
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
 
