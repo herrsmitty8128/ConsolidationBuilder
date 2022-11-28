@@ -271,38 +271,38 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         self.tabWidget.setCurrentIndex(0)
-        self.actionNew.triggered.connect(MainWindow.new_menu_item) # type: ignore
-        self.actionOpen.triggered.connect(MainWindow.open_menu_item) # type: ignore
-        self.actionClose.triggered.connect(MainWindow.close_menu_item) # type: ignore
-        self.actionSave.triggered.connect(MainWindow.save_menu_item) # type: ignore
-        self.actionSaveAs.triggered.connect(MainWindow.save_as_menu_item) # type: ignore
-        self.actionQuit.triggered.connect(MainWindow.quit_menu_item) # type: ignore
-        self.actionBuild.triggered.connect(MainWindow.build_menu_item) # type: ignore
-        self.actionImportEntities.triggered.connect(MainWindow.import_menu_item) # type: ignore
-        self.actionImportCostCenters.triggered.connect(MainWindow.import_menu_item) # type: ignore
-        self.actionImportAccounts.triggered.connect(MainWindow.import_menu_item) # type: ignore
-        self.actionImportTrialBalance.triggered.connect(MainWindow.import_menu_item) # type: ignore
-        self.actionImportAdjustments.triggered.connect(MainWindow.import_menu_item) # type: ignore
-        self.actionExportEntities.triggered.connect(MainWindow.export_menu_item) # type: ignore
-        self.actionExportCostCenters.triggered.connect(MainWindow.export_menu_item) # type: ignore
-        self.actionExportAccounts.triggered.connect(MainWindow.export_menu_item) # type: ignore
-        self.actionExportTrialBalance.triggered.connect(MainWindow.export_menu_item) # type: ignore
-        self.actionExportAdjustments.triggered.connect(MainWindow.export_menu_item) # type: ignore
-        self.actionRollforward.triggered.connect(MainWindow.rollforward_menu_item) # type: ignore
-        self.actionAudit.triggered.connect(MainWindow.audit_menu_item) # type: ignore
-        self.entityName.textEdited['QString'].connect(MainWindow.set_entity_name) # type: ignore
-        self.beginningBalanceDate.dateChanged['QDate'].connect(MainWindow.set_beginning_date) # type: ignore
-        self.endingBalanceDate.dateChanged['QDate'].connect(MainWindow.set_ending_date) # type: ignore
-        self.addEntityButton.clicked.connect(MainWindow.insert_table_row) # type: ignore
-        self.deleteEntityButton.clicked.connect(MainWindow.delete_table_row) # type: ignore
-        self.addCostCenterButton.clicked.connect(MainWindow.insert_table_row) # type: ignore
-        self.deleteCostCenterButton.clicked.connect(MainWindow.delete_table_row) # type: ignore
-        self.addAccountButton.clicked.connect(MainWindow.insert_table_row) # type: ignore
-        self.deleteAccountButton.clicked.connect(MainWindow.delete_table_row) # type: ignore
-        self.actionOracleTrialBalance.triggered.connect(MainWindow.import_oracle_tb) # type: ignore
-        self.actionPlug_Rounding_Difference.triggered.connect(MainWindow.rounding_diff_menu_item) # type: ignore
-        self.clearConsoleButton.clicked.connect(MainWindow.clear_console) # type: ignore
-        self.copyConsoleButton.clicked.connect(MainWindow.copy_console) # type: ignore
+        self.actionNew.triggered.connect(MainWindow.new_menu_item)  # type: ignore
+        self.actionOpen.triggered.connect(MainWindow.open_menu_item)  # type: ignore
+        self.actionClose.triggered.connect(MainWindow.close_menu_item)  # type: ignore
+        self.actionSave.triggered.connect(MainWindow.save_menu_item)  # type: ignore
+        self.actionSaveAs.triggered.connect(MainWindow.save_as_menu_item)  # type: ignore
+        self.actionQuit.triggered.connect(MainWindow.quit_menu_item)  # type: ignore
+        self.actionBuild.triggered.connect(MainWindow.build_menu_item)  # type: ignore
+        self.actionImportEntities.triggered.connect(MainWindow.import_menu_item)  # type: ignore
+        self.actionImportCostCenters.triggered.connect(MainWindow.import_menu_item)  # type: ignore
+        self.actionImportAccounts.triggered.connect(MainWindow.import_menu_item)  # type: ignore
+        self.actionImportTrialBalance.triggered.connect(MainWindow.import_menu_item)  # type: ignore
+        self.actionImportAdjustments.triggered.connect(MainWindow.import_menu_item)  # type: ignore
+        self.actionExportEntities.triggered.connect(MainWindow.export_menu_item)  # type: ignore
+        self.actionExportCostCenters.triggered.connect(MainWindow.export_menu_item)  # type: ignore
+        self.actionExportAccounts.triggered.connect(MainWindow.export_menu_item)  # type: ignore
+        self.actionExportTrialBalance.triggered.connect(MainWindow.export_menu_item)  # type: ignore
+        self.actionExportAdjustments.triggered.connect(MainWindow.export_menu_item)  # type: ignore
+        self.actionRollforward.triggered.connect(MainWindow.rollforward_menu_item)  # type: ignore
+        self.actionAudit.triggered.connect(MainWindow.audit_menu_item)  # type: ignore
+        self.entityName.textEdited['QString'].connect(MainWindow.set_entity_name)  # type: ignore
+        self.beginningBalanceDate.dateChanged['QDate'].connect(MainWindow.set_beginning_date)  # type: ignore
+        self.endingBalanceDate.dateChanged['QDate'].connect(MainWindow.set_ending_date)  # type: ignore
+        self.addEntityButton.clicked.connect(MainWindow.insert_table_row)  # type: ignore
+        self.deleteEntityButton.clicked.connect(MainWindow.delete_table_row)  # type: ignore
+        self.addCostCenterButton.clicked.connect(MainWindow.insert_table_row)  # type: ignore
+        self.deleteCostCenterButton.clicked.connect(MainWindow.delete_table_row)  # type: ignore
+        self.addAccountButton.clicked.connect(MainWindow.insert_table_row)  # type: ignore
+        self.deleteAccountButton.clicked.connect(MainWindow.delete_table_row)  # type: ignore
+        self.actionOracleTrialBalance.triggered.connect(MainWindow.import_oracle_tb)  # type: ignore
+        self.actionPlug_Rounding_Difference.triggered.connect(MainWindow.rounding_diff_menu_item)  # type: ignore
+        self.clearConsoleButton.clicked.connect(MainWindow.clear_console)  # type: ignore
+        self.copyConsoleButton.clicked.connect(MainWindow.copy_console)  # type: ignore
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -347,7 +347,9 @@ class Ui_MainWindow(object):
         self.actionQuit.setText(_translate("MainWindow", "Quit"))
         self.actionQuit.setShortcut(_translate("MainWindow", "Ctrl+Q"))
         self.actionBuild.setText(_translate("MainWindow", "Build Consolidation Table"))
+        self.actionBuild.setShortcut(_translate("MainWindow", "Ctrl+B"))
         self.actionAudit.setText(_translate("MainWindow", "Audit Data"))
+        self.actionAudit.setShortcut(_translate("MainWindow", "Ctrl+A"))
         self.actionImportEntities.setText(_translate("MainWindow", "Entities"))
         self.actionImportCostCenters.setText(_translate("MainWindow", "Cost Centers"))
         self.actionImportAccounts.setText(_translate("MainWindow", "Accounts"))
@@ -359,5 +361,7 @@ class Ui_MainWindow(object):
         self.actionExportTrialBalance.setText(_translate("MainWindow", "Trial Balance"))
         self.actionExportAdjustments.setText(_translate("MainWindow", "Adjustments"))
         self.actionRollforward.setText(_translate("MainWindow", "Rollforward Year-end"))
+        self.actionRollforward.setShortcut(_translate("MainWindow", "Ctrl+R"))
         self.actionOracleTrialBalance.setText(_translate("MainWindow", "Oracle Trial Balance"))
         self.actionPlug_Rounding_Difference.setText(_translate("MainWindow", "Plug Rounding Difference"))
+        self.actionPlug_Rounding_Difference.setShortcut(_translate("MainWindow", "Ctrl+P"))

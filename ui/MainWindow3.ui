@@ -479,10 +479,16 @@
    <property name="text">
     <string>Build Consolidation Table</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+B</string>
+   </property>
   </action>
   <action name="actionAudit">
    <property name="text">
     <string>Audit Data</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+A</string>
    </property>
   </action>
   <action name="actionImportEntities">
@@ -539,6 +545,9 @@
    <property name="text">
     <string>Rollforward Year-end</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+R</string>
+   </property>
   </action>
   <action name="actionOracleTrialBalance">
    <property name="text">
@@ -548,6 +557,9 @@
   <action name="actionPlug_Rounding_Difference">
    <property name="text">
     <string>Plug Rounding Difference</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+P</string>
    </property>
   </action>
  </widget>
