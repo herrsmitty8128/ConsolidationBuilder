@@ -85,6 +85,7 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
     @QtCore.pyqtSlot()
     def open_menu_item(self):
         try:
+            self.statusBar().showMessage('Opening file... please be patient... this could take several minutes...')
             if self.document.changed():
                 answer = QtWidgets.QMessageBox.question(self, 'Save File', 'Save current file before proceeding?')
                 if answer == QtWidgets.QMessageBox.StandardButton.Yes:
@@ -98,10 +99,13 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
                     model.layoutChanged.emit()
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
+        finally:
+            self.statusBar().showMessage('Done opening file.')
 
     @QtCore.pyqtSlot()
     def save_menu_item(self):
         try:
+            self.statusBar().showMessage('Saving current file... please be patient... this could take several minutes...')
             if not self.document_filename:
                 file, _ = QtWidgets.QFileDialog.getSaveFileName(self, 'Select a filename to save', filter='JSON Files (*.json)')
                 if file:
@@ -113,6 +117,8 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
             self.document.dump(self.document_filename)
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
+        finally:
+            self.statusBar().showMessage('Done saving current file.')
 
     @QtCore.pyqtSlot()
     def save_as_menu_item(self):
