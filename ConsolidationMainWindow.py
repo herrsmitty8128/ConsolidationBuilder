@@ -13,7 +13,7 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
 
         self.setupUi(self)
         self.application = application
-        self.errors = self.findChild(QtWidgets.QTextEdit, 'errorTextEdit')
+        self.console = self.findChild(QtWidgets.QTextEdit, 'consoleTextEdit')
         self.document_filename = None
         self.document = Document()
 
@@ -225,16 +225,16 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
         try:
             error_log = self.document.audit_data()
             if len(error_log) > 0:
-                self.errors.setTextColor(QtGui.QColor('red'))
+                self.console.setTextColor(QtGui.QColor('red'))
                 for err in error_log:
-                    self.errors.append(err)
-                self.errors.append(f'{len(error_log)} were detected. You must resolve these errors before you can proceed with the consolidation process.')
-                self.errors.setTextColor(QtGui.QColor('black'))
+                    self.console.append(err)
+                self.console.append(f'{len(error_log)} were detected. You must resolve these errors before you can proceed with the consolidation process.')
+                self.console.setTextColor(QtGui.QColor('black'))
                 raise ValueError(f'The audit process identified {len(error_log)} errors. Please check the error log below.')
             else:
-                self.errors.setTextColor(QtGui.QColor('green'))
-                self.errors.append('Audit completed successfully. No errors were found.')
-                self.errors.setTextColor(QtGui.QColor('black'))
+                self.console.setTextColor(QtGui.QColor('green'))
+                self.console.append('Audit completed successfully. No errors were found.')
+                self.console.setTextColor(QtGui.QColor('black'))
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
 
@@ -296,5 +296,22 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
     def set_ending_date(self, new_date: QtCore.QDate):
         try:
             self.document.set_ending_date(new_date.toString('M/d/yyyy'))
+        except Exception as err:
+            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
+
+    @QtCore.pyqtSlot()
+    def copy_console(self):
+        try:
+            clipboard = self.application.clipboard()
+            clipboard.clear()
+            text = self.console.text()
+            clipboard.setText(text)
+        except Exception as err:
+            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
+
+    @QtCore.pyqtSlot()
+    def clear_console(self):
+        try:
+            self.console.setText('')
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))

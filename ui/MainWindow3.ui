@@ -14,7 +14,7 @@
    <string>Consolidation Station</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QHBoxLayout" name="horizontalLayout_9">
+   <layout class="QVBoxLayout" name="verticalLayout_7">
     <item>
      <widget class="QSplitter" name="splitter">
       <property name="orientation">
@@ -297,7 +297,57 @@
         </item>
        </layout>
       </widget>
-      <widget class="QTextEdit" name="errorTextEdit"/>
+      <widget class="QWidget" name="verticalLayoutWidget_2">
+       <layout class="QVBoxLayout" name="verticalLayout_6">
+        <item>
+         <widget class="QTextEdit" name="consoleTextEdit"/>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_9">
+          <item>
+           <spacer name="horizontalSpacer_4">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="clearConsoleButton">
+            <property name="text">
+             <string>Clear</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="copyConsoleButton">
+            <property name="text">
+             <string>Copy</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_5">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </item>
    </layout>
@@ -983,6 +1033,38 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>clearConsoleButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>clear_console()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>458</x>
+     <y>721</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>501</x>
+     <y>383</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>copyConsoleButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>copy_console()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>544</x>
+     <y>721</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>501</x>
+     <y>383</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>new_menu_item()</slot>
@@ -1003,5 +1085,7 @@
   <slot>delete_table_row()</slot>
   <slot>import_oracle_tb()</slot>
   <slot>rounding_diff_menu_item()</slot>
+  <slot>clear_console()</slot>
+  <slot>copy_console()</slot>
  </slots>
 </ui>
