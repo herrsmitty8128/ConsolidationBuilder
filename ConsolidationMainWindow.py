@@ -14,6 +14,7 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
         self.setupUi(self)
         self.application = application
         self.console = self.findChild(QtWidgets.QTextEdit, 'consoleTextEdit')
+        #self.status = self.findChild(QtWidgets.QStatusBar, 'statusBar')
         self.document_filename = None
         self.document = Document()
 
@@ -153,6 +154,7 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
     @QtCore.pyqtSlot()
     def import_menu_item(self):
         try:
+            self.statusBar().showMessage('Importing CSV file...')
             table_name = self.menu_actions.get(self.sender().objectName(), None)
             if table_name is None:
                 raise ValueError('Unrecognized action name.')
@@ -164,10 +166,13 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
                 self.table_models[table_name].layoutChanged.emit()
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
+        finally:
+            self.statusBar().showMessage('Done importing CSV file.')
 
     @QtCore.pyqtSlot()
     def import_oracle_tb(self):
         try:
+            self.statusBar().showMessage('Importing Oracle TB...')
             file, _ = QtWidgets.QFileDialog.getOpenFileName(self, 'Select a file to open', filter='CSV Files (*.csv)')
             if file:
                 response = QtWidgets.QMessageBox.question(self, 'Replace rows?', 'Would you like to replace all rows of data?')
@@ -177,10 +182,13 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
                     model.layoutChanged.emit()
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
+        finally:
+            self.statusBar().showMessage('Done importing Oracle TB.')
 
     @QtCore.pyqtSlot()
     def export_menu_item(self):
         try:
+            self.statusBar().showMessage('Exporting to CSV file...')
             table_name = self.menu_actions.get(self.sender().objectName(), None)
             if table_name is None:
                 raise ValueError('Unrecognized action name.')
@@ -191,6 +199,8 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
                 self.document.export_table(table_name, file)
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
+        finally:
+            self.statusBar().showMessage('Done exporting.')
 
     ####################################################################################
     # Consolidation Menu
@@ -199,6 +209,7 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
     @QtCore.pyqtSlot()
     def build_menu_item(self):
         try:
+            self.statusBar().showMessage('Building the consolidation table...')
             update = QtWidgets.QMessageBox.question(self, 'New or update file?', 'Would you like to update an existing file?')
             update = False if update == QtWidgets.QMessageBox.StandardButton.No else True
             if update:
@@ -208,6 +219,8 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
             self.document.write_to_workbook(file, update)
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
+        finally:
+            self.statusBar().showMessage('Done building.')
 
     @QtCore.pyqtSlot()
     def rollforward_menu_item(self):
@@ -223,6 +236,7 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
     @QtCore.pyqtSlot()
     def audit_menu_item(self):
         try:
+            self.statusBar().showMessage('Auditing the underlying data...')
             error_log = self.document.audit_data()
             if len(error_log) > 0:
                 self.console.setTextColor(QtGui.QColor('red'))
@@ -237,6 +251,8 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
                 self.console.setTextColor(QtGui.QColor('black'))
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
+        finally:
+            self.statusBar().showMessage('Done auditing.')
 
     ####################################################################################
     # Other Slots
