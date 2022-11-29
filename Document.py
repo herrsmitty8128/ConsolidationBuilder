@@ -142,7 +142,8 @@ class Document:
     def get_table_data(self, table_name: str, row: int, col: int) -> str:
         col = self.tables[table_name][col]
         if col == 'Beginning Balance' or col == 'Debits' or col == 'Credits' or col == 'Ending Balance':
-            return locale.currency(self.data[table_name][row][col], symbol=True, grouping=True)
+            return locale.format_string('%d', self.data[table_name][row][col], grouping=True)
+            #return locale.currency(self.data[table_name][row][col], symbol=True, grouping=True)
         return str(self.data[table_name][row][col])
 
     def remove_table_row(self, table_name: str, row: int) -> None:
