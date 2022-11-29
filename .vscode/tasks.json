@@ -34,10 +34,10 @@
 			}
         },
 		{
-            "label": "Compile MainWindow3.ui",
+            "label": "Compile MainWindow4.ui",
             "type": "shell",
             "command": "pyuic5",
-            "args":["-o", "MainWindow.py", "./ui/MainWindow3.ui"],
+            "args":["-o", "MainWindow.py", "./ui/MainWindow4.ui"],
             "group": {
 				"kind": "build",
 				"isDefault": true

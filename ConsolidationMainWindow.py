@@ -14,7 +14,6 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
         self.setupUi(self)
         self.application = application
         self.console = self.findChild(QtWidgets.QTextEdit, 'consoleTextEdit')
-        #self.status = self.findChild(QtWidgets.QStatusBar, 'statusBar')
         self.document_filename = None
         self.document = Document()
 
@@ -23,18 +22,20 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
             'actionImportCostCenters': 'Cost_Centers',
             'actionImportAccounts': 'Accounts',
             'actionImportTrialBalance': 'Trial_Balance',
-            'actionImportAdjustments': 'Adjustments',
+            'actionImporTopSides': 'Top_Sides',
             'actionExportEntities': 'Entities',
             'actionExportCostCenters': 'Cost_Centers',
             'actionExportAccounts': 'Accounts',
             'actionExportTrialBalance': 'Trial_Balance',
-            'actionExportAdjustments': 'Adjustments',
+            'actionExporTopSides': 'Top_Sides',
             'addEntityButton': 'Entities',
             'deleteEntityButton': 'Entities',
             'addCostCenterButton': 'Cost_Centers',
             'deleteCostCenterButton': 'Cost_Centers',
             'insertAccountButton': 'Accounts',
             'addAccountButton': 'Accounts',
+            'addTopSideButton': 'Top_Sides',
+            'deleteTopSideButton': 'Top_Sides'
         }
 
         self.table_models = {
@@ -42,7 +43,8 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
             'Cost_Centers': None,
             'Accounts': None,
             'Trial_Balance': None,
-            'Adjustments': None
+            'Top_Sides': None,
+            'Eliminations': None
         }
 
         for table_name in self.table_models:
@@ -235,7 +237,7 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
             response = QtWidgets.QMessageBox.question(self, 'Close the year?', msg)
             if response == QtWidgets.QMessageBox.StandardButton.Yes:
                 self.document.close_year()
-                self.table_models['Adjustments'].layoutChanged.emit()
+                self.table_models['Top_Sides'].layoutChanged.emit()
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
 

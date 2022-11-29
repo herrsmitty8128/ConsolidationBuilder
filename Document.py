@@ -1,4 +1,5 @@
 
+import locale
 import csv
 import json
 import SpreadsheetTools
@@ -53,8 +54,11 @@ class Document:
             'Cost_Centers': ['Number', 'Name'],
             'Accounts': ['Number', 'Name', 'Level 1', 'Level 2', 'Level 3', 'Level 4'],
             'Trial_Balance': ['Entity', 'Cost Center', 'Account', 'Beginning Balance', 'Debits', 'Credits', 'Ending Balance'],
-            'Adjustments': ['Entity', 'Cost Center', 'Account', 'Beginning Balance', 'Debits', 'Credits', 'Ending Balance', 'Description']
+            'Top_Sides': ['Entity', 'Cost Center', 'Account', 'Beginning Balance', 'Debits', 'Credits', 'Ending Balance', 'Description'],
+            'Eliminations': ['Source Entity', 'Source Cost Center', 'Source Account', 'Offset Entity', 'Offset Cost Center', 'Offset Account', 'Amount', 'Description']
         }
+
+        locale.setlocale(locale.LC_ALL, '') 
 
         self.reset()
 
@@ -116,10 +120,8 @@ class Document:
     def is_editable(self, table_name: str, col: int) -> bool:
         if table_name == 'Trial_Balance':
             return False
-        if table_name == 'Adjustments':
-            header = self.tables[table_name][col]
-            return True if header != 'Beginning Balance' and header != 'Ending Balance' else False
-        return True
+        header = self.tables[table_name][col]
+        return False if header == 'Ending Balance' else True
 
     def is_enabled(self, table_name: str, col: int) -> bool:
         return True
@@ -151,7 +153,7 @@ class Document:
             self.data[table_name].append({'Number': '', 'Name': ''})
         elif table_name == 'Accounts':
             self.data[table_name].append({'Number': '', 'Name': '', 'Level 1': '', 'Level 2': '', 'Level 3': '', 'Level 4': ''})
-        elif table_name == 'Adjustments':
+        elif table_name == 'Top_Sides':
             self.data[table_name].append({'Entity': '', 'Cost Center': '', 'Account': '', 'Beginning Balance': 0, 'Debits': 0, 'Credits': 0, 'Ending Balance': 0, 'Description': ''})
 
     def set_table_data(self, table_name: str, row: int, col: int, value: any) -> None:
@@ -191,7 +193,8 @@ class Document:
             'Cost_Centers': [],
             'Entities': [],
             'Trial_Balance': [],
-            'Adjustments': []
+            'Top_Sides': [],
+            'Eliminations': []
         }
         self.changed_since_last_save = False
 
@@ -226,7 +229,7 @@ class Document:
                         pass  # do nothing
                     else:
                         r[header] = row[header].strip()
-                if table_name == 'Trial_Balance' or table_name == 'Adjustments':
+                if table_name == 'Trial_Balance' or table_name == 'Top_Sides':
                     r['Ending Balance'] = r['Beginning Balance'] + r['Debits'] + r['Credits']
                 self.data[table_name].append(r)
 
@@ -305,7 +308,7 @@ class Document:
         entities = {e['Number']: e for e in self.data['Entities']}
         costctrs = {c['Number']: c for c in self.data['Cost_Centers']}
         accounts = {a['Number']: a for a in self.data['Accounts']}
-        for name, table in (('Trial Balance', self.data['Trial_Balance']), ('Adjustments', self.data['Adjustments'])):
+        for name, table in (('Trial Balance', self.data['Trial_Balance']), ('Top_Sides', self.data['Top_Sides'])):
             for row in table:
                 entity = entities[row['Entity']]
                 costctr = costctrs[row['Cost Center']]
@@ -391,8 +394,8 @@ class Document:
                 self.data['Trial_Balance'].append(r)
 
     def close_year(self):
-        adjustments = self.data['Adjustments']
-        for adj in adjustments:
+        topsides = self.data['Top_Sides']
+        for adj in topsides:
             adj['Beginning Balance'] = adj['Ending Balance']
             adj['Debits'] = 0
             adj['Credits'] = 0
@@ -482,6 +485,6 @@ class Document:
         audit_list('Cost_Centers')
         audit_list('Accounts')
         audit_balances('Trial_Balance')
-        audit_balances('Adjustments')
+        audit_balances('Top_Sides')
 
         return error_log
