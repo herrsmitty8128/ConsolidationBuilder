@@ -1,8 +1,10 @@
 
 import MainWindow
+from typing import Iterable
 from PyQt5 import QtWidgets, QtCore, QtGui
 from Document import Document
 from BaseTableModel import BaseTableModel
+#from collections.abc import Iterable
 
 
 class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
@@ -22,12 +24,12 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
             'actionImportCostCenters': 'Cost_Centers',
             'actionImportAccounts': 'Accounts',
             'actionImportTrialBalance': 'Trial_Balance',
-            'actionImporTopSides': 'Top_Sides',
+            'actionImportTopSides': 'Top_Sides',
             'actionExportEntities': 'Entities',
             'actionExportCostCenters': 'Cost_Centers',
             'actionExportAccounts': 'Accounts',
             'actionExportTrialBalance': 'Trial_Balance',
-            'actionExporTopSides': 'Top_Sides',
+            'actionExportTopSides': 'Top_Sides',
             'addEntityButton': 'Entities',
             'deleteEntityButton': 'Entities',
             'addCostCenterButton': 'Cost_Centers',
@@ -51,6 +53,7 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
             table = self.findChild(QtWidgets.QTableView, table_name)
             table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
             model = BaseTableModel(table, self.document, table_name)
+            model.dataChanged[QtCore.QModelIndex, QtCore.QModelIndex, list].connect(self.table_data_changed)
             self.table_models[table_name] = model
             table.setModel(model)
 
@@ -339,3 +342,7 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
             self.console.setText('')
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
+    
+    @QtCore.pyqtSlot(QtCore.QModelIndex, QtCore.QModelIndex, list)
+    def table_data_changed(self, upperleft: QtCore.QModelIndex, lowerright: QtCore.QModelIndex, roles: Iterable[int]):
+        print('table_changed')

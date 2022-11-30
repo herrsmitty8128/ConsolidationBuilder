@@ -43,6 +43,7 @@ class BaseTableModel(QtCore.QAbstractTableModel):
                 if len(value) > 0:
                     self.document.set_table_data(self.table_name, index.row(), index.column(), value)
                     self.parent().horizontalHeader().resizeSections(QtWidgets.QHeaderView.ResizeToContents)
+                    self.dataChanged.emit(index, index, [role])
                 return True
         return False
 

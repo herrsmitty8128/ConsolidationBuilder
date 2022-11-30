@@ -299,7 +299,7 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuConsolidation.menuAction())
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(5)
+        self.tabWidget.setCurrentIndex(4)
         self.actionNew.triggered.connect(MainWindow.new_menu_item) # type: ignore
         self.actionOpen.triggered.connect(MainWindow.open_menu_item) # type: ignore
         self.actionClose.triggered.connect(MainWindow.close_menu_item) # type: ignore
