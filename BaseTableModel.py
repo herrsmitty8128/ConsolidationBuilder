@@ -1,5 +1,10 @@
 
+
 from PyQt5 import QtWidgets, QtCore
+
+
+class TopSideSig(QtCore.QObject):
+    top_sides_changed = QtCore.pyqtSignal()
 
 
 class BaseTableModel(QtCore.QAbstractTableModel):
@@ -8,7 +13,8 @@ class BaseTableModel(QtCore.QAbstractTableModel):
         super().__init__(parent=parent)
         self.document = document
         self.table_name = table_name
-
+        self.ts_changed = TopSideSig()
+    
     def rowCount(self, parent: QtCore.QModelIndex = QtCore.QModelIndex()) -> int:
         return self.document.row_count(self.table_name)
 
@@ -43,7 +49,7 @@ class BaseTableModel(QtCore.QAbstractTableModel):
                 if len(value) > 0:
                     self.document.set_table_data(self.table_name, index.row(), index.column(), value)
                     self.parent().horizontalHeader().resizeSections(QtWidgets.QHeaderView.ResizeToContents)
-                    self.dataChanged.emit(index, index, [role])
+                    self.ts_changed.top_sides_changed.emit()
                 return True
         return False
 

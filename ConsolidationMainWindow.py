@@ -4,7 +4,6 @@ from typing import Iterable
 from PyQt5 import QtWidgets, QtCore, QtGui
 from Document import Document
 from BaseTableModel import BaseTableModel
-#from collections.abc import Iterable
 
 
 class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
@@ -53,7 +52,7 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
             table = self.findChild(QtWidgets.QTableView, table_name)
             table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
             model = BaseTableModel(table, self.document, table_name)
-            model.dataChanged[QtCore.QModelIndex, QtCore.QModelIndex, list].connect(self.table_data_changed)
+            model.ts_changed.top_sides_changed.connect(self.table_data_changed)
             self.table_models[table_name] = model
             table.setModel(model)
 
@@ -343,6 +342,6 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
     
-    @QtCore.pyqtSlot(QtCore.QModelIndex, QtCore.QModelIndex, list)
-    def table_data_changed(self, upperleft: QtCore.QModelIndex, lowerright: QtCore.QModelIndex, roles: Iterable[int]):
+    @QtCore.pyqtSlot()
+    def table_data_changed(self):
         print('table_changed')
