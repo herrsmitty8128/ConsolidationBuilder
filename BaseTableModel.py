@@ -4,7 +4,7 @@ from PyQt5 import QtWidgets, QtCore
 
 
 class TopSideSig(QtCore.QObject):
-    top_sides_changed = QtCore.pyqtSignal()
+    top_sides_changed = QtCore.pyqtSignal(str)
 
 
 class BaseTableModel(QtCore.QAbstractTableModel):
@@ -49,7 +49,7 @@ class BaseTableModel(QtCore.QAbstractTableModel):
                 if len(value) > 0:
                     self.document.set_table_data(self.table_name, index.row(), index.column(), value)
                     self.parent().horizontalHeader().resizeSections(QtWidgets.QHeaderView.ResizeToContents)
-                    self.ts_changed.top_sides_changed.emit()
+                    self.ts_changed.top_sides_changed.emit(self.table_name)
                 return True
         return False
 

@@ -52,7 +52,7 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
             table = self.findChild(QtWidgets.QTableView, table_name)
             table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
             model = BaseTableModel(table, self.document, table_name)
-            model.ts_changed.top_sides_changed.connect(self.table_data_changed)
+            model.ts_changed.top_sides_changed[str].connect(self.table_data_changed)
             self.table_models[table_name] = model
             table.setModel(model)
 
@@ -342,6 +342,7 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
     
-    @QtCore.pyqtSlot()
-    def table_data_changed(self):
-        print('table_changed')
+    @QtCore.pyqtSlot(str)
+    def table_data_changed(self, table_name: str):
+        if table_name == 'Top_Sides':
+            print(table_name,'changed')
