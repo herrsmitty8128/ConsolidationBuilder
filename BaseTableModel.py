@@ -1,5 +1,5 @@
 
-
+import typing
 from PyQt5 import QtWidgets, QtCore
 
 class BaseTableModel(QtCore.QAbstractTableModel): ...
@@ -14,6 +14,14 @@ class BaseTableModel(QtCore.QAbstractTableModel):
         self.document = document
         self.table_name = table_name
         self.signals = TableSignals()
+    
+    def setTableData(self, data: list[dict]) -> None:
+        self.beginResetModel()
+        self.data = data
+        self.endResetModel()
+    
+    def sumColumn(self, colName: str) -> int:
+        return sum(x[colName] for x in self.data)
 
     def rowCount(self, parent: QtCore.QModelIndex = QtCore.QModelIndex()) -> int:
         return self.document.row_count(self.table_name)

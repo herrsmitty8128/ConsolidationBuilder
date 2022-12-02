@@ -1,6 +1,5 @@
 
 import MainWindow
-#from typing import Iterable
 from PyQt5 import QtWidgets, QtCore, QtGui
 from Document import Document
 from BaseTableModel import BaseTableModel
@@ -57,6 +56,16 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
             table.setModel(model)
 
         self.set_non_table_data()
+
+        self.set_table_data()
+    
+    def set_table_data(self) -> None:
+        self.Entities.model().setTableData(self.document.data['Entities'])
+        self.Cost_Centers.model().setTableData(self.document.data['Cost_Centers'])
+        self.Accounts.model().setTableData(self.document.data['Accounts'])
+        self.Trial_Balance.model().setTableData(self.document.data['Trial_Balance'])
+        self.Top_Sides.model().setTableData(self.document.data['Top_Sides'])
+        self.Eliminations.model().setTableData(self.document.data['Eliminations'])
 
     def set_non_table_data(self) -> None:
         # set the entity name
