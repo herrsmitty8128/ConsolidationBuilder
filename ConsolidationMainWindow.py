@@ -59,13 +59,22 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
 
         self.set_table_data()
     
-    def set_table_data(self) -> None:
+    def set_table_data(self, table_name: str = None) -> None:
+        if table_name == None:
+            tables = self.findChildren(QtWidgets.QTableView)
+            for table in tables:
+                table.model().setTableData(self.document.data[table.objectName()])
+        else:
+            table = self.findChild(QtWidgets.QTableView, table_name)
+            table.model().setTableData(self.document.data[table_name])
+        '''
         self.Entities.model().setTableData(self.document.data['Entities'])
         self.Cost_Centers.model().setTableData(self.document.data['Cost_Centers'])
         self.Accounts.model().setTableData(self.document.data['Accounts'])
         self.Trial_Balance.model().setTableData(self.document.data['Trial_Balance'])
         self.Top_Sides.model().setTableData(self.document.data['Top_Sides'])
         self.Eliminations.model().setTableData(self.document.data['Eliminations'])
+        '''
 
     def set_non_table_data(self) -> None:
         # set the entity name
