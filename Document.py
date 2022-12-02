@@ -55,10 +55,17 @@ class Document:
             'Accounts': ['Number', 'Name', 'Level 1', 'Level 2', 'Level 3', 'Level 4'],
             'Trial_Balance': ['Entity', 'Cost Center', 'Account', 'Beginning Balance', 'Debits', 'Credits', 'Ending Balance'],
             'Top_Sides': ['Entity', 'Cost Center', 'Account', 'Beginning Balance', 'Debits', 'Credits', 'Ending Balance', 'Description'],
-            'Eliminations': ['Source Entity', 'Source Cost Center', 'Source Account', 'Offset Entity', 'Offset Cost Center', 'Offset Account', 'Amount', 'Description']
+            'Eliminations': ['GL String', 'Offset', 'Amount', 'Description']
         }
 
-        locale.setlocale(locale.LC_ALL, '') 
+        '''
+        self.total_topside_debits = 0
+        self.total_topside_credits = 0
+        self.total_topside_beginning = 0
+        self.total_topside_ending = 0
+        '''
+
+        locale.setlocale(locale.LC_ALL, '')
 
         self.reset()
 
@@ -83,6 +90,18 @@ class Document:
     ####################################################################################
     # Methods for interfacing with the underlying data
     ####################################################################################
+
+    def total_topside_debits(self) -> int:
+        return locale.format_string('$%d', sum(x['Debits'] for x in self.data['Top_Sides']), grouping=True)
+
+    def total_topside_credits(self) -> int:
+        return locale.format_string('$%d', sum(x['Credits'] for x in self.data['Top_Sides']), grouping=True)
+
+    def total_topside_beginning(self) -> int:
+        return locale.format_string('$%d', sum(x['Beginning Balance'] for x in self.data['Top_Sides']), grouping=True)
+
+    def total_topside_ending(self) -> int:
+        return locale.format_string('$%d', sum(x['Ending Balance'] for x in self.data['Top_Sides']), grouping=True)
 
     def changed(self) -> bool:
         return self.changed_since_last_save
@@ -143,7 +162,7 @@ class Document:
         col = self.tables[table_name][col]
         if col == 'Beginning Balance' or col == 'Debits' or col == 'Credits' or col == 'Ending Balance':
             return locale.format_string('%d', self.data[table_name][row][col], grouping=True)
-            #return locale.currency(self.data[table_name][row][col], symbol=True, grouping=True)
+            # return locale.currency(self.data[table_name][row][col], symbol=True, grouping=True)
         return str(self.data[table_name][row][col])
 
     def remove_table_row(self, table_name: str, row: int) -> None:

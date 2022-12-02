@@ -2,10 +2,10 @@
 
 from PyQt5 import QtWidgets, QtCore
 
+class BaseTableModel(QtCore.QAbstractTableModel): ...
 
-class TopSideSig(QtCore.QObject):
-    top_sides_changed = QtCore.pyqtSignal(str)
-
+class TableSignals(QtCore.QObject):
+    dataChanged = QtCore.pyqtSignal(BaseTableModel)
 
 class BaseTableModel(QtCore.QAbstractTableModel):
 
@@ -13,8 +13,8 @@ class BaseTableModel(QtCore.QAbstractTableModel):
         super().__init__(parent=parent)
         self.document = document
         self.table_name = table_name
-        self.ts_changed = TopSideSig()
-    
+        self.signals = TableSignals()
+
     def rowCount(self, parent: QtCore.QModelIndex = QtCore.QModelIndex()) -> int:
         return self.document.row_count(self.table_name)
 
@@ -49,7 +49,8 @@ class BaseTableModel(QtCore.QAbstractTableModel):
                 if len(value) > 0:
                     self.document.set_table_data(self.table_name, index.row(), index.column(), value)
                     self.parent().horizontalHeader().resizeSections(QtWidgets.QHeaderView.ResizeToContents)
-                    self.ts_changed.top_sides_changed.emit(self.table_name)
+                    if not self.signalsBlocked():
+                        self.signals.dataChanged.emit(self)
                 return True
         return False
 
@@ -75,6 +76,8 @@ class BaseTableModel(QtCore.QAbstractTableModel):
             self.beginRemoveRows(QtCore.QModelIndex(), row, row)
             self.document.remove_table_row(self.table_name, row)
             self.endRemoveRows()
+            if not self.signalsBlocked():
+                self.signals.dataChanged.emit(self)
 
     def append_new_table_row(self) -> None:
         table = self.table_name

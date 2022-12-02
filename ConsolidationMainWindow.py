@@ -1,6 +1,6 @@
 
 import MainWindow
-from typing import Iterable
+#from typing import Iterable
 from PyQt5 import QtWidgets, QtCore, QtGui
 from Document import Document
 from BaseTableModel import BaseTableModel
@@ -52,7 +52,7 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
             table = self.findChild(QtWidgets.QTableView, table_name)
             table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
             model = BaseTableModel(table, self.document, table_name)
-            model.ts_changed.top_sides_changed[str].connect(self.table_data_changed)
+            model.signals.dataChanged[BaseTableModel].connect(self.table_data_changed)
             self.table_models[table_name] = model
             table.setModel(model)
 
@@ -190,6 +190,7 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
                 self.document.import_oracle_tb(file, response)
                 for model in self.table_models.values():
                     model.layoutChanged.emit()
+                    self.table_data_changed(model.table_name)
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
         finally:
@@ -341,8 +342,11 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
             self.console.setText('')
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
-    
-    @QtCore.pyqtSlot(str)
-    def table_data_changed(self, table_name: str):
-        if table_name == 'Top_Sides':
-            print(table_name,'changed')
+
+    @QtCore.pyqtSlot(BaseTableModel)
+    def table_data_changed(self, model: BaseTableModel):
+        if model.table_name == 'Top_Sides':
+            self.totalTopSidesDebits.setText(model.document.total_topside_debits())
+            self.totalTopSidesCredits.setText(model.document.total_topside_credits())
+            self.totalTopSidesBeginning.setText(model.document.total_topside_beginning())
+            self.totalTopSidesEnding.setText(model.document.total_topside_ending())
