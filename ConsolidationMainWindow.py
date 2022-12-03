@@ -16,6 +16,7 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
         self.console = self.findChild(QtWidgets.QTextEdit, 'consoleTextEdit')
         self.document_filename = None
         self.document = Document()
+        self.changed_since_last_save = False
 
         self.menu_actions = {
             'actionImportEntities': 'Entities',
@@ -38,59 +39,41 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
             'deleteTopSideButton': 'Top_Sides'
         }
 
-        self.table_models = {
-            'Entities': None,
-            'Cost_Centers': None,
-            'Accounts': None,
-            'Trial_Balance': None,
-            'Top_Sides': None,
-            'Eliminations': None
-        }
-
-        for table_name in self.table_models:
+        for table_name, fieldnames in self.document.tables.items():
             table = self.findChild(QtWidgets.QTableView, table_name)
             table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
-            model = BaseTableModel(table, self.document, table_name)
+            model = BaseTableModel(table, fieldnames)
             model.signals.dataChanged[BaseTableModel].connect(self.table_data_changed)
-            self.table_models[table_name] = model
             table.setModel(model)
 
         self.set_non_table_data()
 
         self.set_table_data()
-    
+
     def set_table_data(self, table_name: str = None) -> None:
-        if table_name == None:
+        if table_name is None:
             tables = self.findChildren(QtWidgets.QTableView)
             for table in tables:
                 table.model().setTableData(self.document.data[table.objectName()])
         else:
             table = self.findChild(QtWidgets.QTableView, table_name)
             table.model().setTableData(self.document.data[table_name])
-        '''
-        self.Entities.model().setTableData(self.document.data['Entities'])
-        self.Cost_Centers.model().setTableData(self.document.data['Cost_Centers'])
-        self.Accounts.model().setTableData(self.document.data['Accounts'])
-        self.Trial_Balance.model().setTableData(self.document.data['Trial_Balance'])
-        self.Top_Sides.model().setTableData(self.document.data['Top_Sides'])
-        self.Eliminations.model().setTableData(self.document.data['Eliminations'])
-        '''
 
     def set_non_table_data(self) -> None:
         # set the entity name
         name = self.findChild(QtWidgets.QLineEdit, 'entityName')
         name.blockSignals(True)
-        name.setText(self.document.get_entity_name())
+        name.setText(self.document.data['Entity Name'])
         name.blockSignals(False)
         # set the beginning date
         date = self.findChild(QtWidgets.QDateEdit, 'beginningBalanceDate')
         date.blockSignals(True)
-        date.setDate(QtCore.QDate.fromString(self.document.get_beginning_date(), 'M/d/yyyy'))
+        date.setDate(QtCore.QDate.fromString(self.document.data['Beginning Balance Date'], 'M/d/yyyy'))
         date.blockSignals(False)
         # set the ending date
         date = self.findChild(QtWidgets.QDateEdit, 'endingBalanceDate')
         date.blockSignals(True)
-        date.setDate(QtCore.QDate.fromString(self.document.get_ending_date(), 'M/d/yyyy'))
+        date.setDate(QtCore.QDate.fromString(self.document.data['Ending Balance Date'], 'M/d/yyyy'))
         date.blockSignals(False)
 
     ####################################################################################
@@ -108,7 +91,7 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
     def open_menu_item(self):
         try:
             self.statusBar().showMessage('Opening file... please be patient... this could take several minutes...')
-            if self.document.changed():
+            if self.changed_since_last_save:
                 answer = QtWidgets.QMessageBox.question(self, 'Save File', 'Save current file before proceeding?')
                 if answer == QtWidgets.QMessageBox.StandardButton.Yes:
                     self.save_menu_item()
@@ -117,8 +100,8 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
                 self.document_filename = file
                 self.document.load(self.document_filename)
                 self.set_non_table_data()
-                for model in self.table_models.values():
-                    model.layoutChanged.emit()
+                self.set_table_data()
+                self.changed_since_last_save = False
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
         finally:
@@ -137,6 +120,7 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
                 else:
                     return
             self.document.dump(self.document_filename)
+            self.changed_since_last_save = False
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
         finally:
@@ -157,14 +141,15 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
     @QtCore.pyqtSlot()
     def close_menu_item(self):
         try:
-            if self.document.changed():
+            if self.changed_since_last_save:
                 answer = QtWidgets.QMessageBox.question(self, 'Save File', 'Save current file before proceeding?')
+                print(answer)
                 if answer == QtWidgets.QMessageBox.StandardButton.Yes:
                     self.save_menu_item()
             self.document.reset()
             self.set_non_table_data()
-            for model in self.table_models.values():
-                model.layoutChanged.emit()
+            self.set_table_data()
+            self.changed_since_last_save = False
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
 
@@ -191,7 +176,8 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
                 response = QtWidgets.QMessageBox.question(self, 'Replace rows?', 'Would you like to replace all rows of data?')
                 response = False if response == QtWidgets.QMessageBox.StandardButton.No else True
                 self.document.import_table(table_name, file, response)
-                self.table_models[table_name].layoutChanged.emit()
+                self.findChild(QtWidgets.QTableView, table_name).model().layoutChanged.emit()
+                self.changed_since_last_save = True
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
         finally:
@@ -206,9 +192,11 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
                 response = QtWidgets.QMessageBox.question(self, 'Replace rows?', 'Would you like to replace all rows of data?')
                 response = False if response == QtWidgets.QMessageBox.StandardButton.No else True
                 self.document.import_oracle_tb(file, response)
-                for model in self.table_models.values():
-                    model.layoutChanged.emit()
-                    self.table_data_changed(model.table_name)
+                self.Trial_Balance.model().layoutChanged.emit()
+                self.Entities.model().layoutChanged.emit()
+                self.Cost_Centers.model().layoutChanged.emit()
+                self.Accounts.model().layoutChanged.emit()
+                self.changed_since_last_save = True
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
         finally:
@@ -258,7 +246,8 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
             response = QtWidgets.QMessageBox.question(self, 'Close the year?', msg)
             if response == QtWidgets.QMessageBox.StandardButton.Yes:
                 self.document.close_year()
-                self.table_models['Top_Sides'].layoutChanged.emit()
+                model = self.Top_Sides.model()
+                self.Top_Sides.model().signals.dataChanged.emit(model)
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
 
@@ -293,8 +282,7 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
             table_name = self.menu_actions.get(self.sender().objectName(), None)
             if table_name is None:
                 raise ValueError('Unrecognized button name.')
-            model = self.table_models[table_name]
-            model.append_new_table_row()
+            self.findChild(QtWidgets.QTableView, table_name).model().append_new_table_row()
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
 
@@ -305,9 +293,9 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
             response = QtWidgets.QMessageBox.question(self, 'Plug rounding difference?', msg)
             if response == QtWidgets.QMessageBox.StandardButton.Yes:
                 self.document.plug_rounding_diff()
-                self.table_models['Trial_Balance'].layoutChanged.emit()
-                self.table_models['Cost_Centers'].layoutChanged.emit()
-                self.table_models['Accounts'].layoutChanged.emit()
+                self.Trial_Balance.model().layoutChanged.emit()
+                self.Cost_Centers.model().layoutChanged.emit()
+                self.Accounts.model().layoutChanged.emit()
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
 
@@ -319,28 +307,31 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
                 table_name = self.menu_actions.get(self.sender().objectName(), None)
                 if table_name is None:
                     raise ValueError('Unrecognized button name.')
-                self.table_models[table_name].remove_selected_rows()
+                self.findChild(QtWidgets.QTableView, table_name).model().remove_selected_rows()
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
 
     @QtCore.pyqtSlot(str)
     def set_entity_name(self, new_name: str):
         try:
-            self.document.set_entity_name(new_name)
+            self.document.data['Entity Name'] = new_name
+            self.changed_since_last_save = True
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
 
     @QtCore.pyqtSlot(QtCore.QDate)
     def set_beginning_date(self, new_date: QtCore.QDate):
         try:
-            self.document.set_beginning_date(new_date.toString('M/d/yyyy'))
+            self.document.data['Beginning Balance Date'] = new_date.toString('M/d/yyyy')
+            self.changed_since_last_save = True
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
 
     @QtCore.pyqtSlot(QtCore.QDate)
     def set_ending_date(self, new_date: QtCore.QDate):
         try:
-            self.document.set_ending_date(new_date.toString('M/d/yyyy'))
+            self.document.data['Ending Balance Date'] = new_date.toString('M/d/yyyy')
+            self.changed_since_last_save = True
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
 
@@ -349,7 +340,7 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
         try:
             clipboard = self.application.clipboard()
             clipboard.clear()
-            text = self.console.text()
+            text = self.console.toPlainText()
             clipboard.setText(text)
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
@@ -363,8 +354,8 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
 
     @QtCore.pyqtSlot(BaseTableModel)
     def table_data_changed(self, model: BaseTableModel):
-        if model.table_name == 'Top_Sides':
-            self.totalTopSidesDebits.setText(model.document.total_topside_debits())
-            self.totalTopSidesCredits.setText(model.document.total_topside_credits())
-            self.totalTopSidesBeginning.setText(model.document.total_topside_beginning())
-            self.totalTopSidesEnding.setText(model.document.total_topside_ending())
+        if model.parent().objectName() == 'Top_Sides':
+            self.totalTopSidesDebits.setText(model.sumColumn('Debits'))
+            self.totalTopSidesCredits.setText(model.sumColumn('Credits'))
+            self.totalTopSidesBeginning.setText(model.sumColumn('Beginning Balance'))
+            self.totalTopSidesEnding.setText(model.sumColumn('Ending Balance'))

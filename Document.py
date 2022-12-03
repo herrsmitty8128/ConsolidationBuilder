@@ -1,5 +1,4 @@
 
-import locale
 import csv
 import json
 import SpreadsheetTools
@@ -58,15 +57,6 @@ class Document:
             'Eliminations': ['GL String', 'Offset', 'Amount', 'Description']
         }
 
-        '''
-        self.total_topside_debits = 0
-        self.total_topside_credits = 0
-        self.total_topside_beginning = 0
-        self.total_topside_ending = 0
-        '''
-
-        locale.setlocale(locale.LC_ALL, '')
-
         self.reset()
 
     ####################################################################################
@@ -79,132 +69,15 @@ class Document:
         f = open(filename, 'w')
         json.dump(self.data, f)  # , indent=3)
         f.close()
-        self.changed_since_last_save = False
 
     def load(self, filename: str) -> None:
         f = open(filename, 'r')
         self.data = json.load(f)
         f.close()
-        self.changed_since_last_save = False
 
     ####################################################################################
     # Methods for interfacing with the underlying data
     ####################################################################################
-
-    def total_topside_debits(self) -> int:
-        return locale.format_string('$%d', sum(x['Debits'] for x in self.data['Top_Sides']), grouping=True)
-
-    def total_topside_credits(self) -> int:
-        return locale.format_string('$%d', sum(x['Credits'] for x in self.data['Top_Sides']), grouping=True)
-
-    def total_topside_beginning(self) -> int:
-        return locale.format_string('$%d', sum(x['Beginning Balance'] for x in self.data['Top_Sides']), grouping=True)
-
-    def total_topside_ending(self) -> int:
-        return locale.format_string('$%d', sum(x['Ending Balance'] for x in self.data['Top_Sides']), grouping=True)
-
-    def changed(self) -> bool:
-        return self.changed_since_last_save
-
-    def set_entity_name(self, new_name: str):
-        self.data['Entity Name'] = new_name
-        self.changed_since_last_save = True
-
-    def get_entity_name(self) -> None:
-        return self.data['Entity Name']
-
-    def set_beginning_date(self, new_date: str):
-        self.data['Beginning Balance Date'] = new_date
-        self.changed_since_last_save = True
-
-    def get_beginning_date(self) -> str:
-        return self.data['Beginning Balance Date']
-
-    def set_ending_date(self, new_date: str):
-        self.data['Ending Balance Date'] = new_date
-        self.changed_since_last_save = True
-
-    def get_ending_date(self) -> None:
-        return self.data['Ending Balance Date']
-
-    def column_count(self, table_name: str) -> None:
-        return len(self.tables[table_name])
-
-    def row_count(self, table_name: str) -> None:
-        return len(self.data[table_name])
-
-    def column_header(self, table_name: str, col: int) -> str:
-        return self.tables[table_name][col]
-
-    def is_editable(self, table_name: str, col: int) -> bool:
-        if table_name == 'Trial_Balance':
-            return False
-        header = self.tables[table_name][col]
-        return False if header == 'Ending Balance' else True
-
-    def is_enabled(self, table_name: str, col: int) -> bool:
-        return True
-
-    def is_selectable(self, table_name: str, col: int) -> bool:
-        return True
-
-    def get_alignment(self, table_name: str, col: int) -> int:
-        header = self.tables[table_name][col]
-        if header == 'Beginning Balance' or header == 'Debits' or header == 'Credits' or header == 'Ending Balance':
-            return 1
-        return -1
-
-    def sort_table(self, table_name: str, col: int, order: bool) -> None:
-        col = self.tables[table_name][col]
-        self.data[table_name].sort(key=lambda x: x[col], reverse=order)
-
-    def get_table_data(self, table_name: str, row: int, col: int) -> str:
-        col = self.tables[table_name][col]
-        if col == 'Beginning Balance' or col == 'Debits' or col == 'Credits' or col == 'Ending Balance':
-            return locale.format_string('%d', self.data[table_name][row][col], grouping=True)
-            # return locale.currency(self.data[table_name][row][col], symbol=True, grouping=True)
-        return str(self.data[table_name][row][col])
-
-    def remove_table_row(self, table_name: str, row: int) -> None:
-        del self.data[table_name][row]
-
-    def append_new_table_row(self, table_name: str) -> None:
-        if table_name == 'Entities':
-            self.data[table_name].append({'Number': '', 'Name': '', 'Group': ''})
-        elif table_name == 'Cost_Centers':
-            self.data[table_name].append({'Number': '', 'Name': ''})
-        elif table_name == 'Accounts':
-            self.data[table_name].append({'Number': '', 'Name': '', 'Level 1': '', 'Level 2': '', 'Level 3': '', 'Level 4': ''})
-        elif table_name == 'Top_Sides':
-            self.data[table_name].append({'Entity': '', 'Cost Center': '', 'Account': '', 'Beginning Balance': 0, 'Debits': 0, 'Credits': 0, 'Ending Balance': 0, 'Description': ''})
-
-    def set_table_data(self, table_name: str, row: int, col: int, value: any) -> None:
-        col = self.tables[table_name][col]
-        if col == 'Beginning Balance' or col == 'Debits' or col == 'Credits':
-            r = self.data[table_name][row]
-            v = r[col]
-            if col == 'Debits':
-                try:
-                    v = abs(int(value))
-                except BaseException:
-                    pass
-            elif col == 'Credits':
-                try:
-                    v = -abs(int(value))
-                except BaseException:
-                    pass
-            else:
-                try:
-                    v = int(value)
-                except BaseException:
-                    pass
-            r[col] = v
-            r['Ending Balance'] = r['Beginning Balance'] + r['Debits'] + r['Credits']
-        elif col == 'Ending Balance':
-            self.data[table_name][row][col] = int(value)
-        else:
-            self.data[table_name][row][col] = value
-        self.changed_since_last_save = True
 
     def reset(self):
         self.data = {
@@ -218,7 +91,6 @@ class Document:
             'Top_Sides': [],
             'Eliminations': []
         }
-        self.changed_since_last_save = False
 
     ####################################################################################
     # Methods for importing and exporting tables
