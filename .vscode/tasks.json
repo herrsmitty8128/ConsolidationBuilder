@@ -55,7 +55,7 @@
             "label": "Run the app",
             "type": "shell",
             "command": "${command:python.interpreterPath}",
-            "args":["Start.py"],
+            "args":["Launch.py"],
             "group": {
 				"kind": "build",
 				"isDefault": true
