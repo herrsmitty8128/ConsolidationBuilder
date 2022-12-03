@@ -2,7 +2,7 @@
 import MainWindow
 from PyQt5 import QtWidgets, QtCore, QtGui
 from Document import Document
-from BaseTableModel import BaseTableModel
+from TableModel import TableModel
 
 
 class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
@@ -41,8 +41,8 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
         for table_name, fieldnames in self.document.tables.items():
             table = self.findChild(QtWidgets.QTableView, table_name)
             table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
-            model = BaseTableModel(table, fieldnames, self.document.data[table_name])
-            model.signals.dataChanged[BaseTableModel].connect(self.table_data_changed)
+            model = TableModel(table, fieldnames, self.document.data[table_name])
+            model.signals.dataChanged[TableModel].connect(self.table_data_changed)
             table.setModel(model)
 
         self.set_non_table_data()
@@ -342,8 +342,8 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
 
-    @QtCore.pyqtSlot(BaseTableModel)
-    def table_data_changed(self, model: BaseTableModel):
+    @QtCore.pyqtSlot(TableModel)
+    def table_data_changed(self, model: TableModel):
         if model.parent().objectName() == 'Top_Sides':
             self.totalTopSidesDebits.setText(model.sumColumn('Debits'))
             self.totalTopSidesCredits.setText(model.sumColumn('Credits'))

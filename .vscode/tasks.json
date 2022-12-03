@@ -14,7 +14,7 @@
 				"--aggressive",
 				"--aggressive",
 				"Start.py",
-				"BaseTableModel.py",
+				"TableModel.py",
 				"MainWindow.py",
 				"ConsolidationMainWindow.py",
 				"Document.py",
@@ -34,10 +34,10 @@
 			}
         },
 		{
-            "label": "Compile MainWindow4.ui",
+            "label": "Compile MainWindow.ui",
             "type": "shell",
             "command": "pyuic5",
-            "args":["-o", "MainWindow.py", "./ui/MainWindow4.ui"],
+            "args":["-o", "MainWindow.py", "./ui/MainWindow.ui"],
             "group": {
 				"kind": "build",
 				"isDefault": true

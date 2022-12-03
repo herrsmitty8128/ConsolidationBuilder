@@ -3,15 +3,15 @@ import locale
 from PyQt5 import QtWidgets, QtCore
 
 
-class BaseTableModel(QtCore.QAbstractTableModel):
+class TableModel(QtCore.QAbstractTableModel):
     ...
 
 
 class TableSignals(QtCore.QObject):
-    dataChanged = QtCore.pyqtSignal(BaseTableModel)
+    dataChanged = QtCore.pyqtSignal(TableModel)
 
 
-class BaseTableModel(QtCore.QAbstractTableModel):
+class TableModel(QtCore.QAbstractTableModel):
 
     def __init__(self, parent, fieldnames: list[str], data: list[dict] = []):
         super().__init__(parent=parent)
