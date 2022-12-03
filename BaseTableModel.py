@@ -24,7 +24,8 @@ class BaseTableModel(QtCore.QAbstractTableModel):
         self.beginResetModel()
         self._data_ = data
         self.endResetModel()
-        self.signals.dataChanged.emit(self)
+        if not self.signalsBlocked():
+            self.signals.dataChanged.emit(self)
 
     def sumColumn(self, fieldname: str) -> int:
         return locale.format_string('$%d', sum(x[fieldname] for x in self._data_), grouping=True)
