@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1158</width>
+    <width>1168</width>
     <height>887</height>
    </rect>
   </property>
@@ -680,7 +680,7 @@
       <widget class="QWidget" name="verticalLayoutWidget_2">
        <layout class="QVBoxLayout" name="verticalLayout_6">
         <item>
-         <widget class="QTextEdit" name="consoleTextEdit"/>
+         <widget class="QTextEdit" name="console"/>
         </item>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_9">
@@ -737,7 +737,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1158</width>
+     <width>1168</width>
      <height>22</height>
     </rect>
    </property>

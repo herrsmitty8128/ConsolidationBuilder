@@ -13,8 +13,7 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
 
         self.setupUi(self)
         self.application = application
-        self.console = self.findChild(QtWidgets.QTextEdit, 'consoleTextEdit')
-        self.document_filename = None
+        self.filename = None
         self.document = Document()
         self.changed_since_last_save = False
 
@@ -95,8 +94,8 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
                     self.save_menu_item()
             file, _ = QtWidgets.QFileDialog.getOpenFileName(self, 'Select a file to open', filter='JSON Files (*.json)')
             if file:
-                self.document_filename = file
-                self.document.load(self.document_filename)
+                self.filename = file
+                self.document.load(self.filename)
                 self.set_non_table_data()
                 self.set_table_data()
                 self.changed_since_last_save = False
@@ -109,15 +108,15 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
     def save_menu_item(self):
         try:
             self.statusBar().showMessage('Saving current file... please be patient... this could take several minutes...')
-            if not self.document_filename:
+            if not self.filename:
                 file, _ = QtWidgets.QFileDialog.getSaveFileName(self, 'Select a filename to save', filter='JSON Files (*.json)')
                 if file:
                     if not file.casefold().endswith('.json'.casefold()):
                         file += '.json'
-                    self.document_filename = file
+                    self.filename = file
                 else:
                     return
-            self.document.dump(self.document_filename)
+            self.document.dump(self.filename)
             self.changed_since_last_save = False
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
@@ -131,7 +130,7 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
             if file:
                 if not file.casefold().endswith('.json'.casefold()):
                     file += '.json'
-                self.document_filename = file
+                self.filename = file
                 self.save_menu_item()
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
@@ -189,10 +188,7 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
                 response = QtWidgets.QMessageBox.question(self, 'Replace rows?', 'Would you like to replace all rows of data?')
                 response = False if response == QtWidgets.QMessageBox.StandardButton.No else True
                 self.document.import_oracle_tb(file, response)
-                self.Trial_Balance.model().layoutChanged.emit()
-                self.Entities.model().layoutChanged.emit()
-                self.Cost_Centers.model().layoutChanged.emit()
-                self.Accounts.model().layoutChanged.emit()
+                self.set_table_data()
                 self.changed_since_last_save = True
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
@@ -343,7 +339,7 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
     @QtCore.pyqtSlot()
     def clear_console(self):
         try:
-            self.console.setText('')
+            self.console.clear()
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
 

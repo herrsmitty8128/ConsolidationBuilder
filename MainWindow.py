@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1158, 887)
+        MainWindow.resize(1168, 887)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayout_11 = QtWidgets.QHBoxLayout(self.centralwidget)
@@ -176,7 +176,7 @@ class Ui_MainWindow(object):
         self.totalTopSidesBeginning.setMinimumSize(QtCore.QSize(150, 0))
         self.totalTopSidesBeginning.setMaximumSize(QtCore.QSize(200, 16777215))
         self.totalTopSidesBeginning.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.totalTopSidesBeginning.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter)
+        self.totalTopSidesBeginning.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.totalTopSidesBeginning.setObjectName("totalTopSidesBeginning")
         self.horizontalLayout_10.addWidget(self.totalTopSidesBeginning)
         spacerItem10 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -189,7 +189,7 @@ class Ui_MainWindow(object):
         self.totalTopSidesDebits.setMinimumSize(QtCore.QSize(150, 0))
         self.totalTopSidesDebits.setMaximumSize(QtCore.QSize(200, 16777215))
         self.totalTopSidesDebits.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.totalTopSidesDebits.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter)
+        self.totalTopSidesDebits.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.totalTopSidesDebits.setObjectName("totalTopSidesDebits")
         self.horizontalLayout_10.addWidget(self.totalTopSidesDebits)
         spacerItem11 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -202,7 +202,7 @@ class Ui_MainWindow(object):
         self.totalTopSidesCredits.setMinimumSize(QtCore.QSize(150, 0))
         self.totalTopSidesCredits.setMaximumSize(QtCore.QSize(200, 16777215))
         self.totalTopSidesCredits.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.totalTopSidesCredits.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter)
+        self.totalTopSidesCredits.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.totalTopSidesCredits.setObjectName("totalTopSidesCredits")
         self.horizontalLayout_10.addWidget(self.totalTopSidesCredits)
         spacerItem12 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -215,7 +215,7 @@ class Ui_MainWindow(object):
         self.totalTopSidesEnding.setMinimumSize(QtCore.QSize(150, 0))
         self.totalTopSidesEnding.setMaximumSize(QtCore.QSize(200, 16777215))
         self.totalTopSidesEnding.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.totalTopSidesEnding.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter)
+        self.totalTopSidesEnding.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.totalTopSidesEnding.setObjectName("totalTopSidesEnding")
         self.horizontalLayout_10.addWidget(self.totalTopSidesEnding)
         spacerItem13 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -263,9 +263,9 @@ class Ui_MainWindow(object):
         self.verticalLayout_6 = QtWidgets.QVBoxLayout(self.verticalLayoutWidget_2)
         self.verticalLayout_6.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_6.setObjectName("verticalLayout_6")
-        self.consoleTextEdit = QtWidgets.QTextEdit(self.verticalLayoutWidget_2)
-        self.consoleTextEdit.setObjectName("consoleTextEdit")
-        self.verticalLayout_6.addWidget(self.consoleTextEdit)
+        self.console = QtWidgets.QTextEdit(self.verticalLayoutWidget_2)
+        self.console.setObjectName("console")
+        self.verticalLayout_6.addWidget(self.console)
         self.horizontalLayout_9 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_9.setObjectName("horizontalLayout_9")
         spacerItem17 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -282,7 +282,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_11.addWidget(self.splitter)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1158, 22))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1168, 22))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtWidgets.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
@@ -373,40 +373,40 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         self.tabWidget.setCurrentIndex(4)
-        self.actionNew.triggered.connect(MainWindow.new_menu_item)  # type: ignore
-        self.actionOpen.triggered.connect(MainWindow.open_menu_item)  # type: ignore
-        self.actionClose.triggered.connect(MainWindow.close_menu_item)  # type: ignore
-        self.actionSave.triggered.connect(MainWindow.save_menu_item)  # type: ignore
-        self.actionSaveAs.triggered.connect(MainWindow.save_as_menu_item)  # type: ignore
-        self.actionQuit.triggered.connect(MainWindow.quit_menu_item)  # type: ignore
-        self.actionBuild.triggered.connect(MainWindow.build_menu_item)  # type: ignore
-        self.actionImportEntities.triggered.connect(MainWindow.import_menu_item)  # type: ignore
-        self.actionImportCostCenters.triggered.connect(MainWindow.import_menu_item)  # type: ignore
-        self.actionImportAccounts.triggered.connect(MainWindow.import_menu_item)  # type: ignore
-        self.actionImportTrialBalance.triggered.connect(MainWindow.import_menu_item)  # type: ignore
-        self.actionImportTopSides.triggered.connect(MainWindow.import_menu_item)  # type: ignore
-        self.actionExportEntities.triggered.connect(MainWindow.export_menu_item)  # type: ignore
-        self.actionExportCostCenters.triggered.connect(MainWindow.export_menu_item)  # type: ignore
-        self.actionExportAccounts.triggered.connect(MainWindow.export_menu_item)  # type: ignore
-        self.actionExportTrialBalance.triggered.connect(MainWindow.export_menu_item)  # type: ignore
-        self.actionExportTopSides.triggered.connect(MainWindow.export_menu_item)  # type: ignore
-        self.actionRollforward.triggered.connect(MainWindow.rollforward_menu_item)  # type: ignore
-        self.actionAudit.triggered.connect(MainWindow.audit_menu_item)  # type: ignore
-        self.entityName.textEdited['QString'].connect(MainWindow.set_entity_name)  # type: ignore
-        self.beginningBalanceDate.dateChanged['QDate'].connect(MainWindow.set_beginning_date)  # type: ignore
-        self.endingBalanceDate.dateChanged['QDate'].connect(MainWindow.set_ending_date)  # type: ignore
-        self.addEntityButton.clicked.connect(MainWindow.insert_table_row)  # type: ignore
-        self.deleteEntityButton.clicked.connect(MainWindow.delete_table_row)  # type: ignore
-        self.addCostCenterButton.clicked.connect(MainWindow.insert_table_row)  # type: ignore
-        self.deleteCostCenterButton.clicked.connect(MainWindow.delete_table_row)  # type: ignore
-        self.addAccountButton.clicked.connect(MainWindow.insert_table_row)  # type: ignore
-        self.deleteAccountButton.clicked.connect(MainWindow.delete_table_row)  # type: ignore
-        self.actionOracleTrialBalance.triggered.connect(MainWindow.import_oracle_tb)  # type: ignore
-        self.actionPlug_Rounding_Difference.triggered.connect(MainWindow.rounding_diff_menu_item)  # type: ignore
-        self.clearConsoleButton.clicked.connect(MainWindow.clear_console)  # type: ignore
-        self.copyConsoleButton.clicked.connect(MainWindow.copy_console)  # type: ignore
-        self.addTopSideButton.clicked.connect(MainWindow.insert_table_row)  # type: ignore
-        self.deleteTopSideButton.clicked.connect(MainWindow.delete_table_row)  # type: ignore
+        self.actionNew.triggered.connect(MainWindow.new_menu_item) # type: ignore
+        self.actionOpen.triggered.connect(MainWindow.open_menu_item) # type: ignore
+        self.actionClose.triggered.connect(MainWindow.close_menu_item) # type: ignore
+        self.actionSave.triggered.connect(MainWindow.save_menu_item) # type: ignore
+        self.actionSaveAs.triggered.connect(MainWindow.save_as_menu_item) # type: ignore
+        self.actionQuit.triggered.connect(MainWindow.quit_menu_item) # type: ignore
+        self.actionBuild.triggered.connect(MainWindow.build_menu_item) # type: ignore
+        self.actionImportEntities.triggered.connect(MainWindow.import_menu_item) # type: ignore
+        self.actionImportCostCenters.triggered.connect(MainWindow.import_menu_item) # type: ignore
+        self.actionImportAccounts.triggered.connect(MainWindow.import_menu_item) # type: ignore
+        self.actionImportTrialBalance.triggered.connect(MainWindow.import_menu_item) # type: ignore
+        self.actionImportTopSides.triggered.connect(MainWindow.import_menu_item) # type: ignore
+        self.actionExportEntities.triggered.connect(MainWindow.export_menu_item) # type: ignore
+        self.actionExportCostCenters.triggered.connect(MainWindow.export_menu_item) # type: ignore
+        self.actionExportAccounts.triggered.connect(MainWindow.export_menu_item) # type: ignore
+        self.actionExportTrialBalance.triggered.connect(MainWindow.export_menu_item) # type: ignore
+        self.actionExportTopSides.triggered.connect(MainWindow.export_menu_item) # type: ignore
+        self.actionRollforward.triggered.connect(MainWindow.rollforward_menu_item) # type: ignore
+        self.actionAudit.triggered.connect(MainWindow.audit_menu_item) # type: ignore
+        self.entityName.textEdited['QString'].connect(MainWindow.set_entity_name) # type: ignore
+        self.beginningBalanceDate.dateChanged['QDate'].connect(MainWindow.set_beginning_date) # type: ignore
+        self.endingBalanceDate.dateChanged['QDate'].connect(MainWindow.set_ending_date) # type: ignore
+        self.addEntityButton.clicked.connect(MainWindow.insert_table_row) # type: ignore
+        self.deleteEntityButton.clicked.connect(MainWindow.delete_table_row) # type: ignore
+        self.addCostCenterButton.clicked.connect(MainWindow.insert_table_row) # type: ignore
+        self.deleteCostCenterButton.clicked.connect(MainWindow.delete_table_row) # type: ignore
+        self.addAccountButton.clicked.connect(MainWindow.insert_table_row) # type: ignore
+        self.deleteAccountButton.clicked.connect(MainWindow.delete_table_row) # type: ignore
+        self.actionOracleTrialBalance.triggered.connect(MainWindow.import_oracle_tb) # type: ignore
+        self.actionPlug_Rounding_Difference.triggered.connect(MainWindow.rounding_diff_menu_item) # type: ignore
+        self.clearConsoleButton.clicked.connect(MainWindow.clear_console) # type: ignore
+        self.copyConsoleButton.clicked.connect(MainWindow.copy_console) # type: ignore
+        self.addTopSideButton.clicked.connect(MainWindow.insert_table_row) # type: ignore
+        self.deleteTopSideButton.clicked.connect(MainWindow.delete_table_row) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
