@@ -13,7 +13,7 @@ class TableSignals(QtCore.QObject):
 
 class BaseTableModel(QtCore.QAbstractTableModel):
 
-    def __init__(self, parent, fieldnames: list[str], data: list[dict] = []):  # , document, table_name):
+    def __init__(self, parent, fieldnames: list[str], data: list[dict] = []):
         super().__init__(parent=parent)
         self._data_ = data
         self._fieldnames_ = fieldnames
@@ -24,6 +24,7 @@ class BaseTableModel(QtCore.QAbstractTableModel):
         self.beginResetModel()
         self._data_ = data
         self.endResetModel()
+        self.signals.dataChanged.emit(self)
 
     def sumColumn(self, fieldname: str) -> int:
         return locale.format_string('$%d', sum(x[fieldname] for x in self._data_), grouping=True)
@@ -112,7 +113,7 @@ class BaseTableModel(QtCore.QAbstractTableModel):
         self._data_.sort(key=lambda x: x[fieldname], reverse=order)
         self.layoutChanged.emit()
 
-    def remove_selected_rows(self) -> bool:
+    def removeSelectedRows(self) -> bool:
         indexes = self.parent().selectionModel().selectedRows()
         for i in sorted(indexes, key=lambda x: x.row(), reverse=True):
             row = i.row()
@@ -122,7 +123,7 @@ class BaseTableModel(QtCore.QAbstractTableModel):
             if not self.signalsBlocked():
                 self.signals.dataChanged.emit(self)
 
-    def append_new_table_row(self) -> None:
+    def appendRow(self) -> None:
         row = len(self._data_)
         self.beginInsertRows(QtCore.QModelIndex(), row, row)
         r = dict()

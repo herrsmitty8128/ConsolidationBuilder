@@ -42,13 +42,11 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
         for table_name, fieldnames in self.document.tables.items():
             table = self.findChild(QtWidgets.QTableView, table_name)
             table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
-            model = BaseTableModel(table, fieldnames)
+            model = BaseTableModel(table, fieldnames, self.document.data[table_name])
             model.signals.dataChanged[BaseTableModel].connect(self.table_data_changed)
             table.setModel(model)
 
         self.set_non_table_data()
-
-        self.set_table_data()
 
     def set_table_data(self, table_name: str = None) -> None:
         if table_name is None:
@@ -143,7 +141,6 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
         try:
             if self.changed_since_last_save:
                 answer = QtWidgets.QMessageBox.question(self, 'Save File', 'Save current file before proceeding?')
-                print(answer)
                 if answer == QtWidgets.QMessageBox.StandardButton.Yes:
                     self.save_menu_item()
             self.document.reset()
@@ -176,7 +173,7 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
                 response = QtWidgets.QMessageBox.question(self, 'Replace rows?', 'Would you like to replace all rows of data?')
                 response = False if response == QtWidgets.QMessageBox.StandardButton.No else True
                 self.document.import_table(table_name, file, response)
-                self.findChild(QtWidgets.QTableView, table_name).model().layoutChanged.emit()
+                self.set_table_data(table_name)
                 self.changed_since_last_save = True
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
@@ -282,7 +279,7 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
             table_name = self.menu_actions.get(self.sender().objectName(), None)
             if table_name is None:
                 raise ValueError('Unrecognized button name.')
-            self.findChild(QtWidgets.QTableView, table_name).model().append_new_table_row()
+            self.findChild(QtWidgets.QTableView, table_name).model().appendRow()
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
 
@@ -293,9 +290,8 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
             response = QtWidgets.QMessageBox.question(self, 'Plug rounding difference?', msg)
             if response == QtWidgets.QMessageBox.StandardButton.Yes:
                 self.document.plug_rounding_diff()
-                self.Trial_Balance.model().layoutChanged.emit()
-                self.Cost_Centers.model().layoutChanged.emit()
-                self.Accounts.model().layoutChanged.emit()
+                self.set_table_data()
+                self.changed_since_last_save = True
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
 
@@ -307,7 +303,7 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
                 table_name = self.menu_actions.get(self.sender().objectName(), None)
                 if table_name is None:
                     raise ValueError('Unrecognized button name.')
-                self.findChild(QtWidgets.QTableView, table_name).model().remove_selected_rows()
+                self.findChild(QtWidgets.QTableView, table_name).model().removeSelectedRows()
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
 
@@ -340,8 +336,7 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
         try:
             clipboard = self.application.clipboard()
             clipboard.clear()
-            text = self.console.toPlainText()
-            clipboard.setText(text)
+            clipboard.setText(self.console.toPlainText())
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
 
@@ -359,3 +354,4 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
             self.totalTopSidesCredits.setText(model.sumColumn('Credits'))
             self.totalTopSidesBeginning.setText(model.sumColumn('Beginning Balance'))
             self.totalTopSidesEnding.setText(model.sumColumn('Ending Balance'))
+        self.changed_since_last_save = True
