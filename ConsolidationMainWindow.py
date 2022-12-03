@@ -239,8 +239,7 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
             response = QtWidgets.QMessageBox.question(self, 'Close the year?', msg)
             if response == QtWidgets.QMessageBox.StandardButton.Yes:
                 self.document.close_year()
-                model = self.Top_Sides.model()
-                self.Top_Sides.model().signals.dataChanged.emit(model)
+                self.set_table_data('Top_Sides')
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
 
