@@ -59,26 +59,6 @@ class Document:
 
         self.reset()
 
-    ####################################################################################
-    # Methods to read and write to and from json file format
-    ####################################################################################
-
-    def dump(self, filename: str) -> None:
-        if not filename.casefold().endswith('.json'.casefold()):
-            filename += '.json'
-        f = open(filename, 'w')
-        json.dump(self.data, f)  # , indent=3)
-        f.close()
-
-    def load(self, filename: str) -> None:
-        f = open(filename, 'r')
-        self.data = json.load(f)
-        f.close()
-
-    ####################################################################################
-    # Methods for interfacing with the underlying data
-    ####################################################################################
-
     def reset(self):
         self.data = {
             'Entity Name': '',
@@ -91,6 +71,18 @@ class Document:
             'Top_Sides': [],
             'Eliminations': []
         }
+
+    def dump(self, filename: str) -> None:
+        if not filename.casefold().endswith('.json'.casefold()):
+            filename += '.json'
+        f = open(filename, 'w')
+        json.dump(self.data, f)  # , indent=3)
+        f.close()
+
+    def load(self, filename: str) -> None:
+        f = open(filename, 'r')
+        self.data = json.load(f)
+        f.close()
 
     ####################################################################################
     # Methods for importing and exporting tables
