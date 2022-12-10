@@ -226,7 +226,8 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
                 file, _ = QtWidgets.QFileDialog.getOpenFileName(self, 'Select an existing file to update', filter='XLSX Files (*.xlsx)')
             else:
                 file, _ = QtWidgets.QFileDialog.getSaveFileName(self, 'Select a new file to create', filter='XLSX Files (*.xlsx)')
-            self.document.write_to_workbook(file, update)
+            if file:
+                self.document.write_to_workbook(file, update)
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
         finally:
