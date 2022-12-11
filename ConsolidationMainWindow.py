@@ -265,20 +265,6 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
         finally:
             self.statusBar().showMessage('Done auditing.')
 
-    ####################################################################################
-    # Other Slots
-    ####################################################################################
-
-    @QtCore.pyqtSlot()
-    def insert_table_row(self):
-        try:
-            table_name = self.menu_actions.get(self.sender().objectName(), None)
-            if table_name is None:
-                raise ValueError('Unrecognized button name.')
-            self.findChild(QtWidgets.QTableView, table_name).model().appendRow()
-        except Exception as err:
-            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
-
     @QtCore.pyqtSlot()
     def rounding_diff_menu_item(self):
         try:
@@ -288,6 +274,20 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
                 self.document.plug_rounding_diff()
                 self.set_table_data()
                 self.changed_since_last_save = True
+        except Exception as err:
+            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
+
+    ####################################################################################
+    # Table Slots
+    ####################################################################################
+
+    @QtCore.pyqtSlot()
+    def insert_table_row(self):
+        try:
+            table_name = self.menu_actions.get(self.sender().objectName(), None)
+            if table_name is None:
+                raise ValueError('Unrecognized button name.')
+            self.findChild(QtWidgets.QTableView, table_name).model().appendRow()
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
 
@@ -302,6 +302,19 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
                 self.findChild(QtWidgets.QTableView, table_name).model().removeSelectedRows()
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
+    
+    @QtCore.pyqtSlot(TableModel)
+    def table_data_changed(self, model: TableModel):
+        if model.parent().objectName() == 'Top_Sides':
+            self.totalTopSidesDebits.setText(model.sumColumn('Debits'))
+            self.totalTopSidesCredits.setText(model.sumColumn('Credits'))
+            self.totalTopSidesBeginning.setText(model.sumColumn('Beginning Balance'))
+            self.totalTopSidesEnding.setText(model.sumColumn('Ending Balance'))
+        self.changed_since_last_save = True
+    
+    ####################################################################################
+    # Individual Field (QLineEdit, QTextEdit) Slots
+    ####################################################################################
 
     @QtCore.pyqtSlot(str)
     def set_entity_name(self, new_name: str):
@@ -322,10 +335,47 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
     @QtCore.pyqtSlot(QtCore.QDate)
     def set_ending_date(self, new_date: QtCore.QDate):
         try:
+            new_date.toPyDate()
             self.document.data['Ending Balance Date'] = new_date.toString('M/d/yyyy')
             self.changed_since_last_save = True
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
+    
+    @QtCore.pyqtSlot(str)
+    def set_current_elimination_description(self, new_name: str):
+        try:
+            self.document.set_current_elimination_description(new_name)
+            self.changed_since_last_save = True
+        except Exception as err:
+            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
+    
+    @QtCore.pyqtSlot(str)
+    def set_current_elimination_entity(self, entity: str):
+        try:
+            self.document.set_current_elimination_entity(entity)
+            self.changed_since_last_save = True
+        except Exception as err:
+            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
+    
+    @QtCore.pyqtSlot(str)
+    def set_current_elimination_cost_center(self, cost_ctr: str):
+        try:
+            self.document.set_current_elimination_cost_center(cost_ctr)
+            self.changed_since_last_save = True
+        except Exception as err:
+            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
+    
+    @QtCore.pyqtSlot(str)
+    def set_current_elimination_account(self, account: str):
+        try:
+            self.document.set_current_elimination_account(account)
+            self.changed_since_last_save = True
+        except Exception as err:
+            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
+    
+    ####################################################################################
+    # Console Slots
+    ####################################################################################
 
     @QtCore.pyqtSlot()
     def copy_console(self):
@@ -342,12 +392,6 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
             self.console.clear()
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
+    
 
-    @QtCore.pyqtSlot(TableModel)
-    def table_data_changed(self, model: TableModel):
-        if model.parent().objectName() == 'Top_Sides':
-            self.totalTopSidesDebits.setText(model.sumColumn('Debits'))
-            self.totalTopSidesCredits.setText(model.sumColumn('Credits'))
-            self.totalTopSidesBeginning.setText(model.sumColumn('Beginning Balance'))
-            self.totalTopSidesEnding.setText(model.sumColumn('Ending Balance'))
-        self.changed_since_last_save = True
+    

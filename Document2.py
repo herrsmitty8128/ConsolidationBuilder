@@ -1,198 +1,161 @@
 
-import csv
 import json
 import SpreadsheetTools
 from datetime import datetime
 from collections import Counter
 from datetime import datetime
 
-oracle_tb_fieldnames = {
-    # 'DATA_ACCESS_SET_NAME',
-    'LEDGER_NAME_PARAM',
-    'P_AMOUNT_TYPE',
-    'ACCOUNTING_PERIOD_PARAM',
-    'LEDGER_CURRENCY_PARAM',
-    'P_CURRENCY_TYPE',
-    'CURRENCY_TYPE_PARAM',
-    'ENTERED_CURRENCY_PARAM',
-    'RESULTING_CURRENCY',
-    'P_SUM_BY',
-    'SUMMARIZE_BY_PARAM',
-    'BATCH_TYPE_PARAM',
-    'P_BATCH_TYPE',
-    'ENCUMBRANCE_TYPE_PARAM',
-    'FILTER_CONDITIONS_ATT',
-    'FILTER_CONDITIONS_OPT',
-    'REPT_EXECUTION_DATE',
-    'PAGEBREAK_SEGMENT_NAME',
-    'ADDL_SEGMENT_NAME',
-    'NAT_ACCT_SEGMENT_NAME',
-    'ENCUMBRANCE_ACCOUNTING_FLAG',
-    'LEDGER_NAME',
-    'PAGEBREAK_SEGMENT_VALUE',
-    'PAGEBREAK_SEGMENT_DESC',
-    'ADDITIONAL_SEGMENT_VALUE',
-    'ADDITIONAL_SEGMENT_DESC',
-    'ACCT',
-    'ACCT_DESC',
-    'ACCT_TYPE',
-    'NAS_VALUE',
-    'NAS_DESC',
-    'BEGIN_BALANCE',
-    'TOTAL_DR',
-    'TOTAL_CR',
-    'END_BALANCE'
-}
-
 
 class Document:
 
     def __init__(self):
-
-        self.tables = {
-            'Entities': ['Number', 'Name', 'Group'],
-            'Cost_Centers': ['Number', 'Name'],
-            'Accounts': ['Number', 'Name', 'Level 1', 'Level 2', 'Level 3', 'Level 4'],
-            'Trial_Balance': ['Entity', 'Cost Center', 'Account', 'Beginning Balance', 'Debits', 'Credits', 'Ending Balance'],
-            'Top_Sides': ['Entity', 'Cost Center', 'Account', 'Beginning Balance', 'Debits', 'Credits', 'Ending Balance', 'Description'],
-            'Eliminations': ['Entity', 'Cost Center', 'Account'],
-            'Documentation': ['Full Path or URL']
-        }
-
         self.reset()
 
     def reset(self):
-        self.data = {
-            'Entity Name': '',
-            'Beginning Balance Date': '12/31/9999',
-            'Ending Balance Date': '12/31/9999',
-            'Accounts': [],
-            'Cost_Centers': [],
-            'Entities': [],
-            'Trial_Balance': [],
-            'Top_Sides': [],
-            'Eliminations': [ # starts with one empty elimination
-                {
-                    'Entries': [],
-                    'Description': '',
-                    'Plug':{'Entity': '', 'Cost Center': '', 'Account': ''},
-                    'Documentation': []
-                }
-            ]
-        }
+        self._entity_name = ''
+        self._beginning_date = datetime.now()
+        self._ending_date = datetime.now()
+        self._accounts = []
+        self._cost_centers = []
+        self._entities = []
+        self._trial_balance = []
+        self._top_sides = []
+        self._eliminations = [ # starts with one empty elimination
+            {
+                'entries': [],
+                'description': '',
+                'plug':{'Entity': '', 'Cost Center': '', 'Account': ''},
+                'documentation': []
+            }
+        ]
+
+    ####################################################################################
+    # setter/getter methods
+    ####################################################################################
+
+    @property
+    def entity_name(self) -> str:
+        return self._entity_name
+    
+    @entity_name.setter
+    def entity_name(self, new_name: str) -> None:
+        if not isinstance(new_name, str):
+            raise TypeError('Document.entity_name must be a string object.')
+        self._entity_name = new_name
+    
+    @property
+    def beginning_date(self) -> datetime:
+        return self._beginning_date
+    
+    @beginning_date.setter
+    def beginning_date(self, new_date: datetime) -> None:
+        if not isinstance(new_date, datetime):
+            raise TypeError('Document.beginning_date must be a datetime object.')
+        self._beginning_date = new_date
+
+    @property
+    def ending_date(self) -> datetime:
+        return self._ending_date
+    
+    @ending_date.setter
+    def ending_date(self, new_date: datetime) -> None:
+        if not isinstance(new_date, datetime):
+            raise TypeError('Document.ending_date must be a datetime object.')
+        self._ending_date = new_date
+    
+    @property
+    def accounts(self) -> list[dict]:
+        return self._accounts
+    
+    @accounts.setter
+    def accounts(self, new_list: list[dict]) -> None:
+        if not isinstance(new_list, list) or not all(isinstance(obj, dict) for obj in new_list):
+            raise TypeError('Document.accounts must be a list[dict] object.')
+        self._accounts = new_list
+    
+    @property
+    def cost_centers(self) -> list[dict]:
+        return self._cost_centers
+    
+    @cost_centers.setter
+    def cost_centers(self, new_list: list[dict]) -> None:
+        if not isinstance(new_list, list) or not all(isinstance(obj, dict) for obj in new_list):
+            raise TypeError('Document.cost_centers must be a list[dict] object.')
+        self._cost_centers = new_list
+    
+    @property
+    def entities(self) -> list[dict]:
+        return self._entities
+    
+    @entities.setter
+    def entities(self, new_list: list[dict]) -> None:
+        if not isinstance(new_list, list) or not all(isinstance(obj, dict) for obj in new_list):
+            raise TypeError('Document.entities must be a list[dict] object.')
+        self._entities = new_list
+    
+    @property
+    def trial_balance(self) -> list[dict]:
+        return self._trial_balance
+    
+    @trial_balance.setter
+    def trial_balance(self, new_list: list[dict]) -> None:
+        if not isinstance(new_list, list) or not all(isinstance(obj, dict) for obj in new_list):
+            raise TypeError('Document.trial_balance must be a list[dict] object.')
+        self._trial_balance = new_list
+    
+    @property
+    def top_sides(self) -> list[dict]:
+        return self._top_sides
+    
+    @top_sides.setter
+    def top_sides(self, new_list: list[dict]) -> None:
+        if not isinstance(new_list, list) or not all(isinstance(obj, dict) for obj in new_list):
+            raise TypeError('Document.top_sides must be a list[dict] object.')
+        self._top_sides = new_list
+    
+    @property
+    def eliminations(self) -> list[dict]:
+        return self._eliminations
+    
+    @eliminations.setter
+    def eliminations(self, new_list: list[dict]) -> None:
+        if not isinstance(new_list, list) or not all(isinstance(obj, dict) for obj in new_list):
+            raise TypeError('Document.eliminations must be a list[dict] object.')
+        self._eliminations = new_list
+
+    ####################################################################################
+    # Methods for saving and loading the document
+    ####################################################################################
 
     def dump(self, filename: str) -> None:
+        data = {
+            'entity_name': self.entity_name,
+            'beginning_date': datetime.strftime(self.beginning_date, '%m/%d/%Y'),
+            'ending_date': datetime.strftime(self.ending_date, '%m/%d/%Y'),
+            'accounts': self.accounts,
+            'cost_centers': self.cost_centers,
+            'entities': self.entities,
+            'trial_balance': self.trial_balance,
+            'eliminations': self.eliminations
+        }
         if not filename.casefold().endswith('.json'.casefold()):
             filename += '.json'
         f = open(filename, 'w')
-        json.dump(self.data, f)  # , indent=3)
+        json.dump(data, f)  # , indent=3)
         f.close()
 
     def load(self, filename: str) -> None:
         f = open(filename, 'r')
-        self.data = json.load(f)
+        data = json.load(f)
         f.close()
-    
-    ####################################################################################
-    # Methods for importing and exporting tables
-    ####################################################################################
-
-    def import_table(self, table_name: str, file: str, replace: bool) -> None:
-
-        with open(file, 'r', newline='') as f:
-
-            reader = csv.DictReader(f)
-            fieldnames = set(reader.fieldnames)
-            headers = set(self.tables.get(table_name, []))
-
-            if not headers.issubset(fieldnames):
-                raise ValueError('CSV file has incorrect field names.')
-
-            if replace:
-                self.data[table_name].clear()
-
-            for row in reader:
-                r = dict()
-                for header in headers:
-                    if header == 'Beginning Balance':
-                        r[header] = int(row[header].strip())
-                    elif header == 'Debits':
-                        r[header] = abs(int(row[header].strip()))
-                    elif header == 'Credits':
-                        r[header] = -abs(int(row[header].strip()))
-                    elif header == 'Ending Balance':
-                        pass  # do nothing
-                    else:
-                        r[header] = row[header].strip()
-                if table_name == 'Trial_Balance' or table_name == 'Top_Sides':
-                    r['Ending Balance'] = r['Beginning Balance'] + r['Debits'] + r['Credits']
-                self.data[table_name].append(r)
-
-    def import_oracle_tb(self, file: str, replace: bool) -> None:
-
-        with open(file, 'r', newline='') as f:
-
-            reader = csv.DictReader(f)
-
-            if not oracle_tb_fieldnames.issubset(set(reader.fieldnames)):
-                raise ValueError('CSV file has incorrect field names.')
-
-            if replace:
-                self.data['Trial_Balance'].clear()
-
-            entities = set(e['Number'] for e in self.data['Entities'])
-            costctrs = set(c['Number'] for c in self.data['Cost_Centers'])
-            accounts = set(a['Number'] for a in self.data['Accounts'])
-
-            for row in reader:
-
-                r = {
-                    'Entity': row['PAGEBREAK_SEGMENT_VALUE'].strip(),
-                    'Cost Center': row['ADDITIONAL_SEGMENT_VALUE'].strip(),
-                    'Account': row['NAS_VALUE'].strip(),
-                    'Beginning Balance': int(round(float(row['BEGIN_BALANCE'].strip()), 0)),
-                    'Debits': abs(int(round(float(row['TOTAL_DR'].strip()), 0))),
-                    'Credits': -abs(int(round(float(row['TOTAL_CR'].strip()), 0)))
-                }
-
-                r['Ending Balance'] = r['Beginning Balance'] + r['Debits'] + r['Credits']
-
-                self.data['Trial_Balance'].append(r)
-
-                if r['Entity'] not in entities:
-                    self.data['Entities'].append({
-                        'Number': r['Entity'],
-                        'Name': row['PAGEBREAK_SEGMENT_DESC'].strip(),
-                        'Group': ''
-                    })
-                    entities.add(r['Entity'])
-
-                if r['Cost Center'] not in costctrs:
-                    self.data['Cost_Centers'].append({
-                        'Number': r['Cost Center'],
-                        'Name': row['ADDITIONAL_SEGMENT_DESC'].strip()
-                    })
-                    costctrs.add(r['Cost Center'])
-
-                if r['Account'] not in accounts:
-                    self.data['Accounts'].append({
-                        'Number': r['Account'],
-                        'Name': row['NAS_DESC'].strip(),
-                        'Level 1': '',
-                        'Level 2': '',
-                        'Level 3': '',
-                        'Level 4': ''
-                    })
-                    accounts.add(r['Account'])
-
-    def export_table(self, table_name: str, file: str) -> None:
-        headers = self.tables.get(table_name, None)
-        if headers is None:
-            raise ValueError('CSV file does not have the correct field names.')
-        with open(file, 'w', newline='') as f:
-            writer = csv.DictWriter(f, fieldnames=headers)
-            writer.writeheader()
-            writer.writerows(self.data[table_name])
+        self.entity_name = data['entity_name']
+        self.beginning_date = datetime.strptime(data['beginning_date'], '%m/%d/%Y')
+        self.ending_date = datetime.strptime(data['ending_date'], '%m/%d/%Y')
+        self.entities = data['entities']
+        self.cost_centers = data['cost_centers']
+        self.accounts = data['accounts']
+        self.top_sides = data['top_sides']
+        self.eliminations = data['eliminations']
 
     ####################################################################################
     # Methods to perform the consolidation
@@ -200,10 +163,10 @@ class Document:
 
     def build_consolidation_table(self) -> list[dict]:
         output_data = []
-        entities = {e['Number']: e for e in self.data['Entities']}
-        costctrs = {c['Number']: c for c in self.data['Cost_Centers']}
-        accounts = {a['Number']: a for a in self.data['Accounts']}
-        for name, table in (('Trial Balance', self.data['Trial_Balance']), ('Top_Sides', self.data['Top_Sides'])):
+        entities = {e['Number']: e for e in self.entities}
+        costctrs = {c['Number']: c for c in self.cost_centers}
+        accounts = {a['Number']: a for a in self.accounts}
+        for name, table in (('Trial Balance', self.trial_balance), ('Top_Sides', self.top_sides)):
             for row in table:
                 entity = entities[row['Entity']]
                 costctr = costctrs[row['Cost Center']]
@@ -384,33 +347,3 @@ class Document:
 
         return error_log
     
-    ####################################################################################
-    # Getter/Setter methods
-    ####################################################################################
-
-    def set_entity_name(self, new_name: str):
-        self.data['Entity Name'] = new_name
-    
-    def set_beginning_date(self, new_date: datetime):
-        self.data['Beginning Balance Date'] = datetime.strftime(new_date, '%m/%d/%Y')
-    
-    def get_beginning_date(self) -> datetime:
-        return datetime.strptime(self.data['Beginning Balance Date'], '%m/%d/%Y')
-    
-    def set_ending_date(self, new_date: datetime):
-        self.data['Ending Balance Date'] = datetime.strftime(new_date, '%m/%d/%Y')
-    
-    def get_ending_date(self) -> datetime:
-        return datetime.strptime(self.data['Ending Balance Date'], '%m/%d/%Y')
-    
-    def set_elimination_description(self, index: int, description: str):
-        self.data['Eliminations'][index]['Description'] = description
-
-    def set_elimination_entity(self, index: int, entity: str):
-        self.data['Eliminations'][index]['Plug']['Entity'] = entity
-
-    def set_elimination_cost_center(self, index: int, cost_ctr: str):
-        self.data['Eliminations'][index]['Plug']['Cost Center'] = cost_ctr
-
-    def set_elimination_account(self, index: int, account: str):
-        self.data['Eliminations'][index]['Plug']['Account'] = account

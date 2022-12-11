@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1379</width>
-    <height>877</height>
+    <width>1200</width>
+    <height>860</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -674,7 +674,7 @@
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_9">
                  <item>
-                  <widget class="QTableView" name="tableView_2">
+                  <widget class="QTableView" name="Documentation">
                    <property name="font">
                     <font>
                      <pointsize>10</pointsize>
@@ -687,7 +687,7 @@
                  <item>
                   <layout class="QHBoxLayout" name="horizontalLayout_13">
                    <item>
-                    <widget class="QPushButton" name="pushButton_7">
+                    <widget class="QPushButton" name="addElimDocButton">
                      <property name="font">
                       <font>
                        <pointsize>11</pointsize>
@@ -701,7 +701,7 @@
                     </widget>
                    </item>
                    <item>
-                    <widget class="QPushButton" name="pushButton_8">
+                    <widget class="QPushButton" name="deleteElimDocButton">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                        <horstretch>0</horstretch>
@@ -754,7 +754,7 @@
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_14">
                  <item>
-                  <widget class="QTableView" name="tableView">
+                  <widget class="QTableView" name="Eliminations">
                    <property name="font">
                     <font>
                      <pointsize>10</pointsize>
@@ -767,7 +767,7 @@
                  <item>
                   <layout class="QHBoxLayout" name="horizontalLayout_14">
                    <item>
-                    <widget class="QPushButton" name="pushButton_6">
+                    <widget class="QPushButton" name="addElimEntryButton">
                      <property name="font">
                       <font>
                        <pointsize>11</pointsize>
@@ -781,7 +781,7 @@
                     </widget>
                    </item>
                    <item>
-                    <widget class="QPushButton" name="pushButton_5">
+                    <widget class="QPushButton" name="deleteElimEntryButton">
                      <property name="font">
                       <font>
                        <pointsize>11</pointsize>
@@ -819,7 +819,7 @@
                 </property>
                 <layout class="QHBoxLayout" name="horizontalLayout_12">
                  <item>
-                  <widget class="QTextEdit" name="textEdit">
+                  <widget class="QTextEdit" name="Elim_Desc">
                    <property name="font">
                     <font>
                      <pointsize>10</pointsize>
@@ -880,13 +880,13 @@
                       </widget>
                      </item>
                      <item row="0" column="1">
-                      <widget class="QLineEdit" name="lineEdit"/>
+                      <widget class="QLineEdit" name="Elim_Plug_Entity"/>
                      </item>
                      <item row="1" column="1">
-                      <widget class="QLineEdit" name="lineEdit_3"/>
+                      <widget class="QLineEdit" name="Elim_Plug_CC"/>
                      </item>
                      <item row="2" column="1">
-                      <widget class="QLineEdit" name="lineEdit_2"/>
+                      <widget class="QLineEdit" name="Elim_Plug_Acct"/>
                      </item>
                      <item row="1" column="0">
                       <widget class="QLabel" name="label_8">
@@ -980,7 +980,7 @@
                </spacer>
               </item>
               <item>
-               <widget class="QPushButton" name="pushButton_4">
+               <widget class="QPushButton" name="addNewElimButton">
                 <property name="text">
                  <string>Add</string>
                 </property>
@@ -1000,7 +1000,7 @@
                </spacer>
               </item>
               <item>
-               <widget class="QPushButton" name="pushButton_3">
+               <widget class="QPushButton" name="deleteCurrElimButton">
                 <property name="text">
                  <string>Delete</string>
                 </property>
@@ -1020,7 +1020,7 @@
                </spacer>
               </item>
               <item>
-               <widget class="QPushButton" name="pushButton_2">
+               <widget class="QPushButton" name="navigatePrevElimButton">
                 <property name="text">
                  <string>Previous</string>
                 </property>
@@ -1040,7 +1040,7 @@
                </spacer>
               </item>
               <item>
-               <widget class="QPushButton" name="pushButton">
+               <widget class="QPushButton" name="navigateNextElimButton">
                 <property name="text">
                  <string>Next</string>
                 </property>
@@ -1132,7 +1132,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1379</width>
+     <width>1200</width>
      <height>22</height>
     </rect>
    </property>
