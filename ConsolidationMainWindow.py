@@ -17,27 +17,6 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
         self.filename = None
         self.changed_since_last_save = False
 
-        self.menu_actions = {
-            'actionImportEntities': 'Entities',
-            'actionImportCostCenters': 'Cost_Centers',
-            'actionImportAccounts': 'Accounts',
-            'actionImportTrialBalance': 'Trial_Balance',
-            'actionImportTopSides': 'Top_Sides',
-            'actionExportEntities': 'Entities',
-            'actionExportCostCenters': 'Cost_Centers',
-            'actionExportAccounts': 'Accounts',
-            'actionExportTrialBalance': 'Trial_Balance',
-            'actionExportTopSides': 'Top_Sides',
-            'addEntityButton': 'Entities',
-            'deleteEntityButton': 'Entities',
-            'addCostCenterButton': 'Cost_Centers',
-            'deleteCostCenterButton': 'Cost_Centers',
-            'insertAccountButton': 'Accounts',
-            'addAccountButton': 'Accounts',
-            'addTopSideButton': 'Top_Sides',
-            'deleteTopSideButton': 'Top_Sides'
-        }
-
         table = self.Entities
         table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
         model = TableModel.EntityTableModel(table)
@@ -78,7 +57,9 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
         table.setModel(model)
 
     ####################################################################################
+    ####################################################################################
     # FILE MENU
+    ####################################################################################
     ####################################################################################
 
     @QtCore.pyqtSlot()
@@ -186,7 +167,9 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
 
     ####################################################################################
+    ####################################################################################
     # DATA MENU
+    ####################################################################################
     ####################################################################################
 
     @QtCore.pyqtSlot()
@@ -351,7 +334,9 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
             self.statusBar().showMessage('Done exporting.')
 
     ####################################################################################
+    ####################################################################################
     # Consolidation Menu
+    ####################################################################################
     ####################################################################################
 
     @QtCore.pyqtSlot()
@@ -416,7 +401,9 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
 
     ####################################################################################
+    ####################################################################################
     # Table Slots
+    ####################################################################################
     ####################################################################################
 
     @QtCore.pyqtSlot()
@@ -518,7 +505,9 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
     
     ####################################################################################
-    # Individual Field (QLineEdit, QTextEdit) Slots
+    ####################################################################################
+    # Current Elimination Slots
+    ####################################################################################
     ####################################################################################
 
     @QtCore.pyqtSlot()
@@ -537,10 +526,10 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
     def goto_prev_elimination(self):
         pass
 
-
-    
+    ####################################################################################
     ####################################################################################
     # Text Slots
+    ####################################################################################
     ####################################################################################
 
     @QtCore.pyqtSlot()
