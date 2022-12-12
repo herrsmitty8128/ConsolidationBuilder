@@ -3,24 +3,30 @@ import csv
 import locale
 from PyQt5 import QtWidgets, QtCore
 
+
 locale.setlocale(locale.LC_ALL, '')
+
 currency = lambda x : locale.format_string('%d', x, grouping=True)
 
 
 class TableSignals(QtCore.QObject):
-    sumDebitsChanged = QtCore.pyqtSignal(int)
-    sumCreditsChanged = QtCore.pyqtSignal(int)
-    sumBeginBalChanged = QtCore.pyqtSignal(int)
-    sumEndBalChanged = QtCore.pyqtSignal(int)
+    sumDebitsChanged = QtCore.pyqtSignal(str)
+    sumCreditsChanged = QtCore.pyqtSignal(str)
+    sumBeginBalChanged = QtCore.pyqtSignal(str)
+    sumEndBalChanged = QtCore.pyqtSignal(str)
 
 
 class BaseTableModel(QtCore.QAbstractTableModel):
 
-    def __init__(self, parent, descriptors: dict, data: list[dict] = []):
+    descriptors = {
+        'None': {'default value': '', 'to string': lambda x : str(x), 'to value': lambda x : str(x)}
+    }
+
+    def __init__(self, parent):
         super().__init__(parent=parent)
-        self._data_ = data
-        self._fieldnames_ = [h for h in descriptors.keys()]
-        self._descriptors_ = descriptors
+        self._data_ = []
+        self._descriptors_ = type(self).descriptors
+        self._fieldnames_ = [h for h in self._descriptors_.keys()]
 
     def setTableData(self, data: list[dict]) -> None:
         self.beginResetModel()
@@ -40,6 +46,9 @@ class BaseTableModel(QtCore.QAbstractTableModel):
             if orient == QtCore.Qt.Vertical:
                 return index + 1
         return QtCore.QVariant()
+
+    def getAlignment(self, fieldname: str):
+        return QtCore.Qt.AlignLeft # QtCore.Qt.AlignLeft or QtCore.Qt.AlignVCenter or QtCore.Qt.AlignRight
     
     def data(self, index: QtCore.QModelIndex, role: int = QtCore.Qt.ItemDataRole.DisplayRole) -> QtCore.QVariant:
         if index.isValid():
@@ -48,7 +57,7 @@ class BaseTableModel(QtCore.QAbstractTableModel):
                 value = self._data_[index.row()][field]
                 return self._descriptors_[field]['to string'](value)
             elif role == QtCore.Qt.TextAlignmentRole:
-                return QtCore.Qt.AlignLeft  # QtCore.Qt.AlignVCenter or QtCore.Qt.AlignRight
+                return self.getAlignment(field)
         return QtCore.QVariant()
     
     def setData(self, index: QtCore.QModelIndex, value: QtCore.QVariant, role: int = QtCore.Qt.EditRole) -> bool:
@@ -90,8 +99,7 @@ class BaseTableModel(QtCore.QAbstractTableModel):
         self.endInsertRows()
         self.parent().scrollTo(self.index(row, 0))
     
-    def load_csv(self, file_name: str, replace: bool) -> list[dict]:
-        data = []
+    def load_csv(self, file_name: str, replace: bool) -> None:
         if replace:
             self._data_.clear()
         with open(file_name, 'r', newline='') as f:
@@ -119,7 +127,7 @@ class EntityTableModel(BaseTableModel):
     }
 
     def __init__(self, parent):
-        super().__init__(parent, EntityTableModel.descriptors)
+        super().__init__(parent)
 
 
 class CostCenterTableModel(BaseTableModel):
@@ -130,7 +138,7 @@ class CostCenterTableModel(BaseTableModel):
     }
 
     def __init__(self, parent):
-        super().__init__(parent, CostCenterTableModel.descriptors)
+        super().__init__(parent)
 
 
 class AccountTableModel(BaseTableModel):
@@ -145,7 +153,7 @@ class AccountTableModel(BaseTableModel):
     }
 
     def __init__(self, parent):
-        super().__init__(parent, AccountTableModel.descriptors)
+        super().__init__(parent)
 
 
 class TrialBalanceTableModel(BaseTableModel):
@@ -161,11 +169,16 @@ class TrialBalanceTableModel(BaseTableModel):
     }
 
     def __init__(self, parent):
-        super().__init__(parent, TrialBalanceTableModel.descriptors)
-        self.signals = TopSidesTableModel()
+        super().__init__(parent)
+        self.signals = TableSignals()
     
     def sumColumn(self, fieldname: str) -> int:
         return locale.format_string('$%d', sum(x[fieldname] for x in self._data_), grouping=True)
+    
+    def getAlignment(self, fieldname: str):
+        if fieldname == 'Beginning Balance' or fieldname == 'Debits' or fieldname == 'Credits' or fieldname == 'Ending Balance':
+            return QtCore.Qt.AlignRight
+        return QtCore.Qt.AlignLeft # QtCore.Qt.AlignLeft or QtCore.Qt.AlignVCenter or QtCore.Qt.AlignRight
     
     def flags(self, index: QtCore.QModelIndex) -> QtCore.Qt.ItemFlags:
         if index.isValid():
@@ -179,21 +192,71 @@ class TrialBalanceTableModel(BaseTableModel):
     def setTableData(self, data: list[dict]) -> None:
         super().setTableData(data)
         if not self.signalsBlocked():
-            self.signals.topSidesChanged.emit(self)
+            self.signals.sumBeginBalChanged.emit(self.sumColumn('Beginning Balance'))
+            self.signals.sumDebitsChanged.emit(self.sumColumn('Debits'))
+            self.signals.sumCreditsChanged.emit(self.sumColumn('Credits'))
+            self.signals.sumEndBalChanged.emit(self.sumColumn('Ending Balance'))
 
     def setData(self, index: QtCore.QModelIndex, value: QtCore.QVariant, role: int = QtCore.Qt.EditRole) -> bool:
-        if super().setData(index, value, role):
-            if not self.signalsBlocked():
-                self.signals.topSidesChanged.emit(self)
-            return True
+        if index.isValid():
+            if role == QtCore.Qt.EditRole:
+                new_value = value.strip()
+                if len(new_value) > 0:
+                    try:
+                        field = self._fieldnames_[index.column()]
+                        row = index.row()
+                        data = self._data_[row]
+                        new_value = self._descriptors_[field]['to value'](new_value)
+                        if field == 'Beginning Balance':
+                            data[field] = new_value
+                            data['Ending Balance'] = new_value + data['Debits'] + data['Credits']
+                            self.signals.sumBeginBalChanged.emit(self.sumColumn('Beginning Balance'))
+                            self.signals.sumEndBalChanged.emit(self.sumColumn('Ending Balance'))
+                        elif field == 'Debits':
+                            data[field] = new_value
+                            data['Ending Balance'] = data['Beginning Balance'] + new_value + data['Credits']
+                            self.signals.sumDebitsChanged.emit(self.sumColumn('Debits'))
+                            self.signals.sumEndBalChanged.emit(self.sumColumn('Ending Balance'))
+                        elif field == 'Credits':
+                            data[field] = new_value
+                            data['Ending Balance'] = data['Beginning Balance'] + data['Debits'] + new_value
+                            self.signals.sumCreditsChanged.emit(self.sumColumn('Credits'))
+                            self.signals.sumEndBalChanged.emit(self.sumColumn('Ending Balance'))
+                        elif field == 'Ending Balance':
+                            pass
+                        else:
+                            data[field] = new_value
+                        self.parent().horizontalHeader().resizeSections(QtWidgets.QHeaderView.ResizeToContents)
+                    except:
+                        pass
+
+                    if not self.signalsBlocked():
+                        self.signals.dataChanged.emit(self)
+                        #self.signals.sumBeginBalChanged.emit(self.sumColumn('Beginning Balance'))
+                        #self.signals.sumDebitsChanged.emit(self.sumColumn('Debits'))
+                        #self.signals.sumCreditsChanged.emit(self.sumColumn('Credits'))
+                        #self.signals.sumEndBalChanged.emit(self.sumColumn('Ending Balance'))
+
+                    return True
         return False
 
     def removeSelectedRows(self) -> bool:
         if super().removeSelectedRows():
             if not self.signalsBlocked():
-                self.signals.topSidesChanged.emit(self)
+                self.signals.sumBeginBalChanged.emit(self.sumColumn('Beginning Balance'))
+                self.signals.sumDebitsChanged.emit(self.sumColumn('Debits'))
+                self.signals.sumCreditsChanged.emit(self.sumColumn('Credits'))
+                self.signals.sumEndBalChanged.emit(self.sumColumn('Ending Balance'))
             return True
         return False
+    
+    def load_csv(self, file_name: str, replace: bool) -> None:
+        super().load_csv(file_name, replace)
+        if not self.signalsBlocked():
+            self.signals.sumBeginBalChanged.emit(self.sumColumn('Beginning Balance'))
+            self.signals.sumDebitsChanged.emit(self.sumColumn('Debits'))
+            self.signals.sumCreditsChanged.emit(self.sumColumn('Credits'))
+            self.signals.sumEndBalChanged.emit(self.sumColumn('Ending Balance'))
 
 
 class TopSidesTableModel(TrialBalanceTableModel):
@@ -210,7 +273,7 @@ class TopSidesTableModel(TrialBalanceTableModel):
     }
 
     def __init__(self, parent):
-        super().__init__(parent, TopSidesTableModel.descriptors)
+        super().__init__(parent)
 
 
 class EliminationsTableModel(BaseTableModel):
@@ -222,7 +285,7 @@ class EliminationsTableModel(BaseTableModel):
     }
 
     def __init__(self, parent):
-        super().__init__(parent, EliminationsTableModel.descriptors)
+        super().__init__(parent)
 
 
 class DocumentationTableModel(BaseTableModel):
@@ -232,7 +295,7 @@ class DocumentationTableModel(BaseTableModel):
     }
 
     def __init__(self, parent):
-        super().__init__(parent, DocumentationTableModel.descriptors)
+        super().__init__(parent)
 
 
 '''

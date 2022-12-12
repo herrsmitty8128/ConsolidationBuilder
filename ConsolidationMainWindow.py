@@ -1,9 +1,9 @@
 
 import MainWindow
-import CsvTables
+import json
+import TableModel
+import datetime
 from PyQt5 import QtWidgets, QtCore, QtGui
-from Document2 import Document
-from TableModel import TableModel
 
 
 class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
@@ -15,7 +15,6 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
         self.setupUi(self)
         self.application = application
         self.filename = None
-        self.document = Document()
         self.changed_since_last_save = False
 
         self.menu_actions = {
@@ -39,71 +38,44 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
             'deleteTopSideButton': 'Top_Sides'
         }
 
-        self.set_table_model('Entities', [x for x in CsvTables.descriptors['Entities'].keys()], self.document.entities)
-        self.set_table_model('Cost_Centers', [x for x in CsvTables.descriptors['Cost_Centers'].keys()], self.document.cost_centers)
-        self.set_table_model('Accounts', [x for x in CsvTables.descriptors['Accounts'].keys()], self.document.accounts)
-        self.set_table_model('Trial_Balance', [x for x in CsvTables.descriptors['Trial_Balance'].keys()], self.document.trial_balance)
-        self.set_table_model('Top_Sides', [x for x in CsvTables.descriptors['Top_Sides'].keys()], self.document.top_sides)
-        self.set_table_model('Eliminations', [x for x in CsvTables.descriptors['Eliminations'].keys()], self.document.current_elimination_entries)
-        self.set_table_model('Documentation', [x for x in CsvTables.descriptors['Documentation'].keys()], self.document.current_elimination_docs)
-
-        self.set_non_table_data()
-    
-    def set_table_model(self, table_name: str, headers: list[str], data: list[dict]):
-        table = self.findChild(QtWidgets.QTableView, table_name)
+        table = self.Entities
         table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
-        model = TableModel(table, headers, data)
-        model.signals.dataChanged[TableModel].connect(self.table_data_changed)
+        model = TableModel.EntityTableModel(table)
         table.setModel(model)
 
-    def set_table_data(self, table_name: str = None) -> None:
-        if table_name is None:
-            tables = self.findChildren(QtWidgets.QTableView)
-            for table in tables:
-                table.model().setTableData(self.document.data[table.objectName()])
-        else:
-            table = self.findChild(QtWidgets.QTableView, table_name)
-            table.model().setTableData(self.document.data[table_name])
+        table = self.Cost_Centers
+        table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
+        model = TableModel.CostCenterTableModel(table)
+        table.setModel(model)
 
-    def set_non_table_data(self) -> None:
-        # set the entity name
-        name = self.findChild(QtWidgets.QLineEdit, 'entityName')
-        name.blockSignals(True)
-        name.setText(self.document.entity_name)
-        name.blockSignals(False)
-        # set the beginning date
-        date = self.findChild(QtWidgets.QDateEdit, 'beginningBalanceDate')
-        date.blockSignals(True)
-        date.setDate(QtCore.QDate.fromString(self.document.data['Beginning Balance Date'], 'M/d/yyyy'))
-        date.blockSignals(False)
-        # set the ending date
-        date = self.findChild(QtWidgets.QDateEdit, 'endingBalanceDate')
-        date.blockSignals(True)
-        date.setDate(QtCore.QDate.fromString(self.document.data['Ending Balance Date'], 'M/d/yyyy'))
-        date.setDate(QtCore.QDate(self.document.ending_date))
-        date.blockSignals(False)
-    
-    def connect_elimination(self) -> None:
-        # set current elimination description
-        elim = self.findChild(QtWidgets.QTextEdit, 'Elim_Desc')
-        elim.blockSignals(True)
-        elim.setText(self.document.current_elimination_description)
-        elim.blockSignals(False)
-        # set current elimination entity
-        elim = self.findChild(QtWidgets.QLineEdit, 'Elim_Plug_Entity')
-        elim.blockSignals(True)
-        elim.setText(self.document.current_elimination_plug_entity)
-        elim.blockSignals(False)
-        # set current elimination cc
-        elim = self.findChild(QtWidgets.QLineEdit, 'Elim_Plug_CC')
-        elim.blockSignals(True)
-        elim.setText(self.document.current_elimination_plug_cc)
-        elim.blockSignals(False)
-        # set current elimination cc
-        elim = self.findChild(QtWidgets.QLineEdit, 'Elim_Plug_Acct')
-        elim.blockSignals(True)
-        elim.setText(self.document.current_elimination_plug_account)
-        elim.blockSignals(False)
+        table = self.Accounts
+        table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
+        model = TableModel.AccountTableModel(table)
+        table.setModel(model)
+
+        table = self.Trial_Balance
+        table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
+        model = TableModel.TrialBalanceTableModel(table)
+        table.setModel(model)
+
+        table = self.Top_Sides
+        table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
+        model = TableModel.TopSidesTableModel(table)
+        model.signals.sumBeginBalChanged[str].connect(self.totalTopSidesBeginning.setText)
+        model.signals.sumDebitsChanged[str].connect(self.totalTopSidesDebits.setText)
+        model.signals.sumCreditsChanged[str].connect(self.totalTopSidesCredits.setText)
+        model.signals.sumEndBalChanged[str].connect(self.totalTopSidesEnding.setText)
+        table.setModel(model)
+
+        table = self.Eliminations
+        table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
+        model = TableModel.EliminationsTableModel(table)
+        table.setModel(model)
+
+        table = self.Documentation
+        table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
+        model = TableModel.DocumentationTableModel(table)
+        table.setModel(model)
 
     ####################################################################################
     # FILE MENU
@@ -127,9 +99,17 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
             file, _ = QtWidgets.QFileDialog.getOpenFileName(self, 'Select a file to open', filter='JSON Files (*.json)')
             if file:
                 self.filename = file
-                self.document.load(self.filename)
-                self.set_non_table_data()
-                self.set_table_data()
+                f = open(self.filename, 'r')
+                data = json.load(f)
+                f.close()
+                self.Entities.model().setTableData(data['Entities'])
+                self.Cost_Centers.model().setTableData(data['Cost_Centers'])
+                self.Accounts.model().setTableData(data['Accounts'])
+                self.Trial_Balance.model().setTableData(data['Trial_Balance'])
+                self.Top_Sides.model().setTableData(data['Top_Sides'])
+                self.entityName.setText(data['Entity Name'])
+                self.beginningBalanceDate.setDate(QtCore.QDate.fromString(data['Beginning Balance Date'], 'M/d/yyyy'))
+                self.endingBalanceDate.setDate(QtCore.QDate.fromString(data['Ending Balance Date'], 'M/d/yyyy'))
                 self.changed_since_last_save = False
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
@@ -148,7 +128,19 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
                     self.filename = file
                 else:
                     return
-            self.document.dump(self.filename)
+            data = {
+                'Entity Name': self.entityName.text(),
+                'Beginning_Balance_Date': datetime.strftime(self.beginningBalanceDate.toPyDate(), '%m/%d/%Y'),
+                'Ending_Balance_Date': datetime.strftime(self.endingBalanceDate.toPyDate(), '%m/%d/%Y'),
+                'Accounts': self.Accounts.model()._data_,
+                'Cost_Centers': self.Cost_Centers.model._data_,
+                'Entities': self.Entities.model()._data_,
+                'Trial_Balance': self.Trial_Balance.model()._data_,
+                'Top_Sides': self.Top_Sides.model()._data_
+            }
+            f = open(self.filename, 'w')
+            json.dump(data, f)  # , indent=3)
+            f.close()
             self.changed_since_last_save = False
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
@@ -174,9 +166,14 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
                 answer = QtWidgets.QMessageBox.question(self, 'Save File', 'Save current file before proceeding?')
                 if answer == QtWidgets.QMessageBox.StandardButton.Yes:
                     self.save_menu_item()
-            self.document.reset()
-            self.set_non_table_data()
-            self.set_table_data()
+            self.entityName.setText('')
+            self.beginningBalanceDate.setDate(QtCore.QDate())
+            self.endingBalanceDate.setDate(QtCore.QDate())
+            self.Entities.setTableData([])
+            self.Cost_Centers.setTableData([])
+            self.Accounts.setTableData([])
+            self.Trial_Balance.setTableData([])
+            self.Top_Sides.setTableData([])
             self.changed_since_last_save = False
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
@@ -193,18 +190,74 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
     ####################################################################################
 
     @QtCore.pyqtSlot()
-    def import_menu_item(self):
+    def import_entities_menu_item(self):
         try:
-            self.statusBar().showMessage('Importing CSV file...')
-            table_name = self.menu_actions.get(self.sender().objectName(), None)
-            if table_name is None:
-                raise ValueError('Unrecognized action name.')
+            self.statusBar().showMessage('Importing entities from CSV file...')
             file, _ = QtWidgets.QFileDialog.getOpenFileName(self, 'Select a file to open', filter='CSV Files (*.csv)')
             if file:
                 response = QtWidgets.QMessageBox.question(self, 'Replace rows?', 'Would you like to replace all rows of data?')
                 response = False if response == QtWidgets.QMessageBox.StandardButton.No else True
-                self.document.import_table(table_name, file, response)
-                self.set_table_data(table_name)
+                self.Entities.model().load_csv(file, response)
+                self.changed_since_last_save = True
+        except Exception as err:
+            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
+        finally:
+            self.statusBar().showMessage('Done importing CSV file.')
+
+    @QtCore.pyqtSlot()
+    def import_cost_centers_menu_item(self):
+        try:
+            self.statusBar().showMessage('Importing cost centers from CSV file...')
+            file, _ = QtWidgets.QFileDialog.getOpenFileName(self, 'Select a file to open', filter='CSV Files (*.csv)')
+            if file:
+                response = QtWidgets.QMessageBox.question(self, 'Replace rows?', 'Would you like to replace all rows of data?')
+                response = False if response == QtWidgets.QMessageBox.StandardButton.No else True
+                self.Cost_Centers.model().load_csv(file, response)
+                self.changed_since_last_save = True
+        except Exception as err:
+            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
+        finally:
+            self.statusBar().showMessage('Done importing CSV file.')
+
+    @QtCore.pyqtSlot()
+    def import_accounts_menu_item(self):
+        try:
+            self.statusBar().showMessage('Importing accounts from CSV file...')
+            file, _ = QtWidgets.QFileDialog.getOpenFileName(self, 'Select a file to open', filter='CSV Files (*.csv)')
+            if file:
+                response = QtWidgets.QMessageBox.question(self, 'Replace rows?', 'Would you like to replace all rows of data?')
+                response = False if response == QtWidgets.QMessageBox.StandardButton.No else True
+                self.Accounts.model().load_csv(file, response)
+                self.changed_since_last_save = True
+        except Exception as err:
+            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
+        finally:
+            self.statusBar().showMessage('Done importing CSV file.')
+
+    @QtCore.pyqtSlot()
+    def import_trial_balance_menu_item(self):
+        try:
+            self.statusBar().showMessage('Importing trial balance from CSV file...')
+            file, _ = QtWidgets.QFileDialog.getOpenFileName(self, 'Select a file to open', filter='CSV Files (*.csv)')
+            if file:
+                response = QtWidgets.QMessageBox.question(self, 'Replace rows?', 'Would you like to replace all rows of data?')
+                response = False if response == QtWidgets.QMessageBox.StandardButton.No else True
+                self.Trial_Balance.model().load_csv(file, response)
+                self.changed_since_last_save = True
+        except Exception as err:
+            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
+        finally:
+            self.statusBar().showMessage('Done importing CSV file.')
+
+    @QtCore.pyqtSlot()
+    def import_top_sides_menu_item(self):
+        try:
+            self.statusBar().showMessage('Importing top sides from CSV file...')
+            file, _ = QtWidgets.QFileDialog.getOpenFileName(self, 'Select a file to open', filter='CSV Files (*.csv)')
+            if file:
+                response = QtWidgets.QMessageBox.question(self, 'Replace rows?', 'Would you like to replace all rows of data?')
+                response = False if response == QtWidgets.QMessageBox.StandardButton.No else True
+                self.Top_Sides.model().load_csv(file, response)
                 self.changed_since_last_save = True
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
@@ -228,17 +281,70 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
             self.statusBar().showMessage('Done importing Oracle TB.')
 
     @QtCore.pyqtSlot()
-    def export_menu_item(self):
+    def export_entities_menu_item(self):
         try:
-            self.statusBar().showMessage('Exporting to CSV file...')
-            table_name = self.menu_actions.get(self.sender().objectName(), None)
-            if table_name is None:
-                raise ValueError('Unrecognized action name.')
+            self.statusBar().showMessage('Exporting entities to CSV file...')
             file, _ = QtWidgets.QFileDialog.getSaveFileName(self, 'Select a filename to save', filter='CSV Files (*.csv)')
             if file:
                 if not file.casefold().endswith('.csv'.casefold()):
                     file += '.csv'
-                self.document.export_table(table_name, file)
+                self.Entities.model().dump_csv(file)
+        except Exception as err:
+            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
+        finally:
+            self.statusBar().showMessage('Done exporting.')
+    
+    @QtCore.pyqtSlot()
+    def export_cost_centers_menu_item(self):
+        try:
+            self.statusBar().showMessage('Exporting cost centers to CSV file...')
+            file, _ = QtWidgets.QFileDialog.getSaveFileName(self, 'Select a filename to save', filter='CSV Files (*.csv)')
+            if file:
+                if not file.casefold().endswith('.csv'.casefold()):
+                    file += '.csv'
+                self.Cost_Centers.model().dump_csv(file)
+        except Exception as err:
+            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
+        finally:
+            self.statusBar().showMessage('Done exporting.')
+            
+    @QtCore.pyqtSlot()
+    def export_accounts_menu_item(self):
+        try:
+            self.statusBar().showMessage('Exporting accounts to CSV file...')
+            file, _ = QtWidgets.QFileDialog.getSaveFileName(self, 'Select a filename to save', filter='CSV Files (*.csv)')
+            if file:
+                if not file.casefold().endswith('.csv'.casefold()):
+                    file += '.csv'
+                self.Accounts.model().dump_csv(file)
+        except Exception as err:
+            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
+        finally:
+            self.statusBar().showMessage('Done exporting.')
+
+    @QtCore.pyqtSlot()
+    def export_trial_balance_menu_item(self):
+        try:
+            self.statusBar().showMessage('Exporting trial balance to CSV file...')
+            file, _ = QtWidgets.QFileDialog.getSaveFileName(self, 'Select a filename to save', filter='CSV Files (*.csv)')
+            if file:
+                if not file.casefold().endswith('.csv'.casefold()):
+                    file += '.csv'
+                self.Trial_Balance.model().dump_csv(file)
+        except Exception as err:
+            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
+        finally:
+            self.statusBar().showMessage('Done exporting.')
+    
+    @QtCore.pyqtSlot()
+    def export_top_sides_menu_item(self):
+        try:
+            self.statusBar().showMessage('Exporting top sides to CSV file...')
+            file, _ = QtWidgets.QFileDialog.getSaveFileName(self, 'Select a filename to save', filter='CSV Files (*.csv)')
+            if file:
+                if not file.casefold().endswith('.csv'.casefold()):
+                    file += '.csv'
+                self.Top_Sides.model().dump_csv(file)
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
         finally:
@@ -314,106 +420,106 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
     ####################################################################################
 
     @QtCore.pyqtSlot()
-    def insert_table_row(self):
+    def insert_entity_table_row(self):
         try:
-            table_name = self.menu_actions.get(self.sender().objectName(), None)
-            if table_name is None:
-                raise ValueError('Unrecognized button name.')
-            self.findChild(QtWidgets.QTableView, table_name).model().appendRow()
+            self.Entities.model().appendRow()
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
 
     @QtCore.pyqtSlot()
-    def delete_table_row(self):
+    def insert_cost_center_table_row(self):
         try:
-            response = QtWidgets.QMessageBox.question(self, 'Confirm deletion', 'Delete all selected rows?')
-            if response == QtWidgets.QMessageBox.StandardButton.Yes:
-                table_name = self.menu_actions.get(self.sender().objectName(), None)
-                if table_name is None:
-                    raise ValueError('Unrecognized button name.')
-                self.findChild(QtWidgets.QTableView, table_name).model().removeSelectedRows()
+            self.Cost_Centers.model().appendRow()
+        except Exception as err:
+            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
+
+    @QtCore.pyqtSlot()
+    def insert_account_table_row(self):
+        try:
+            self.Accounts.model().appendRow()
+        except Exception as err:
+            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
+
+    @QtCore.pyqtSlot()
+    def insert_trial_balance_table_row(self):
+        try:
+            self.Trial_Balance.model().appendRow()
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
     
-    @QtCore.pyqtSlot(TableModel)
-    def table_data_changed(self, model: TableModel):
-        if model.parent().objectName() == 'Top_Sides':
-            self.totalTopSidesDebits.setText(model.sumColumn('Debits'))
-            self.totalTopSidesCredits.setText(model.sumColumn('Credits'))
-            self.totalTopSidesBeginning.setText(model.sumColumn('Beginning Balance'))
-            self.totalTopSidesEnding.setText(model.sumColumn('Ending Balance'))
-        self.changed_since_last_save = True
+    @QtCore.pyqtSlot()
+    def insert_top_sides_table_row(self):
+        try:
+            self.Top_Sides.model().appendRow()
+        except Exception as err:
+            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
+    
+    @QtCore.pyqtSlot()
+    def insert_elimination_entry_table_row(self):
+        try:
+            self.Eliminations.model().appendRow()
+        except Exception as err:
+            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
+    
+    @QtCore.pyqtSlot()
+    def insert_elimination_doc_table_row(self):
+        try:
+            self.Documentation.model().appendRow()
+        except Exception as err:
+            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
+    
+    @QtCore.pyqtSlot()
+    def delete_entity_table_rows(self):
+        try:
+            self.Entities.model().removeSelectedRows()
+        except Exception as err:
+            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
+
+    @QtCore.pyqtSlot()
+    def delete_cost_center_table_rows(self):
+        try:
+            self.Cost_Centers.model().removeSelectedRows()
+        except Exception as err:
+            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
+
+    @QtCore.pyqtSlot()
+    def delete_account_table_rows(self):
+        try:
+            self.Accounts.model().removeSelectedRows()
+        except Exception as err:
+            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
+
+    @QtCore.pyqtSlot()
+    def delete_trial_balance_table_rows(self):
+        try:
+            self.Trial_Balance.model().removeSelectedRows()
+        except Exception as err:
+            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
+    
+    @QtCore.pyqtSlot()
+    def delete_top_sides_table_rows(self):
+        try:
+            self.Top_Sides.model().removeSelectedRows()
+        except Exception as err:
+            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
+    
+    @QtCore.pyqtSlot()
+    def delete_elimination_entry_table_rows(self):
+        try:
+            self.Eliminations.model().removeSelectedRows()
+        except Exception as err:
+            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
+    
+    @QtCore.pyqtSlot()
+    def delete_elimination_doc_table_rows(self):
+        try:
+            self.Documentation.model().removeSelectedRows()
+        except Exception as err:
+            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
     
     ####################################################################################
     # Individual Field (QLineEdit, QTextEdit) Slots
     ####################################################################################
-
-    @QtCore.pyqtSlot(str)
-    def set_entity_name(self, new_name: str):
-        try:
-            self.document.data['Entity Name'] = new_name
-            self.changed_since_last_save = True
-        except Exception as err:
-            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
-
-    @QtCore.pyqtSlot(QtCore.QDate)
-    def set_beginning_date(self, new_date: QtCore.QDate):
-        try:
-            self.document.data['Beginning Balance Date'] = new_date.toString('M/d/yyyy')
-            self.changed_since_last_save = True
-        except Exception as err:
-            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
-
-    @QtCore.pyqtSlot(QtCore.QDate)
-    def set_ending_date(self, new_date: QtCore.QDate):
-        try:
-            new_date.toPyDate()
-            self.document.data['Ending Balance Date'] = new_date.toString('M/d/yyyy')
-            self.changed_since_last_save = True
-        except Exception as err:
-            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
-    
-    @QtCore.pyqtSlot(str)
-    def set_current_elimination_description(self, new_name: str):
-        try:
-            self.document.set_current_elimination_description(new_name)
-            self.changed_since_last_save = True
-        except Exception as err:
-            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
-    
-    @QtCore.pyqtSlot(str)
-    def set_current_elimination_entity(self, entity: str):
-        try:
-            self.document.set_current_elimination_entity(entity)
-            self.changed_since_last_save = True
-        except Exception as err:
-            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
-    
-    @QtCore.pyqtSlot(str)
-    def set_current_elimination_cost_center(self, cost_ctr: str):
-        try:
-            self.document.set_current_elimination_cost_center(cost_ctr)
-            self.changed_since_last_save = True
-        except Exception as err:
-            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
-    
-    @QtCore.pyqtSlot(str)
-    def set_current_elimination_account(self, account: str):
-        try:
-            self.document.set_current_elimination_account(account)
-            self.changed_since_last_save = True
-        except Exception as err:
-            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
-    
-    @QtCore.pyqtSlot()
-    def goto_next_elimination(self):
-        i = self.document.next_elimination_index()
-        self.findChild(QtWidgets.QLineEdit, 'Elim_Plug_Entity').set
-
-
-    @QtCore.pyqtSlot()
-    def goto_prev_elimination(self):
-        pass
 
     @QtCore.pyqtSlot()
     def add_new_elimination(self):
@@ -422,9 +528,19 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
     @QtCore.pyqtSlot()
     def del_current_elimination(self):
         pass
+
+    @QtCore.pyqtSlot()
+    def goto_next_elimination(self):
+        pass
+
+    @QtCore.pyqtSlot()
+    def goto_prev_elimination(self):
+        pass
+
+
     
     ####################################################################################
-    # Console Slots
+    # Text Slots
     ####################################################################################
 
     @QtCore.pyqtSlot()
@@ -440,6 +556,22 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
     def clear_console(self):
         try:
             self.console.clear()
+        except Exception as err:
+            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
+    
+    @QtCore.pyqtSlot()
+    def copy_elimination_description(self):
+        try:
+            clipboard = self.application.clipboard()
+            clipboard.clear()
+            clipboard.setText(self.Elim_Desc.toPlainText())
+        except Exception as err:
+            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
+    
+    @QtCore.pyqtSlot()
+    def clear_elimination_description(self):
+        try:
+            self.Elim_Desc.clear()
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
     

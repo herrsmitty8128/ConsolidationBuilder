@@ -678,8 +678,8 @@
                    <property name="font">
                     <font>
                      <pointsize>10</pointsize>
-                     <weight>75</weight>
-                     <bold>true</bold>
+                     <weight>50</weight>
+                     <bold>false</bold>
                     </font>
                    </property>
                   </widget>
@@ -758,8 +758,8 @@
                    <property name="font">
                     <font>
                      <pointsize>10</pointsize>
-                     <weight>75</weight>
-                     <bold>true</bold>
+                     <weight>50</weight>
+                     <bold>false</bold>
                     </font>
                    </property>
                   </widget>
@@ -817,17 +817,49 @@
                 <property name="flat">
                  <bool>false</bool>
                 </property>
-                <layout class="QHBoxLayout" name="horizontalLayout_12">
+                <layout class="QVBoxLayout" name="verticalLayout_11">
                  <item>
                   <widget class="QTextEdit" name="Elim_Desc">
                    <property name="font">
                     <font>
                      <pointsize>10</pointsize>
-                     <weight>75</weight>
-                     <bold>true</bold>
+                     <weight>50</weight>
+                     <bold>false</bold>
                     </font>
                    </property>
                   </widget>
+                 </item>
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_12">
+                   <item>
+                    <widget class="QPushButton" name="clearElimDescriptionButton">
+                     <property name="font">
+                      <font>
+                       <pointsize>10</pointsize>
+                       <weight>50</weight>
+                       <bold>false</bold>
+                      </font>
+                     </property>
+                     <property name="text">
+                      <string>Clear</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QPushButton" name="copyElimDescriptionButton">
+                     <property name="font">
+                      <font>
+                       <pointsize>10</pointsize>
+                       <weight>50</weight>
+                       <bold>false</bold>
+                      </font>
+                     </property>
+                     <property name="text">
+                      <string>Copy</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
                  </item>
                 </layout>
                </widget>
@@ -880,13 +912,37 @@
                       </widget>
                      </item>
                      <item row="0" column="1">
-                      <widget class="QLineEdit" name="Elim_Plug_Entity"/>
+                      <widget class="QLineEdit" name="Elim_Plug_Entity">
+                       <property name="font">
+                        <font>
+                         <pointsize>10</pointsize>
+                         <weight>75</weight>
+                         <bold>true</bold>
+                        </font>
+                       </property>
+                      </widget>
                      </item>
                      <item row="1" column="1">
-                      <widget class="QLineEdit" name="Elim_Plug_CC"/>
+                      <widget class="QLineEdit" name="Elim_Plug_CC">
+                       <property name="font">
+                        <font>
+                         <pointsize>10</pointsize>
+                         <weight>50</weight>
+                         <bold>false</bold>
+                        </font>
+                       </property>
+                      </widget>
                      </item>
                      <item row="2" column="1">
-                      <widget class="QLineEdit" name="Elim_Plug_Acct"/>
+                      <widget class="QLineEdit" name="Elim_Plug_Acct">
+                       <property name="font">
+                        <font>
+                         <pointsize>10</pointsize>
+                         <weight>50</weight>
+                         <bold>false</bold>
+                        </font>
+                       </property>
+                      </widget>
                      </item>
                      <item row="1" column="0">
                       <widget class="QLabel" name="label_8">
@@ -1456,7 +1512,7 @@
    <sender>actionImportEntities</sender>
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
-   <slot>import_menu_item()</slot>
+   <slot>import_entities_menu_item()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -1472,7 +1528,7 @@
    <sender>actionImportCostCenters</sender>
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
-   <slot>import_menu_item()</slot>
+   <slot>import_cost_centers_menu_item()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -1488,7 +1544,7 @@
    <sender>actionImportAccounts</sender>
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
-   <slot>import_menu_item()</slot>
+   <slot>import_accounts_menu_item()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -1504,7 +1560,7 @@
    <sender>actionImportTrialBalance</sender>
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
-   <slot>import_menu_item()</slot>
+   <slot>import_trial_balance_menu_item()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -1520,7 +1576,7 @@
    <sender>actionImportTopSides</sender>
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
-   <slot>import_menu_item()</slot>
+   <slot>import_top_sides_menu_item()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -1536,7 +1592,7 @@
    <sender>actionExportEntities</sender>
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
-   <slot>export_menu_item()</slot>
+   <slot>export_entities_menu_item()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -1552,7 +1608,7 @@
    <sender>actionExportCostCenters</sender>
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
-   <slot>export_menu_item()</slot>
+   <slot>export_cost_centers_menu_item()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -1568,7 +1624,7 @@
    <sender>actionExportAccounts</sender>
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
-   <slot>export_menu_item()</slot>
+   <slot>export_accounts_menu_item()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -1584,7 +1640,7 @@
    <sender>actionExportTrialBalance</sender>
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
-   <slot>export_menu_item()</slot>
+   <slot>export_trial_balance_menu_item()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -1600,7 +1656,7 @@
    <sender>actionExportTopSides</sender>
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
-   <slot>export_menu_item()</slot>
+   <slot>export_top_sides_menu_item()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -1645,58 +1701,10 @@
    </hints>
   </connection>
   <connection>
-   <sender>entityName</sender>
-   <signal>textEdited(QString)</signal>
-   <receiver>MainWindow</receiver>
-   <slot>set_entity_name(QString)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>584</x>
-     <y>45</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>501</x>
-     <y>383</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>beginningBalanceDate</sender>
-   <signal>dateChanged(QDate)</signal>
-   <receiver>MainWindow</receiver>
-   <slot>set_beginning_date(QDate)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>584</x>
-     <y>76</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>501</x>
-     <y>383</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>endingBalanceDate</sender>
-   <signal>dateChanged(QDate)</signal>
-   <receiver>MainWindow</receiver>
-   <slot>set_ending_date(QDate)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>584</x>
-     <y>108</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>501</x>
-     <y>383</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>addEntityButton</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
-   <slot>insert_table_row()</slot>
+   <slot>insert_entity_table_row()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>62</x>
@@ -1712,7 +1720,7 @@
    <sender>deleteEntityButton</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
-   <slot>delete_table_row()</slot>
+   <slot>delete_entity_table_rows()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>924</x>
@@ -1728,7 +1736,7 @@
    <sender>addAccountButton</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
-   <slot>insert_table_row()</slot>
+   <slot>insert_account_table_row()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>358</x>
@@ -1744,7 +1752,7 @@
    <sender>deleteCostCenterButton</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
-   <slot>delete_table_row()</slot>
+   <slot>delete_cost_center_table_rows()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>905</x>
@@ -1757,26 +1765,10 @@
    </hints>
   </connection>
   <connection>
-   <sender>addAccountButton</sender>
-   <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>insert_table_row()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>67</x>
-     <y>454</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>501</x>
-     <y>383</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>deleteAccountButton</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
-   <slot>delete_table_row()</slot>
+   <slot>delete_account_table_rows()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>917</x>
@@ -1856,7 +1848,7 @@
    <sender>addTopSideButton</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
-   <slot>insert_table_row()</slot>
+   <slot>insert_top_sides_table_row()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>68</x>
@@ -1872,7 +1864,7 @@
    <sender>deleteTopSideButton</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
-   <slot>delete_table_row()</slot>
+   <slot>delete_top_sides_table_rows()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>886</x>
@@ -1888,7 +1880,7 @@
    <sender>addElimEntryButton</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
-   <slot>insert_table_row()</slot>
+   <slot>insert_elimination_entry_table_row()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>170</x>
@@ -1904,7 +1896,7 @@
    <sender>deleteElimEntryButton</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
-   <slot>delete_table_row()</slot>
+   <slot>delete_elimination_entry_table_rows()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>448</x>
@@ -1917,26 +1909,10 @@
    </hints>
   </connection>
   <connection>
-   <sender>Elim_Desc</sender>
-   <signal>textChanged()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>set_current_elimination_description()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>890</x>
-     <y>281</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>599</x>
-     <y>429</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>addElimDocButton</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
-   <slot>insert_table_row()</slot>
+   <slot>insert_elimination_doc_table_row()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>751</x>
@@ -1952,59 +1928,11 @@
    <sender>deleteElimDocButton</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
-   <slot>delete_table_row()</slot>
+   <slot>delete_elimination_doc_table_rows()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>1029</x>
      <y>560</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>599</x>
-     <y>429</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>Elim_Plug_Entity</sender>
-   <signal>textEdited(QString)</signal>
-   <receiver>MainWindow</receiver>
-   <slot>set_current_elimination_entity(QString)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>351</x>
-     <y>461</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>599</x>
-     <y>429</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>Elim_Plug_CC</sender>
-   <signal>textEdited(QString)</signal>
-   <receiver>MainWindow</receiver>
-   <slot>set_current_elimination_cost_center(QString)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>351</x>
-     <y>493</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>599</x>
-     <y>429</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>Elim_Plug_Acct</sender>
-   <signal>textEdited(QString)</signal>
-   <receiver>MainWindow</receiver>
-   <slot>set_current_elimination_account(QString)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>351</x>
-     <y>525</y>
     </hint>
     <hint type="destinationlabel">
      <x>599</x>
@@ -2076,6 +2004,54 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>addCostCenterButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>insert_cost_center_table_row()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>355</x>
+     <y>606</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>599</x>
+     <y>429</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>clearElimDescriptionButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>clear_elimination_description()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>751</x>
+     <y>348</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>599</x>
+     <y>429</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>copyElimDescriptionButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>copy_elimination_description()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1029</x>
+     <y>348</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>599</x>
+     <y>429</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>new_menu_item()</slot>
@@ -2088,12 +2064,8 @@
   <slot>set_entity_name(QString)</slot>
   <slot>set_beginning_date(QDate)</slot>
   <slot>set_ending_date(QDate)</slot>
-  <slot>import_menu_item()</slot>
-  <slot>export_menu_item()</slot>
   <slot>rollforward_menu_item()</slot>
   <slot>audit_menu_item()</slot>
-  <slot>insert_table_row()</slot>
-  <slot>delete_table_row()</slot>
   <slot>import_oracle_tb()</slot>
   <slot>rounding_diff_menu_item()</slot>
   <slot>clear_console()</slot>
@@ -2106,5 +2078,31 @@
   <slot>goto_prev_elimination()</slot>
   <slot>add_new_elimination()</slot>
   <slot>del_current_elimination()</slot>
+  <slot>insert_entity_table_row()</slot>
+  <slot>insert_cost_center_table_row()</slot>
+  <slot>insert_account_table_row()</slot>
+  <slot>insert_trial_balance_table_row()</slot>
+  <slot>insert_top_sides_table_row()</slot>
+  <slot>delete_entity_table_rows()</slot>
+  <slot>delete_cost_center_table_rows()</slot>
+  <slot>delete_account_table_rows()</slot>
+  <slot>delete_trial_balance_table_rows()</slot>
+  <slot>delete_top_sides_table_rows()</slot>
+  <slot>delete_elimination_entry_table_rows()</slot>
+  <slot>insert_elimination_entry_table_row()</slot>
+  <slot>insert_elimination_doc_table_row()</slot>
+  <slot>delete_elimination_doc_table_rows()</slot>
+  <slot>copy_elimination_description()</slot>
+  <slot>clear_elimination_description()</slot>
+  <slot>import_entities_menu_item()</slot>
+  <slot>import_cost_centers_menu_item()</slot>
+  <slot>import_accounts_menu_item()</slot>
+  <slot>import_trial_balance_menu_item()</slot>
+  <slot>import_top_sides_menu_item()</slot>
+  <slot>export_entities_menu_item()</slot>
+  <slot>export_cost_centers_menu_item()</slot>
+  <slot>export_accounts_menu_item()</slot>
+  <slot>export_trial_balance_menu_item()</slot>
+  <slot>export_top_sides_menu_item()</slot>
  </slots>
 </ui>

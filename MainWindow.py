@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file './ui/MainWindow.ui'
+# Form implementation generated from reading ui file './ui/MainWindow2.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.6
 #
@@ -14,11 +14,11 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1168, 887)
+        MainWindow.resize(1200, 860)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
-        self.horizontalLayout_11 = QtWidgets.QHBoxLayout(self.centralwidget)
-        self.horizontalLayout_11.setObjectName("horizontalLayout_11")
+        self.verticalLayout_13 = QtWidgets.QVBoxLayout(self.centralwidget)
+        self.verticalLayout_13.setObjectName("verticalLayout_13")
         self.splitter = QtWidgets.QSplitter(self.centralwidget)
         self.splitter.setLineWidth(1)
         self.splitter.setMidLineWidth(0)
@@ -176,7 +176,7 @@ class Ui_MainWindow(object):
         self.totalTopSidesBeginning.setMinimumSize(QtCore.QSize(150, 0))
         self.totalTopSidesBeginning.setMaximumSize(QtCore.QSize(200, 16777215))
         self.totalTopSidesBeginning.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.totalTopSidesBeginning.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter)
+        self.totalTopSidesBeginning.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.totalTopSidesBeginning.setObjectName("totalTopSidesBeginning")
         self.horizontalLayout_10.addWidget(self.totalTopSidesBeginning)
         spacerItem10 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -189,7 +189,7 @@ class Ui_MainWindow(object):
         self.totalTopSidesDebits.setMinimumSize(QtCore.QSize(150, 0))
         self.totalTopSidesDebits.setMaximumSize(QtCore.QSize(200, 16777215))
         self.totalTopSidesDebits.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.totalTopSidesDebits.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter)
+        self.totalTopSidesDebits.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.totalTopSidesDebits.setObjectName("totalTopSidesDebits")
         self.horizontalLayout_10.addWidget(self.totalTopSidesDebits)
         spacerItem11 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -202,7 +202,7 @@ class Ui_MainWindow(object):
         self.totalTopSidesCredits.setMinimumSize(QtCore.QSize(150, 0))
         self.totalTopSidesCredits.setMaximumSize(QtCore.QSize(200, 16777215))
         self.totalTopSidesCredits.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.totalTopSidesCredits.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter)
+        self.totalTopSidesCredits.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.totalTopSidesCredits.setObjectName("totalTopSidesCredits")
         self.horizontalLayout_10.addWidget(self.totalTopSidesCredits)
         spacerItem12 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -215,7 +215,7 @@ class Ui_MainWindow(object):
         self.totalTopSidesEnding.setMinimumSize(QtCore.QSize(150, 0))
         self.totalTopSidesEnding.setMaximumSize(QtCore.QSize(200, 16777215))
         self.totalTopSidesEnding.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.totalTopSidesEnding.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter)
+        self.totalTopSidesEnding.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.totalTopSidesEnding.setObjectName("totalTopSidesEnding")
         self.horizontalLayout_10.addWidget(self.totalTopSidesEnding)
         spacerItem13 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -247,16 +247,237 @@ class Ui_MainWindow(object):
         self.tabWidget.addTab(self.topSidesTab, "")
         self.eliminationsTab = QtWidgets.QWidget()
         self.eliminationsTab.setObjectName("eliminationsTab")
-        self.horizontalLayout_12 = QtWidgets.QHBoxLayout(self.eliminationsTab)
-        self.horizontalLayout_12.setObjectName("horizontalLayout_12")
-        self.Eliminations = QtWidgets.QTableView(self.eliminationsTab)
-        self.Eliminations.setAlternatingRowColors(True)
-        self.Eliminations.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
-        self.Eliminations.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
-        self.Eliminations.setSortingEnabled(True)
+        self.verticalLayout_10 = QtWidgets.QVBoxLayout(self.eliminationsTab)
+        self.verticalLayout_10.setObjectName("verticalLayout_10")
+        self.gridLayout = QtWidgets.QGridLayout()
+        self.gridLayout.setObjectName("gridLayout")
+        self.groupBox = QtWidgets.QGroupBox(self.eliminationsTab)
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        font.setBold(True)
+        font.setWeight(75)
+        self.groupBox.setFont(font)
+        self.groupBox.setAlignment(QtCore.Qt.AlignCenter)
+        self.groupBox.setObjectName("groupBox")
+        self.verticalLayout_9 = QtWidgets.QVBoxLayout(self.groupBox)
+        self.verticalLayout_9.setObjectName("verticalLayout_9")
+        self.Documentation = QtWidgets.QTableView(self.groupBox)
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        font.setBold(False)
+        font.setWeight(50)
+        self.Documentation.setFont(font)
+        self.Documentation.setObjectName("Documentation")
+        self.verticalLayout_9.addWidget(self.Documentation)
+        self.horizontalLayout_13 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_13.setObjectName("horizontalLayout_13")
+        self.addElimDocButton = QtWidgets.QPushButton(self.groupBox)
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        font.setBold(False)
+        font.setWeight(50)
+        self.addElimDocButton.setFont(font)
+        self.addElimDocButton.setObjectName("addElimDocButton")
+        self.horizontalLayout_13.addWidget(self.addElimDocButton)
+        self.deleteElimDocButton = QtWidgets.QPushButton(self.groupBox)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.deleteElimDocButton.sizePolicy().hasHeightForWidth())
+        self.deleteElimDocButton.setSizePolicy(sizePolicy)
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        font.setBold(False)
+        font.setWeight(50)
+        self.deleteElimDocButton.setFont(font)
+        self.deleteElimDocButton.setAutoDefault(False)
+        self.deleteElimDocButton.setDefault(False)
+        self.deleteElimDocButton.setFlat(False)
+        self.deleteElimDocButton.setObjectName("deleteElimDocButton")
+        self.horizontalLayout_13.addWidget(self.deleteElimDocButton)
+        self.verticalLayout_9.addLayout(self.horizontalLayout_13)
+        self.gridLayout.addWidget(self.groupBox, 1, 1, 1, 1)
+        self.groupBox_4 = QtWidgets.QGroupBox(self.eliminationsTab)
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        font.setBold(True)
+        font.setWeight(75)
+        self.groupBox_4.setFont(font)
+        self.groupBox_4.setAlignment(QtCore.Qt.AlignCenter)
+        self.groupBox_4.setFlat(False)
+        self.groupBox_4.setObjectName("groupBox_4")
+        self.verticalLayout_14 = QtWidgets.QVBoxLayout(self.groupBox_4)
+        self.verticalLayout_14.setObjectName("verticalLayout_14")
+        self.Eliminations = QtWidgets.QTableView(self.groupBox_4)
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        font.setBold(False)
+        font.setWeight(50)
+        self.Eliminations.setFont(font)
         self.Eliminations.setObjectName("Eliminations")
-        self.horizontalLayout_12.addWidget(self.Eliminations)
+        self.verticalLayout_14.addWidget(self.Eliminations)
+        self.horizontalLayout_14 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_14.setObjectName("horizontalLayout_14")
+        self.addElimEntryButton = QtWidgets.QPushButton(self.groupBox_4)
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        font.setBold(False)
+        font.setWeight(50)
+        self.addElimEntryButton.setFont(font)
+        self.addElimEntryButton.setObjectName("addElimEntryButton")
+        self.horizontalLayout_14.addWidget(self.addElimEntryButton)
+        self.deleteElimEntryButton = QtWidgets.QPushButton(self.groupBox_4)
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        font.setBold(False)
+        font.setWeight(50)
+        self.deleteElimEntryButton.setFont(font)
+        self.deleteElimEntryButton.setObjectName("deleteElimEntryButton")
+        self.horizontalLayout_14.addWidget(self.deleteElimEntryButton)
+        self.verticalLayout_14.addLayout(self.horizontalLayout_14)
+        self.gridLayout.addWidget(self.groupBox_4, 0, 0, 1, 1)
+        self.groupBox_3 = QtWidgets.QGroupBox(self.eliminationsTab)
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        font.setBold(True)
+        font.setWeight(75)
+        self.groupBox_3.setFont(font)
+        self.groupBox_3.setAlignment(QtCore.Qt.AlignCenter)
+        self.groupBox_3.setFlat(False)
+        self.groupBox_3.setObjectName("groupBox_3")
+        self.verticalLayout_11 = QtWidgets.QVBoxLayout(self.groupBox_3)
+        self.verticalLayout_11.setObjectName("verticalLayout_11")
+        self.Elim_Desc = QtWidgets.QTextEdit(self.groupBox_3)
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        font.setBold(False)
+        font.setWeight(50)
+        self.Elim_Desc.setFont(font)
+        self.Elim_Desc.setObjectName("Elim_Desc")
+        self.verticalLayout_11.addWidget(self.Elim_Desc)
+        self.horizontalLayout_12 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_12.setObjectName("horizontalLayout_12")
+        self.clearElimDescriptionButton = QtWidgets.QPushButton(self.groupBox_3)
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        font.setBold(False)
+        font.setWeight(50)
+        self.clearElimDescriptionButton.setFont(font)
+        self.clearElimDescriptionButton.setObjectName("clearElimDescriptionButton")
+        self.horizontalLayout_12.addWidget(self.clearElimDescriptionButton)
+        self.copyElimDescriptionButton = QtWidgets.QPushButton(self.groupBox_3)
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        font.setBold(False)
+        font.setWeight(50)
+        self.copyElimDescriptionButton.setFont(font)
+        self.copyElimDescriptionButton.setObjectName("copyElimDescriptionButton")
+        self.horizontalLayout_12.addWidget(self.copyElimDescriptionButton)
+        self.verticalLayout_11.addLayout(self.horizontalLayout_12)
+        self.gridLayout.addWidget(self.groupBox_3, 0, 1, 1, 1)
+        self.groupBox_2 = QtWidgets.QGroupBox(self.eliminationsTab)
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        font.setBold(True)
+        font.setWeight(75)
+        self.groupBox_2.setFont(font)
+        self.groupBox_2.setAlignment(QtCore.Qt.AlignCenter)
+        self.groupBox_2.setObjectName("groupBox_2")
+        self.horizontalLayout_15 = QtWidgets.QHBoxLayout(self.groupBox_2)
+        self.horizontalLayout_15.setObjectName("horizontalLayout_15")
+        self.gridLayout_2 = QtWidgets.QGridLayout()
+        self.gridLayout_2.setObjectName("gridLayout_2")
+        spacerItem17 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.gridLayout_2.addItem(spacerItem17, 0, 1, 1, 1)
+        self.formLayout_2 = QtWidgets.QFormLayout()
+        self.formLayout_2.setObjectName("formLayout_2")
+        self.label_7 = QtWidgets.QLabel(self.groupBox_2)
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        font.setBold(False)
+        font.setWeight(50)
+        self.label_7.setFont(font)
+        self.label_7.setObjectName("label_7")
+        self.formLayout_2.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.label_7)
+        self.Elim_Plug_Entity = QtWidgets.QLineEdit(self.groupBox_2)
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        font.setBold(True)
+        font.setWeight(75)
+        self.Elim_Plug_Entity.setFont(font)
+        self.Elim_Plug_Entity.setObjectName("Elim_Plug_Entity")
+        self.formLayout_2.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.Elim_Plug_Entity)
+        self.Elim_Plug_CC = QtWidgets.QLineEdit(self.groupBox_2)
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        font.setBold(False)
+        font.setWeight(50)
+        self.Elim_Plug_CC.setFont(font)
+        self.Elim_Plug_CC.setObjectName("Elim_Plug_CC")
+        self.formLayout_2.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.Elim_Plug_CC)
+        self.Elim_Plug_Acct = QtWidgets.QLineEdit(self.groupBox_2)
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        font.setBold(False)
+        font.setWeight(50)
+        self.Elim_Plug_Acct.setFont(font)
+        self.Elim_Plug_Acct.setObjectName("Elim_Plug_Acct")
+        self.formLayout_2.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.Elim_Plug_Acct)
+        self.label_8 = QtWidgets.QLabel(self.groupBox_2)
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        font.setBold(False)
+        font.setWeight(50)
+        self.label_8.setFont(font)
+        self.label_8.setObjectName("label_8")
+        self.formLayout_2.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.label_8)
+        self.label_9 = QtWidgets.QLabel(self.groupBox_2)
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        font.setBold(False)
+        font.setWeight(50)
+        self.label_9.setFont(font)
+        self.label_9.setObjectName("label_9")
+        self.formLayout_2.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.label_9)
+        self.gridLayout_2.addLayout(self.formLayout_2, 1, 1, 1, 1)
+        spacerItem18 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.gridLayout_2.addItem(spacerItem18, 2, 1, 1, 1)
+        spacerItem19 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout_2.addItem(spacerItem19, 1, 0, 1, 1)
+        spacerItem20 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout_2.addItem(spacerItem20, 1, 2, 1, 1)
+        self.horizontalLayout_15.addLayout(self.gridLayout_2)
+        self.gridLayout.addWidget(self.groupBox_2, 1, 0, 1, 1)
+        self.verticalLayout_10.addLayout(self.gridLayout)
+        self.horizontalLayout_11 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_11.setObjectName("horizontalLayout_11")
+        spacerItem21 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_11.addItem(spacerItem21)
+        self.addNewElimButton = QtWidgets.QPushButton(self.eliminationsTab)
+        self.addNewElimButton.setObjectName("addNewElimButton")
+        self.horizontalLayout_11.addWidget(self.addNewElimButton)
+        spacerItem22 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_11.addItem(spacerItem22)
+        self.deleteCurrElimButton = QtWidgets.QPushButton(self.eliminationsTab)
+        self.deleteCurrElimButton.setObjectName("deleteCurrElimButton")
+        self.horizontalLayout_11.addWidget(self.deleteCurrElimButton)
+        spacerItem23 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_11.addItem(spacerItem23)
+        self.navigatePrevElimButton = QtWidgets.QPushButton(self.eliminationsTab)
+        self.navigatePrevElimButton.setObjectName("navigatePrevElimButton")
+        self.horizontalLayout_11.addWidget(self.navigatePrevElimButton)
+        spacerItem24 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_11.addItem(spacerItem24)
+        self.navigateNextElimButton = QtWidgets.QPushButton(self.eliminationsTab)
+        self.navigateNextElimButton.setObjectName("navigateNextElimButton")
+        self.horizontalLayout_11.addWidget(self.navigateNextElimButton)
+        spacerItem25 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_11.addItem(spacerItem25)
+        self.verticalLayout_10.addLayout(self.horizontalLayout_11)
         self.tabWidget.addTab(self.eliminationsTab, "")
+        self.noncontrollingTab = QtWidgets.QWidget()
+        self.noncontrollingTab.setObjectName("noncontrollingTab")
+        self.tabWidget.addTab(self.noncontrollingTab, "")
         self.verticalLayout.addWidget(self.tabWidget)
         self.verticalLayoutWidget_2 = QtWidgets.QWidget(self.splitter)
         self.verticalLayoutWidget_2.setObjectName("verticalLayoutWidget_2")
@@ -268,21 +489,21 @@ class Ui_MainWindow(object):
         self.verticalLayout_6.addWidget(self.console)
         self.horizontalLayout_9 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_9.setObjectName("horizontalLayout_9")
-        spacerItem17 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_9.addItem(spacerItem17)
+        spacerItem26 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_9.addItem(spacerItem26)
         self.clearConsoleButton = QtWidgets.QPushButton(self.verticalLayoutWidget_2)
         self.clearConsoleButton.setObjectName("clearConsoleButton")
         self.horizontalLayout_9.addWidget(self.clearConsoleButton)
         self.copyConsoleButton = QtWidgets.QPushButton(self.verticalLayoutWidget_2)
         self.copyConsoleButton.setObjectName("copyConsoleButton")
         self.horizontalLayout_9.addWidget(self.copyConsoleButton)
-        spacerItem18 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_9.addItem(spacerItem18)
+        spacerItem27 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_9.addItem(spacerItem27)
         self.verticalLayout_6.addLayout(self.horizontalLayout_9)
-        self.horizontalLayout_11.addWidget(self.splitter)
+        self.verticalLayout_13.addWidget(self.splitter)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1168, 22))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1200, 22))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtWidgets.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
@@ -372,41 +593,48 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuConsolidation.menuAction())
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(4)
-        self.actionNew.triggered.connect(MainWindow.new_menu_item)  # type: ignore
-        self.actionOpen.triggered.connect(MainWindow.open_menu_item)  # type: ignore
-        self.actionClose.triggered.connect(MainWindow.close_menu_item)  # type: ignore
-        self.actionSave.triggered.connect(MainWindow.save_menu_item)  # type: ignore
-        self.actionSaveAs.triggered.connect(MainWindow.save_as_menu_item)  # type: ignore
-        self.actionQuit.triggered.connect(MainWindow.quit_menu_item)  # type: ignore
-        self.actionBuild.triggered.connect(MainWindow.build_menu_item)  # type: ignore
-        self.actionImportEntities.triggered.connect(MainWindow.import_menu_item)  # type: ignore
-        self.actionImportCostCenters.triggered.connect(MainWindow.import_menu_item)  # type: ignore
-        self.actionImportAccounts.triggered.connect(MainWindow.import_menu_item)  # type: ignore
-        self.actionImportTrialBalance.triggered.connect(MainWindow.import_menu_item)  # type: ignore
-        self.actionImportTopSides.triggered.connect(MainWindow.import_menu_item)  # type: ignore
-        self.actionExportEntities.triggered.connect(MainWindow.export_menu_item)  # type: ignore
-        self.actionExportCostCenters.triggered.connect(MainWindow.export_menu_item)  # type: ignore
-        self.actionExportAccounts.triggered.connect(MainWindow.export_menu_item)  # type: ignore
-        self.actionExportTrialBalance.triggered.connect(MainWindow.export_menu_item)  # type: ignore
-        self.actionExportTopSides.triggered.connect(MainWindow.export_menu_item)  # type: ignore
-        self.actionRollforward.triggered.connect(MainWindow.rollforward_menu_item)  # type: ignore
-        self.actionAudit.triggered.connect(MainWindow.audit_menu_item)  # type: ignore
-        self.entityName.textEdited['QString'].connect(MainWindow.set_entity_name)  # type: ignore
-        self.beginningBalanceDate.dateChanged['QDate'].connect(MainWindow.set_beginning_date)  # type: ignore
-        self.endingBalanceDate.dateChanged['QDate'].connect(MainWindow.set_ending_date)  # type: ignore
-        self.addEntityButton.clicked.connect(MainWindow.insert_table_row)  # type: ignore
-        self.deleteEntityButton.clicked.connect(MainWindow.delete_table_row)  # type: ignore
-        self.addCostCenterButton.clicked.connect(MainWindow.insert_table_row)  # type: ignore
-        self.deleteCostCenterButton.clicked.connect(MainWindow.delete_table_row)  # type: ignore
-        self.addAccountButton.clicked.connect(MainWindow.insert_table_row)  # type: ignore
-        self.deleteAccountButton.clicked.connect(MainWindow.delete_table_row)  # type: ignore
-        self.actionOracleTrialBalance.triggered.connect(MainWindow.import_oracle_tb)  # type: ignore
-        self.actionPlug_Rounding_Difference.triggered.connect(MainWindow.rounding_diff_menu_item)  # type: ignore
-        self.clearConsoleButton.clicked.connect(MainWindow.clear_console)  # type: ignore
-        self.copyConsoleButton.clicked.connect(MainWindow.copy_console)  # type: ignore
-        self.addTopSideButton.clicked.connect(MainWindow.insert_table_row)  # type: ignore
-        self.deleteTopSideButton.clicked.connect(MainWindow.delete_table_row)  # type: ignore
+        self.tabWidget.setCurrentIndex(5)
+        self.actionNew.triggered.connect(MainWindow.new_menu_item) # type: ignore
+        self.actionOpen.triggered.connect(MainWindow.open_menu_item) # type: ignore
+        self.actionClose.triggered.connect(MainWindow.close_menu_item) # type: ignore
+        self.actionSave.triggered.connect(MainWindow.save_menu_item) # type: ignore
+        self.actionSaveAs.triggered.connect(MainWindow.save_as_menu_item) # type: ignore
+        self.actionQuit.triggered.connect(MainWindow.quit_menu_item) # type: ignore
+        self.actionBuild.triggered.connect(MainWindow.build_menu_item) # type: ignore
+        self.actionImportEntities.triggered.connect(MainWindow.import_entities_menu_item) # type: ignore
+        self.actionImportCostCenters.triggered.connect(MainWindow.import_cost_centers_menu_item) # type: ignore
+        self.actionImportAccounts.triggered.connect(MainWindow.import_accounts_menu_item) # type: ignore
+        self.actionImportTrialBalance.triggered.connect(MainWindow.import_trial_balance_menu_item) # type: ignore
+        self.actionImportTopSides.triggered.connect(MainWindow.import_top_sides_menu_item) # type: ignore
+        self.actionExportEntities.triggered.connect(MainWindow.export_entities_menu_item) # type: ignore
+        self.actionExportCostCenters.triggered.connect(MainWindow.export_cost_centers_menu_item) # type: ignore
+        self.actionExportAccounts.triggered.connect(MainWindow.export_accounts_menu_item) # type: ignore
+        self.actionExportTrialBalance.triggered.connect(MainWindow.export_trial_balance_menu_item) # type: ignore
+        self.actionExportTopSides.triggered.connect(MainWindow.export_top_sides_menu_item) # type: ignore
+        self.actionRollforward.triggered.connect(MainWindow.rollforward_menu_item) # type: ignore
+        self.actionAudit.triggered.connect(MainWindow.audit_menu_item) # type: ignore
+        self.addEntityButton.clicked.connect(MainWindow.insert_entity_table_row) # type: ignore
+        self.deleteEntityButton.clicked.connect(MainWindow.delete_entity_table_rows) # type: ignore
+        self.addAccountButton.clicked.connect(MainWindow.insert_account_table_row) # type: ignore
+        self.deleteCostCenterButton.clicked.connect(MainWindow.delete_cost_center_table_rows) # type: ignore
+        self.deleteAccountButton.clicked.connect(MainWindow.delete_account_table_rows) # type: ignore
+        self.actionOracleTrialBalance.triggered.connect(MainWindow.import_oracle_tb) # type: ignore
+        self.actionPlug_Rounding_Difference.triggered.connect(MainWindow.rounding_diff_menu_item) # type: ignore
+        self.clearConsoleButton.clicked.connect(MainWindow.clear_console) # type: ignore
+        self.copyConsoleButton.clicked.connect(MainWindow.copy_console) # type: ignore
+        self.addTopSideButton.clicked.connect(MainWindow.insert_top_sides_table_row) # type: ignore
+        self.deleteTopSideButton.clicked.connect(MainWindow.delete_top_sides_table_rows) # type: ignore
+        self.addElimEntryButton.clicked.connect(MainWindow.insert_elimination_entry_table_row) # type: ignore
+        self.deleteElimEntryButton.clicked.connect(MainWindow.delete_elimination_entry_table_rows) # type: ignore
+        self.addElimDocButton.clicked.connect(MainWindow.insert_elimination_doc_table_row) # type: ignore
+        self.deleteElimDocButton.clicked.connect(MainWindow.delete_elimination_doc_table_rows) # type: ignore
+        self.addNewElimButton.clicked.connect(MainWindow.add_new_elimination) # type: ignore
+        self.deleteCurrElimButton.clicked.connect(MainWindow.del_current_elimination) # type: ignore
+        self.navigatePrevElimButton.clicked.connect(MainWindow.goto_prev_elimination) # type: ignore
+        self.navigateNextElimButton.clicked.connect(MainWindow.goto_next_elimination) # type: ignore
+        self.addCostCenterButton.clicked.connect(MainWindow.insert_cost_center_table_row) # type: ignore
+        self.clearElimDescriptionButton.clicked.connect(MainWindow.clear_elimination_description) # type: ignore
+        self.copyElimDescriptionButton.clicked.connect(MainWindow.copy_elimination_description) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -438,7 +666,25 @@ class Ui_MainWindow(object):
         self.addTopSideButton.setText(_translate("MainWindow", "Add Top-side"))
         self.deleteTopSideButton.setText(_translate("MainWindow", "Delete Selected Top-side(s)"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.topSidesTab), _translate("MainWindow", "Top-Sides"))
+        self.groupBox.setTitle(_translate("MainWindow", "Supporting Documentation"))
+        self.addElimDocButton.setText(_translate("MainWindow", "+"))
+        self.deleteElimDocButton.setText(_translate("MainWindow", "-"))
+        self.groupBox_4.setTitle(_translate("MainWindow", "Balances to Flip"))
+        self.addElimEntryButton.setText(_translate("MainWindow", "+"))
+        self.deleteElimEntryButton.setText(_translate("MainWindow", "-"))
+        self.groupBox_3.setTitle(_translate("MainWindow", "Elimination Description"))
+        self.clearElimDescriptionButton.setText(_translate("MainWindow", "Clear"))
+        self.copyElimDescriptionButton.setText(_translate("MainWindow", "Copy"))
+        self.groupBox_2.setTitle(_translate("MainWindow", "Plug the Difference to"))
+        self.label_7.setText(_translate("MainWindow", "Entity"))
+        self.label_8.setText(_translate("MainWindow", "Cost Center"))
+        self.label_9.setText(_translate("MainWindow", "Account"))
+        self.addNewElimButton.setText(_translate("MainWindow", "Add"))
+        self.deleteCurrElimButton.setText(_translate("MainWindow", "Delete"))
+        self.navigatePrevElimButton.setText(_translate("MainWindow", "Previous"))
+        self.navigateNextElimButton.setText(_translate("MainWindow", "Next"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.eliminationsTab), _translate("MainWindow", "Eliminations"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.noncontrollingTab), _translate("MainWindow", "Noncontrolling"))
         self.clearConsoleButton.setText(_translate("MainWindow", "Clear"))
         self.copyConsoleButton.setText(_translate("MainWindow", "Copy"))
         self.menuFile.setTitle(_translate("MainWindow", "File"))
