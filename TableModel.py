@@ -173,10 +173,10 @@ class TrialBalanceTableModel(BaseTableModel):
         'PAGEBREAK_SEGMENT_DESC': {'default value': '', 'to string': lambda x : str(x), 'to value': lambda x : str(x)},
         'ADDITIONAL_SEGMENT_DESC': {'default value': '', 'to string': lambda x : str(x), 'to value': lambda x : str(x)},
         'NAS_DESC': {'default value': '', 'to string': lambda x : str(x), 'to value': lambda x : str(x)},
-        'BEGIN_BALANCE': {'default value': '', 'to string': lambda x : str(x), 'to value': lambda x : int(round(float(x),0))},
-        'TOTAL_DR': {'default value': '', 'to string': lambda x : str(x), 'to value': lambda x : abs(int(round(float(x),0)))},
-        'TOTAL_CR': {'default value': '', 'to string': lambda x : str(x), 'to value': lambda x : -abs(int(round(float(x),0)))},
-        'END_BALANCE': {'default value': '', 'to string': lambda x : str(x), 'to value': lambda x : int(round(float(x),0))}
+        'BEGIN_BALANCE': {'default value': 0, 'to string': currency, 'to value': lambda x : int(round(float(x),0))},
+        'TOTAL_DR': {'default value': 0, 'to string': currency, 'to value': lambda x : abs(int(round(float(x),0)))},
+        'TOTAL_CR': {'default value': 0, 'to string': currency, 'to value': lambda x : -abs(int(round(float(x),0)))},
+        'END_BALANCE': {'default value': 0, 'to string': currency, 'to value': lambda x : int(round(float(x),0))}
     }
 
     def __init__(self, parent):
