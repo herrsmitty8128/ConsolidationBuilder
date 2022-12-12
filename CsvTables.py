@@ -12,16 +12,16 @@ f_balance_converter = lambda x: int(round(float(x),0))
 
 
 descriptors = {
-    'entities': {
+    'Entities': {
         'Number': str_converter,
         'Name': str_converter,
         'Group': str_converter
     },
-    'cost_centers': {
+    'Cost_Centers': {
         'Number': str_converter,
         'Name': str_converter
     },
-    'accounts': {
+    'Accounts': {
         'Number': str_converter,
         'Name': str_converter,
         'Level 1': str_converter,
@@ -29,7 +29,7 @@ descriptors = {
         'Level 3': str_converter,
         'Level 4': str_converter
     },
-    'trial_balance': {
+    'Trial_Balance': {
         'Entity': str_converter,
         'Cost Center': str_converter,
         'Account': str_converter,
@@ -38,7 +38,7 @@ descriptors = {
         'Credits': credit_converter,
         'Ending Balance': balance_converter
     },
-    'top_sides': {
+    'Top_Sides': {
         'Entity': str_converter,
         'Cost Center': str_converter,
         'Account': str_converter,
@@ -48,45 +48,18 @@ descriptors = {
         'Ending Balance': balance_converter,
         'Description': str_converter
     },
-    'eliminations': {
+    'Eliminations': {
         'Entity': str_converter,
         'Cost Center': str_converter,
         'Account': str_converter
     },
-    'documentation': {
+    'Documentation': {
         'Full Path or URL': str_converter
     },
-    'oracle_tb': {
-        #'LEDGER_NAME_PARAM':str_converter,
-        #'P_AMOUNT_TYPE': str_converter,
-        #'ACCOUNTING_PERIOD_PARAM': str_converter,
-        #'LEDGER_CURRENCY_PARAM': str_converter,
-        #'P_CURRENCY_TYPE': str_converter,
-        #'CURRENCY_TYPE_PARAM': str_converter,
-        #'ENTERED_CURRENCY_PARAM': str_converter,
-        #'RESULTING_CURRENCY': str_converter,
-        #'P_SUM_BY': str_converter,
-        #'SUMMARIZE_BY_PARAM': str_converter,
-        #'BATCH_TYPE_PARAM': str_converter,
-        #'P_BATCH_TYPE': str_converter,
-        #'ENCUMBRANCE_TYPE_PARAM': str_converter,
-        #'FILTER_CONDITIONS_ATT': str_converter,
-        #'FILTER_CONDITIONS_OPT': str_converter,
-        #'REPT_EXECUTION_DATE': str_converter,
-        #'PAGEBREAK_SEGMENT_NAME': str_converter,
-        #'ADDL_SEGMENT_NAME': str_converter,
-        #'NAT_ACCT_SEGMENT_NAME': str_converter,
-        #'ENCUMBRANCE_ACCOUNTING_FLAG': str_converter,
-        #'LEDGER_NAME': str_converter,
-        #'PAGEBREAK_SEGMENT_VALUE': str_converter,
+    'Oracle_TB': {
         'PAGEBREAK_SEGMENT_DESC': str_converter,   # entity
-        #'ADDITIONAL_SEGMENT_VALUE': str_converter,
         'ADDITIONAL_SEGMENT_DESC': str_converter,  # cost center
-        #'ACCT': str_converter,
-        #'ACCT_DESC': str_converter,
-        #'ACCT_TYPE': str_converter,
-        #'NAS_VALUE': str_converter,
-        'NAS_DESC': str_converter,    # account
+        'NAS_DESC': str_converter,                 # account
         'BEGIN_BALANCE': f_balance_converter,
         'TOTAL_DR': f_debit_coverter,
         'TOTAL_CR': f_credit_converter,

@@ -1,7 +1,8 @@
 
 import MainWindow
+import CsvTables
 from PyQt5 import QtWidgets, QtCore, QtGui
-from Document import Document
+from Document2 import Document
 from TableModel import TableModel
 
 
@@ -38,14 +39,22 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
             'deleteTopSideButton': 'Top_Sides'
         }
 
-        for table_name, fieldnames in self.document.tables.items():
-            table = self.findChild(QtWidgets.QTableView, table_name)
-            table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
-            model = TableModel(table, fieldnames, self.document.data[table_name])
-            model.signals.dataChanged[TableModel].connect(self.table_data_changed)
-            table.setModel(model)
+        self.set_table_model('Entities', [x for x in CsvTables.descriptors['Entities'].keys()], self.document.entities)
+        self.set_table_model('Cost_Centers', [x for x in CsvTables.descriptors['Cost_Centers'].keys()], self.document.cost_centers)
+        self.set_table_model('Accounts', [x for x in CsvTables.descriptors['Accounts'].keys()], self.document.accounts)
+        self.set_table_model('Trial_Balance', [x for x in CsvTables.descriptors['Trial_Balance'].keys()], self.document.trial_balance)
+        self.set_table_model('Top_Sides', [x for x in CsvTables.descriptors['Top_Sides'].keys()], self.document.top_sides)
+        self.set_table_model('Eliminations', [x for x in CsvTables.descriptors['Eliminations'].keys()], self.document.current_elimination_entries)
+        self.set_table_model('Documentation', [x for x in CsvTables.descriptors['Documentation'].keys()], self.document.current_elimination_docs)
 
         self.set_non_table_data()
+    
+    def set_table_model(self, table_name: str, headers: list[str], data: list[dict]):
+        table = self.findChild(QtWidgets.QTableView, table_name)
+        table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
+        model = TableModel(table, headers, data)
+        model.signals.dataChanged[TableModel].connect(self.table_data_changed)
+        table.setModel(model)
 
     def set_table_data(self, table_name: str = None) -> None:
         if table_name is None:
@@ -60,7 +69,7 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
         # set the entity name
         name = self.findChild(QtWidgets.QLineEdit, 'entityName')
         name.blockSignals(True)
-        name.setText(self.document.data['Entity Name'])
+        name.setText(self.document.entity_name)
         name.blockSignals(False)
         # set the beginning date
         date = self.findChild(QtWidgets.QDateEdit, 'beginningBalanceDate')
@@ -71,7 +80,30 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
         date = self.findChild(QtWidgets.QDateEdit, 'endingBalanceDate')
         date.blockSignals(True)
         date.setDate(QtCore.QDate.fromString(self.document.data['Ending Balance Date'], 'M/d/yyyy'))
+        date.setDate(QtCore.QDate(self.document.ending_date))
         date.blockSignals(False)
+    
+    def connect_elimination(self) -> None:
+        # set current elimination description
+        elim = self.findChild(QtWidgets.QTextEdit, 'Elim_Desc')
+        elim.blockSignals(True)
+        elim.setText(self.document.current_elimination_description)
+        elim.blockSignals(False)
+        # set current elimination entity
+        elim = self.findChild(QtWidgets.QLineEdit, 'Elim_Plug_Entity')
+        elim.blockSignals(True)
+        elim.setText(self.document.current_elimination_plug_entity)
+        elim.blockSignals(False)
+        # set current elimination cc
+        elim = self.findChild(QtWidgets.QLineEdit, 'Elim_Plug_CC')
+        elim.blockSignals(True)
+        elim.setText(self.document.current_elimination_plug_cc)
+        elim.blockSignals(False)
+        # set current elimination cc
+        elim = self.findChild(QtWidgets.QLineEdit, 'Elim_Plug_Acct')
+        elim.blockSignals(True)
+        elim.setText(self.document.current_elimination_plug_account)
+        elim.blockSignals(False)
 
     ####################################################################################
     # FILE MENU
@@ -372,6 +404,24 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
             self.changed_since_last_save = True
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
+    
+    @QtCore.pyqtSlot()
+    def goto_next_elimination(self):
+        i = self.document.next_elimination_index()
+        self.findChild(QtWidgets.QLineEdit, 'Elim_Plug_Entity').set
+
+
+    @QtCore.pyqtSlot()
+    def goto_prev_elimination(self):
+        pass
+
+    @QtCore.pyqtSlot()
+    def add_new_elimination(self):
+        pass
+
+    @QtCore.pyqtSlot()
+    def del_current_elimination(self):
+        pass
     
     ####################################################################################
     # Console Slots

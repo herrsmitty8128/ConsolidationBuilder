@@ -12,6 +12,7 @@ class Document:
         self.reset()
 
     def reset(self):
+        self.current_elimination_index = 0
         self._entity_name = ''
         self._beginning_date = datetime.now()
         self._ending_date = datetime.now()
@@ -122,6 +123,76 @@ class Document:
         if not isinstance(new_list, list) or not all(isinstance(obj, dict) for obj in new_list):
             raise TypeError('Document.eliminations must be a list[dict] object.')
         self._eliminations = new_list
+    
+    @property
+    def current_elimination_description(self):
+        return self._eliminations[self.current_elimination_index]['description']
+    
+    @current_elimination_description.setter
+    def current_elimination_description(self, description: str) -> None:
+        if not isinstance(description, str):
+            raise TypeError('Document.current_elimination_description must be a str object.')
+        self._eliminations[self.current_elimination_index]['description'] = description
+    
+    @property
+    def current_elimination_plug_entity(self):
+        return self._eliminations[self.current_elimination_index]['plug']['Entity']
+    
+    @current_elimination_plug_entity.setter
+    def current_elimination_plug_entity(self, entity: str) -> None:
+        if not isinstance(entity, str):
+            raise TypeError('Document.current_elimination_plug_entity must be a str object.')
+        self._eliminations[self.current_elimination_index]['plug']['Entity'] = entity
+    
+    @property
+    def current_elimination_plug_cc(self):
+        return self._eliminations[self.current_elimination_index]['plug']['Cost Center']
+    
+    @current_elimination_plug_cc.setter
+    def current_elimination_plug_cc(self, cost_ctr: str) -> None:
+        if not isinstance(cost_ctr, str):
+            raise TypeError('Document.current_elimination_plug_cc must be a str object.')
+        self._eliminations[self.current_elimination_index]['plug']['Cost Center'] = cost_ctr
+    
+    @property
+    def current_elimination_plug_account(self):
+        return self._eliminations[self.current_elimination_index]['plug']['Account']
+    
+    @current_elimination_plug_account.setter
+    def current_elimination_plug_account(self, account: str) -> None:
+        if not isinstance(account, str):
+            raise TypeError('Document.current_elimination_plug_account must be a str object.')
+        self._eliminations[self.current_elimination_index]['plug']['Account'] = account
+    
+    @property
+    def current_elimination_entries(self):
+        return self._eliminations[self.current_elimination_index]['entries']
+    
+    @current_elimination_entries.setter
+    def current_elimination_entries(self, entries: list[dict]) -> None:
+        if not isinstance(entries, list) or not all(isinstance(obj, dict) for obj in entries):
+            raise TypeError('Document.current_elimination_entries must be a list[dict] object.')
+        self._eliminations[self.current_elimination_index]['entries'] = entries
+    
+    @property
+    def current_elimination_docs(self):
+        return self._eliminations[self.current_elimination_index]['documentation']
+    
+    @current_elimination_docs.setter
+    def current_elimination_docs(self, docs: list[dict]) -> None:
+        if not isinstance(docs, list) or not all(isinstance(obj, dict) for obj in docs):
+            raise TypeError('Document.current_elimination_docs must be a list[dict] object.')
+        self._eliminations[self.current_elimination_index]['documentation'] = docs
+    
+    def goto_next_elimination(self):
+        i = self.current_elimination_index + 1
+        if i >= len(self._eliminations): i = 0
+        self.increment_current_elimination_index = i
+    
+    def goto_prev_elimination(self):
+        i = self.current_elimination_index - 1
+        if i < 0: i = len(self._eliminations) - 1
+        self.increment_current_elimination_index = i
 
     ####################################################################################
     # Methods for saving and loading the document
@@ -252,7 +323,7 @@ class Document:
                 self.data['Trial_Balance'].append(r)
 
     def close_year(self):
-        topsides = self.data['Top_Sides']
+        topsides = self._top_sides
         for adj in topsides:
             adj['Beginning Balance'] = adj['Ending Balance']
             adj['Debits'] = 0

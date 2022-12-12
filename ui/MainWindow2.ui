@@ -1725,14 +1725,14 @@
    </hints>
   </connection>
   <connection>
-   <sender>addCostCenterButton</sender>
+   <sender>addAccountButton</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>insert_table_row()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>80</x>
-     <y>454</y>
+     <x>358</x>
+     <y>606</y>
     </hint>
     <hint type="destinationlabel">
      <x>501</x>
@@ -1884,6 +1884,198 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>addElimEntryButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>insert_table_row()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>170</x>
+     <y>347</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>599</x>
+     <y>429</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>deleteElimEntryButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>delete_table_row()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>448</x>
+     <y>347</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>599</x>
+     <y>429</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Elim_Desc</sender>
+   <signal>textChanged()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>set_current_elimination_description()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>890</x>
+     <y>281</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>599</x>
+     <y>429</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>addElimDocButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>insert_table_row()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>751</x>
+     <y>560</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>599</x>
+     <y>429</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>deleteElimDocButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>delete_table_row()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1029</x>
+     <y>560</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>599</x>
+     <y>429</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Elim_Plug_Entity</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>set_current_elimination_entity(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>351</x>
+     <y>461</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>599</x>
+     <y>429</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Elim_Plug_CC</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>set_current_elimination_cost_center(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>351</x>
+     <y>493</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>599</x>
+     <y>429</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Elim_Plug_Acct</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>set_current_elimination_account(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>351</x>
+     <y>525</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>599</x>
+     <y>429</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>addNewElimButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>add_new_elimination()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>225</x>
+     <y>607</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>599</x>
+     <y>429</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>deleteCurrElimButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>del_current_elimination()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>474</x>
+     <y>607</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>599</x>
+     <y>429</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>navigatePrevElimButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>goto_prev_elimination()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>724</x>
+     <y>607</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>599</x>
+     <y>429</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>navigateNextElimButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>goto_next_elimination()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>973</x>
+     <y>607</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>599</x>
+     <y>429</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>new_menu_item()</slot>
@@ -1906,5 +2098,13 @@
   <slot>rounding_diff_menu_item()</slot>
   <slot>clear_console()</slot>
   <slot>copy_console()</slot>
+  <slot>set_current_elimination_description()</slot>
+  <slot>set_current_elimination_entity(QString)</slot>
+  <slot>set_current_elimination_cost_center(QString)</slot>
+  <slot>set_current_elimination_account(QString)</slot>
+  <slot>goto_next_elimination()</slot>
+  <slot>goto_prev_elimination()</slot>
+  <slot>add_new_elimination()</slot>
+  <slot>del_current_elimination()</slot>
  </slots>
 </ui>
