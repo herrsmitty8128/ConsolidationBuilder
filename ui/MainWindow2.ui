@@ -76,7 +76,7 @@
         <item>
          <widget class="QTabWidget" name="tabWidget">
           <property name="currentIndex">
-           <number>5</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="EntitiesTab">
            <attribute name="title">
@@ -2104,5 +2104,6 @@
   <slot>export_accounts_menu_item()</slot>
   <slot>export_trial_balance_menu_item()</slot>
   <slot>export_top_sides_menu_item()</slot>
+  <slot>slot1()</slot>
  </slots>
 </ui>

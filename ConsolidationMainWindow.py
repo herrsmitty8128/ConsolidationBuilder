@@ -62,6 +62,9 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
     ####################################################################################
     ####################################################################################
 
+    def build_document(self) -> dict:
+        pass
+
     @QtCore.pyqtSlot()
     def new_menu_item(self):
         try:
@@ -255,8 +258,7 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
             if file:
                 response = QtWidgets.QMessageBox.question(self, 'Replace rows?', 'Would you like to replace all rows of data?')
                 response = False if response == QtWidgets.QMessageBox.StandardButton.No else True
-                self.document.import_oracle_tb(file, response)
-                self.set_table_data()
+                self.Trial_Balance.import_oracle_tb(file, response)
                 self.changed_since_last_save = True
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))

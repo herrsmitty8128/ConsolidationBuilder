@@ -10,6 +10,7 @@ currency = lambda x : locale.format_string('%d', x, grouping=True)
 
 
 class TableSignals(QtCore.QObject):
+    dataChanged = QtCore.pyqtSignal()
     sumDebitsChanged = QtCore.pyqtSignal(str)
     sumCreditsChanged = QtCore.pyqtSignal(str)
     sumBeginBalChanged = QtCore.pyqtSignal(str)
@@ -168,6 +169,16 @@ class TrialBalanceTableModel(BaseTableModel):
         'Ending Balance': {'default value': 0, 'to string': currency, 'to value': lambda x : int(x)}
     }
 
+    oracle_tb = {
+        'PAGEBREAK_SEGMENT_DESC': {'default value': '', 'to string': lambda x : str(x), 'to value': lambda x : str(x)},
+        'ADDITIONAL_SEGMENT_DESC': {'default value': '', 'to string': lambda x : str(x), 'to value': lambda x : str(x)},
+        'NAS_DESC': {'default value': '', 'to string': lambda x : str(x), 'to value': lambda x : str(x)},
+        'BEGIN_BALANCE': {'default value': '', 'to string': lambda x : str(x), 'to value': lambda x : int(round(float(x),0))},
+        'TOTAL_DR': {'default value': '', 'to string': lambda x : str(x), 'to value': lambda x : abs(int(round(float(x),0)))},
+        'TOTAL_CR': {'default value': '', 'to string': lambda x : str(x), 'to value': lambda x : -abs(int(round(float(x),0)))},
+        'END_BALANCE': {'default value': '', 'to string': lambda x : str(x), 'to value': lambda x : int(round(float(x),0))}
+    }
+
     def __init__(self, parent):
         super().__init__(parent)
         self.signals = TableSignals()
@@ -231,7 +242,7 @@ class TrialBalanceTableModel(BaseTableModel):
                         pass
 
                     if not self.signalsBlocked():
-                        self.signals.dataChanged.emit(self)
+                        self.signals.dataChanged.emit()
                         #self.signals.sumBeginBalChanged.emit(self.sumColumn('Beginning Balance'))
                         #self.signals.sumDebitsChanged.emit(self.sumColumn('Debits'))
                         #self.signals.sumCreditsChanged.emit(self.sumColumn('Credits'))
@@ -257,6 +268,47 @@ class TrialBalanceTableModel(BaseTableModel):
             self.signals.sumDebitsChanged.emit(self.sumColumn('Debits'))
             self.signals.sumCreditsChanged.emit(self.sumColumn('Credits'))
             self.signals.sumEndBalChanged.emit(self.sumColumn('Ending Balance'))
+    
+    def import_oracle_tb(self, file_name: str, replace: bool) -> None:
+        if replace:
+            self._data_.clear()
+        data = []
+        with open(file_name, 'r', newline='') as f:
+            reader = csv.DictReader(f)
+            desc = type(self).oracle_tb
+            if not set(desc.keys()).issubset(set(reader.fieldnames)):
+                raise ValueError('CSV file has incorrect field names.')
+            for row in reader:
+                data.append({n:h['to value'](row[n].strip()) for n,h in desc.items()})
+        self.convert_oracle_tb(data)
+        self._data_.extend(data)
+        self.layoutChanged.emit()
+        if not self.signalsBlocked():
+            self.signals.sumBeginBalChanged.emit(self.sumColumn('Beginning Balance'))
+            self.signals.sumDebitsChanged.emit(self.sumColumn('Debits'))
+            self.signals.sumCreditsChanged.emit(self.sumColumn('Credits'))
+            self.signals.sumEndBalChanged.emit(self.sumColumn('Ending Balance'))
+    
+
+    def convert_oracle_tb(self, oracle_tb: list[dict]) -> None:
+        '''
+        Converts all the fieldnames in an oracle trial balance to useable names.
+        '''
+        field_crosswalk = {
+            'PAGEBREAK_SEGMENT_DESC': 'Entity',
+            'ADDITIONAL_SEGMENT_DESC': 'Cost Center',
+            'NAS_DESC': 'Account',
+            'BEGIN_BALANCE': 'Beginning Balance',
+            'TOTAL_DR': 'Debits',
+            'TOTAL_CR': 'Credits',
+            'END_BALANCE': 'Ending Balance'
+        }
+        fields = set(x for x in field_crosswalk.keys())
+        for row in oracle_tb:
+            if set(row.keys()) != fields:
+                raise KeyError(f'Not all rows in the Oracle trial balance contain the correct fields: {row}')
+            for old_key, new_key in field_crosswalk.items():
+                row[old_key] = row.pop(new_key)
 
 
 class TopSidesTableModel(TrialBalanceTableModel):
