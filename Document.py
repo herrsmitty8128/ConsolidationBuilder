@@ -71,7 +71,7 @@ class Document:
             'Entities': [],
             'Trial_Balance': [],
             'Top_Sides': [],
-            'Eliminations': [ # starts with one empty elimination
+            'Eliminations': [  # starts with one empty elimination
                 {
                     'Entries': [],
                     'Description': '',
@@ -92,7 +92,7 @@ class Document:
         f = open(filename, 'r')
         self.data = json.load(f)
         f.close()
-    
+
     ####################################################################################
     # Methods for importing and exporting tables
     ####################################################################################
@@ -383,26 +383,26 @@ class Document:
         audit_balances('Top_Sides')
 
         return error_log
-    
+
     ####################################################################################
     # Getter/Setter methods
     ####################################################################################
 
     def set_entity_name(self, new_name: str):
         self.data['Entity Name'] = new_name
-    
+
     def set_beginning_date(self, new_date: datetime):
         self.data['Beginning Balance Date'] = datetime.strftime(new_date, '%m/%d/%Y')
-    
+
     def get_beginning_date(self) -> datetime:
         return datetime.strptime(self.data['Beginning Balance Date'], '%m/%d/%Y')
-    
+
     def set_ending_date(self, new_date: datetime):
         self.data['Ending Balance Date'] = datetime.strftime(new_date, '%m/%d/%Y')
-    
+
     def get_ending_date(self) -> datetime:
         return datetime.strptime(self.data['Ending Balance Date'], '%m/%d/%Y')
-    
+
     def set_elimination_description(self, index: int, description: str):
         self.data['Eliminations'][index]['Description'] = description
 

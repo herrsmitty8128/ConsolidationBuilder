@@ -178,7 +178,7 @@ class Ui_MainWindow(object):
         self.totalTBBeginning.setMinimumSize(QtCore.QSize(150, 0))
         self.totalTBBeginning.setMaximumSize(QtCore.QSize(200, 16777215))
         self.totalTBBeginning.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.totalTBBeginning.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.totalTBBeginning.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter)
         self.totalTBBeginning.setObjectName("totalTBBeginning")
         self.horizontalLayout_16.addWidget(self.totalTBBeginning)
         spacerItem10 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -191,7 +191,7 @@ class Ui_MainWindow(object):
         self.totalTBDebits.setMinimumSize(QtCore.QSize(150, 0))
         self.totalTBDebits.setMaximumSize(QtCore.QSize(200, 16777215))
         self.totalTBDebits.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.totalTBDebits.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.totalTBDebits.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter)
         self.totalTBDebits.setObjectName("totalTBDebits")
         self.horizontalLayout_16.addWidget(self.totalTBDebits)
         spacerItem11 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -204,7 +204,7 @@ class Ui_MainWindow(object):
         self.totalTBCredits.setMinimumSize(QtCore.QSize(150, 0))
         self.totalTBCredits.setMaximumSize(QtCore.QSize(200, 16777215))
         self.totalTBCredits.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.totalTBCredits.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.totalTBCredits.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter)
         self.totalTBCredits.setObjectName("totalTBCredits")
         self.horizontalLayout_16.addWidget(self.totalTBCredits)
         spacerItem12 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -217,7 +217,7 @@ class Ui_MainWindow(object):
         self.totalTBEnding.setMinimumSize(QtCore.QSize(150, 0))
         self.totalTBEnding.setMaximumSize(QtCore.QSize(200, 16777215))
         self.totalTBEnding.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.totalTBEnding.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.totalTBEnding.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter)
         self.totalTBEnding.setObjectName("totalTBEnding")
         self.horizontalLayout_16.addWidget(self.totalTBEnding)
         spacerItem13 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -249,7 +249,7 @@ class Ui_MainWindow(object):
         self.totalTopSidesBeginning.setMinimumSize(QtCore.QSize(150, 0))
         self.totalTopSidesBeginning.setMaximumSize(QtCore.QSize(200, 16777215))
         self.totalTopSidesBeginning.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.totalTopSidesBeginning.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.totalTopSidesBeginning.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter)
         self.totalTopSidesBeginning.setObjectName("totalTopSidesBeginning")
         self.horizontalLayout_10.addWidget(self.totalTopSidesBeginning)
         spacerItem15 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -262,7 +262,7 @@ class Ui_MainWindow(object):
         self.totalTopSidesDebits.setMinimumSize(QtCore.QSize(150, 0))
         self.totalTopSidesDebits.setMaximumSize(QtCore.QSize(200, 16777215))
         self.totalTopSidesDebits.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.totalTopSidesDebits.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.totalTopSidesDebits.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter)
         self.totalTopSidesDebits.setObjectName("totalTopSidesDebits")
         self.horizontalLayout_10.addWidget(self.totalTopSidesDebits)
         spacerItem16 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -275,7 +275,7 @@ class Ui_MainWindow(object):
         self.totalTopSidesCredits.setMinimumSize(QtCore.QSize(150, 0))
         self.totalTopSidesCredits.setMaximumSize(QtCore.QSize(200, 16777215))
         self.totalTopSidesCredits.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.totalTopSidesCredits.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.totalTopSidesCredits.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter)
         self.totalTopSidesCredits.setObjectName("totalTopSidesCredits")
         self.horizontalLayout_10.addWidget(self.totalTopSidesCredits)
         spacerItem17 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -288,7 +288,7 @@ class Ui_MainWindow(object):
         self.totalTopSidesEnding.setMinimumSize(QtCore.QSize(150, 0))
         self.totalTopSidesEnding.setMaximumSize(QtCore.QSize(200, 16777215))
         self.totalTopSidesEnding.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.totalTopSidesEnding.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.totalTopSidesEnding.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter)
         self.totalTopSidesEnding.setObjectName("totalTopSidesEnding")
         self.horizontalLayout_10.addWidget(self.totalTopSidesEnding)
         spacerItem18 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -746,58 +746,58 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         self.tabWidget.setCurrentIndex(3)
-        self.actionNew.triggered.connect(MainWindow.new_menu_item) # type: ignore
-        self.actionOpen.triggered.connect(MainWindow.open_menu_item) # type: ignore
-        self.actionClose.triggered.connect(MainWindow.close_menu_item) # type: ignore
-        self.actionSave.triggered.connect(MainWindow.save_menu_item) # type: ignore
-        self.actionSaveAs.triggered.connect(MainWindow.save_as_menu_item) # type: ignore
-        self.actionQuit.triggered.connect(MainWindow.quit_menu_item) # type: ignore
-        self.actionBuild.triggered.connect(MainWindow.build_menu_item) # type: ignore
-        self.actionImportEntities.triggered.connect(MainWindow.import_entities_menu_item) # type: ignore
-        self.actionImportCostCenters.triggered.connect(MainWindow.import_cost_centers_menu_item) # type: ignore
-        self.actionImportAccounts.triggered.connect(MainWindow.import_accounts_menu_item) # type: ignore
-        self.actionImportTrialBalance.triggered.connect(MainWindow.import_trial_balance_menu_item) # type: ignore
-        self.actionImportTopSides.triggered.connect(MainWindow.import_top_sides_menu_item) # type: ignore
-        self.actionExportEntities.triggered.connect(MainWindow.export_entities_menu_item) # type: ignore
-        self.actionExportCostCenters.triggered.connect(MainWindow.export_cost_centers_menu_item) # type: ignore
-        self.actionExportAccounts.triggered.connect(MainWindow.export_accounts_menu_item) # type: ignore
-        self.actionExportTrialBalance.triggered.connect(MainWindow.export_trial_balance_menu_item) # type: ignore
-        self.actionExportTopSides.triggered.connect(MainWindow.export_top_sides_menu_item) # type: ignore
-        self.actionRollforward.triggered.connect(MainWindow.rollforward_menu_item) # type: ignore
-        self.actionAudit.triggered.connect(MainWindow.audit_menu_item) # type: ignore
-        self.addEntityButton.clicked.connect(MainWindow.insert_entity_table_row) # type: ignore
-        self.deleteEntityButton.clicked.connect(MainWindow.delete_entity_table_rows) # type: ignore
-        self.addAccountButton.clicked.connect(MainWindow.insert_account_table_row) # type: ignore
-        self.deleteCostCenterButton.clicked.connect(MainWindow.delete_cost_center_table_rows) # type: ignore
-        self.deleteAccountButton.clicked.connect(MainWindow.delete_account_table_rows) # type: ignore
-        self.actionOracleTrialBalance.triggered.connect(MainWindow.import_oracle_tb) # type: ignore
-        self.actionPlug_Rounding_Difference.triggered.connect(MainWindow.rounding_diff_menu_item) # type: ignore
-        self.clearConsoleButton.clicked.connect(MainWindow.clear_console) # type: ignore
-        self.copyConsoleButton.clicked.connect(MainWindow.copy_console) # type: ignore
-        self.addTopSideButton.clicked.connect(MainWindow.insert_top_sides_table_row) # type: ignore
-        self.deleteTopSideButton.clicked.connect(MainWindow.delete_top_sides_table_rows) # type: ignore
-        self.addElimEntryButton.clicked.connect(MainWindow.insert_elimination_entry_table_row) # type: ignore
-        self.deleteElimEntryButton.clicked.connect(MainWindow.delete_elimination_entry_table_rows) # type: ignore
-        self.addElimDocButton.clicked.connect(MainWindow.insert_elimination_doc_table_row) # type: ignore
-        self.deleteElimDocButton.clicked.connect(MainWindow.delete_elimination_doc_table_rows) # type: ignore
-        self.addNewElimButton.clicked.connect(MainWindow.add_new_elimination) # type: ignore
-        self.deleteCurrElimButton.clicked.connect(MainWindow.del_current_elimination) # type: ignore
-        self.navigatePrevElimButton.clicked.connect(MainWindow.goto_prev_elimination) # type: ignore
-        self.navigateNextElimButton.clicked.connect(MainWindow.goto_next_elimination) # type: ignore
-        self.addCostCenterButton.clicked.connect(MainWindow.insert_cost_center_table_row) # type: ignore
-        self.clearElimDescriptionButton.clicked.connect(MainWindow.clear_elimination_description) # type: ignore
-        self.copyElimDescriptionButton.clicked.connect(MainWindow.copy_elimination_description) # type: ignore
-        self.pasteElimDescriptionButton.clicked.connect(MainWindow.paste_elimination_description) # type: ignore
+        self.actionNew.triggered.connect(MainWindow.new_menu_item)  # type: ignore
+        self.actionOpen.triggered.connect(MainWindow.open_menu_item)  # type: ignore
+        self.actionClose.triggered.connect(MainWindow.close_menu_item)  # type: ignore
+        self.actionSave.triggered.connect(MainWindow.save_menu_item)  # type: ignore
+        self.actionSaveAs.triggered.connect(MainWindow.save_as_menu_item)  # type: ignore
+        self.actionQuit.triggered.connect(MainWindow.quit_menu_item)  # type: ignore
+        self.actionBuild.triggered.connect(MainWindow.build_menu_item)  # type: ignore
+        self.actionImportEntities.triggered.connect(MainWindow.import_entities_menu_item)  # type: ignore
+        self.actionImportCostCenters.triggered.connect(MainWindow.import_cost_centers_menu_item)  # type: ignore
+        self.actionImportAccounts.triggered.connect(MainWindow.import_accounts_menu_item)  # type: ignore
+        self.actionImportTrialBalance.triggered.connect(MainWindow.import_trial_balance_menu_item)  # type: ignore
+        self.actionImportTopSides.triggered.connect(MainWindow.import_top_sides_menu_item)  # type: ignore
+        self.actionExportEntities.triggered.connect(MainWindow.export_entities_menu_item)  # type: ignore
+        self.actionExportCostCenters.triggered.connect(MainWindow.export_cost_centers_menu_item)  # type: ignore
+        self.actionExportAccounts.triggered.connect(MainWindow.export_accounts_menu_item)  # type: ignore
+        self.actionExportTrialBalance.triggered.connect(MainWindow.export_trial_balance_menu_item)  # type: ignore
+        self.actionExportTopSides.triggered.connect(MainWindow.export_top_sides_menu_item)  # type: ignore
+        self.actionRollforward.triggered.connect(MainWindow.rollforward_menu_item)  # type: ignore
+        self.actionAudit.triggered.connect(MainWindow.audit_menu_item)  # type: ignore
+        self.addEntityButton.clicked.connect(MainWindow.insert_entity_table_row)  # type: ignore
+        self.deleteEntityButton.clicked.connect(MainWindow.delete_entity_table_rows)  # type: ignore
+        self.addAccountButton.clicked.connect(MainWindow.insert_account_table_row)  # type: ignore
+        self.deleteCostCenterButton.clicked.connect(MainWindow.delete_cost_center_table_rows)  # type: ignore
+        self.deleteAccountButton.clicked.connect(MainWindow.delete_account_table_rows)  # type: ignore
+        self.actionOracleTrialBalance.triggered.connect(MainWindow.import_oracle_tb)  # type: ignore
+        self.actionPlug_Rounding_Difference.triggered.connect(MainWindow.rounding_diff_menu_item)  # type: ignore
+        self.clearConsoleButton.clicked.connect(MainWindow.clear_console)  # type: ignore
+        self.copyConsoleButton.clicked.connect(MainWindow.copy_console)  # type: ignore
+        self.addTopSideButton.clicked.connect(MainWindow.insert_top_sides_table_row)  # type: ignore
+        self.deleteTopSideButton.clicked.connect(MainWindow.delete_top_sides_table_rows)  # type: ignore
+        self.addElimEntryButton.clicked.connect(MainWindow.insert_elimination_entry_table_row)  # type: ignore
+        self.deleteElimEntryButton.clicked.connect(MainWindow.delete_elimination_entry_table_rows)  # type: ignore
+        self.addElimDocButton.clicked.connect(MainWindow.insert_elimination_doc_table_row)  # type: ignore
+        self.deleteElimDocButton.clicked.connect(MainWindow.delete_elimination_doc_table_rows)  # type: ignore
+        self.addNewElimButton.clicked.connect(MainWindow.add_new_elimination)  # type: ignore
+        self.deleteCurrElimButton.clicked.connect(MainWindow.del_current_elimination)  # type: ignore
+        self.navigatePrevElimButton.clicked.connect(MainWindow.goto_prev_elimination)  # type: ignore
+        self.navigateNextElimButton.clicked.connect(MainWindow.goto_next_elimination)  # type: ignore
+        self.addCostCenterButton.clicked.connect(MainWindow.insert_cost_center_table_row)  # type: ignore
+        self.clearElimDescriptionButton.clicked.connect(MainWindow.clear_elimination_description)  # type: ignore
+        self.copyElimDescriptionButton.clicked.connect(MainWindow.copy_elimination_description)  # type: ignore
+        self.pasteElimDescriptionButton.clicked.connect(MainWindow.paste_elimination_description)  # type: ignore
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Consolidation Station"))
-        self.label_2.setText(_translate("MainWindow", "Beginning Balance Date:"))
+        self.label_2.setText(_translate("MainWindow", "Beginning Trial Balance Date:"))
         self.label_13.setText(_translate("MainWindow", "Current File:"))
         self.beginningBalanceDate.setToolTip(_translate("MainWindow", "The date of the beginning balances in the trial balance"))
         self.beginningBalanceDate.setDisplayFormat(_translate("MainWindow", "M/d/yyyy"))
-        self.label_3.setText(_translate("MainWindow", "Ending Balance Date:"))
+        self.label_3.setText(_translate("MainWindow", "Ending Trial Balance Date:"))
         self.label.setText(_translate("MainWindow", "Company Name:"))
         self.entityName.setToolTip(_translate("MainWindow", "The full legal name of the parent company"))
         self.endingBalanceDate.setToolTip(_translate("MainWindow", "The date of the ending balances in the trial balance"))

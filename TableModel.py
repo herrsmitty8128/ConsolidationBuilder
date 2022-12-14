@@ -6,7 +6,8 @@ from PyQt5 import QtWidgets, QtCore
 
 locale.setlocale(locale.LC_ALL, '')
 
-currency = lambda x : locale.format_string('%d', x, grouping=True)
+
+def currency(x): return locale.format_string('%d', x, grouping=True)
 
 
 class TableSignals(QtCore.QObject):
@@ -20,7 +21,7 @@ class TableSignals(QtCore.QObject):
 class BaseTableModel(QtCore.QAbstractTableModel):
 
     descriptors = {
-        'None': {'default value': '', 'to string': lambda x : str(x), 'to value': lambda x : str(x)}
+        'None': {'default value': '', 'to string': lambda x: str(x), 'to value': lambda x: str(x)}
     }
 
     def __init__(self, parent):
@@ -49,8 +50,8 @@ class BaseTableModel(QtCore.QAbstractTableModel):
         return QtCore.QVariant()
 
     def getAlignment(self, fieldname: str):
-        return QtCore.Qt.AlignLeft # QtCore.Qt.AlignLeft or QtCore.Qt.AlignVCenter or QtCore.Qt.AlignRight
-    
+        return QtCore.Qt.AlignLeft  # QtCore.Qt.AlignLeft or QtCore.Qt.AlignVCenter or QtCore.Qt.AlignRight
+
     def data(self, index: QtCore.QModelIndex, role: int = QtCore.Qt.ItemDataRole.DisplayRole) -> QtCore.QVariant:
         if index.isValid():
             field = self._fieldnames_[index.column()]
@@ -60,7 +61,7 @@ class BaseTableModel(QtCore.QAbstractTableModel):
             elif role == QtCore.Qt.TextAlignmentRole:
                 return self.getAlignment(field)
         return QtCore.QVariant()
-    
+
     def setData(self, index: QtCore.QModelIndex, value: QtCore.QVariant, role: int = QtCore.Qt.EditRole) -> bool:
         if index.isValid():
             if role == QtCore.Qt.EditRole:
@@ -72,7 +73,7 @@ class BaseTableModel(QtCore.QAbstractTableModel):
                         self._data_[row][field] = self._descriptors_[field]['to value'](new_value)
                         self.parent().horizontalHeader().resizeSections(QtWidgets.QHeaderView.ResizeToContents)
                         return True
-                    except:
+                    except BaseException:
                         pass
         return False
 
@@ -96,10 +97,10 @@ class BaseTableModel(QtCore.QAbstractTableModel):
     def appendRow(self) -> None:
         row = len(self._data_)
         self.beginInsertRows(QtCore.QModelIndex(), row, row)
-        self._data_.append({n:h['default value'] for n,h in self._descriptors_.items()})
+        self._data_.append({n: h['default value'] for n, h in self._descriptors_.items()})
         self.endInsertRows()
         self.parent().scrollTo(self.index(row, 0))
-    
+
     def load_csv(self, file_name: str, replace: bool) -> None:
         if replace:
             self._data_.clear()
@@ -108,7 +109,7 @@ class BaseTableModel(QtCore.QAbstractTableModel):
             if not set(self._fieldnames_).issubset(set(reader.fieldnames)):
                 raise ValueError('CSV file has incorrect field names.')
             for row in reader:
-                self._data_.append({n:h['to value'](row[n].strip()) for n,h in self._descriptors_.items()})
+                self._data_.append({n: h['to value'](row[n].strip()) for n, h in self._descriptors_.items()})
         self.layoutChanged.emit()
 
     def dump_csv(self, file_name: str) -> None:
@@ -122,9 +123,9 @@ class BaseTableModel(QtCore.QAbstractTableModel):
 class EntityTableModel(BaseTableModel):
 
     descriptors = {
-        'Number': {'default value': '', 'to string': lambda x : str(x), 'to value': lambda x : str(x)},
-        'Name': {'default value': '', 'to string': lambda x : str(x), 'to value': lambda x : str(x)},
-        'Group': {'default value': '', 'to string': lambda x : str(x), 'to value': lambda x : str(x)}
+        'Number': {'default value': '', 'to string': lambda x: str(x), 'to value': lambda x: str(x)},
+        'Name': {'default value': '', 'to string': lambda x: str(x), 'to value': lambda x: str(x)},
+        'Group': {'default value': '', 'to string': lambda x: str(x), 'to value': lambda x: str(x)}
     }
 
     def __init__(self, parent):
@@ -134,8 +135,8 @@ class EntityTableModel(BaseTableModel):
 class CostCenterTableModel(BaseTableModel):
 
     descriptors = {
-        'Number': {'default value': '', 'to string': lambda x : str(x), 'to value': lambda x : str(x)},
-        'Name': {'default value': '', 'to string': lambda x : str(x), 'to value': lambda x : str(x)}
+        'Number': {'default value': '', 'to string': lambda x: str(x), 'to value': lambda x: str(x)},
+        'Name': {'default value': '', 'to string': lambda x: str(x), 'to value': lambda x: str(x)}
     }
 
     def __init__(self, parent):
@@ -145,12 +146,12 @@ class CostCenterTableModel(BaseTableModel):
 class AccountTableModel(BaseTableModel):
 
     descriptors = {
-        'Number': {'default value': '', 'to string': lambda x : str(x), 'to value': lambda x : str(x)},
-        'Name': {'default value': '', 'to string': lambda x : str(x), 'to value': lambda x : str(x)},
-        'Level 1': {'default value': '', 'to string': lambda x : str(x), 'to value': lambda x : str(x)},
-        'Level 2': {'default value': '', 'to string': lambda x : str(x), 'to value': lambda x : str(x)},
-        'Level 3': {'default value': '', 'to string': lambda x : str(x), 'to value': lambda x : str(x)},
-        'Level 4': {'default value': '', 'to string': lambda x : str(x), 'to value': lambda x : str(x)}
+        'Number': {'default value': '', 'to string': lambda x: str(x), 'to value': lambda x: str(x)},
+        'Name': {'default value': '', 'to string': lambda x: str(x), 'to value': lambda x: str(x)},
+        'Level 1': {'default value': '', 'to string': lambda x: str(x), 'to value': lambda x: str(x)},
+        'Level 2': {'default value': '', 'to string': lambda x: str(x), 'to value': lambda x: str(x)},
+        'Level 3': {'default value': '', 'to string': lambda x: str(x), 'to value': lambda x: str(x)},
+        'Level 4': {'default value': '', 'to string': lambda x: str(x), 'to value': lambda x: str(x)}
     }
 
     def __init__(self, parent):
@@ -160,37 +161,37 @@ class AccountTableModel(BaseTableModel):
 class TrialBalanceTableModel(BaseTableModel):
 
     descriptors = {
-        'Entity': {'default value': '', 'to string': lambda x : str(x), 'to value': lambda x : str(x)},
-        'Cost Center': {'default value': '', 'to string': lambda x : str(x), 'to value': lambda x : str(x)},
-        'Account': {'default value': '', 'to string': lambda x : str(x), 'to value': lambda x : str(x)},
-        'Beginning Balance': {'default value': 0, 'to string': currency, 'to value': lambda x : int(x)},
-        'Debits': {'default value': 0, 'to string': currency, 'to value': lambda x : abs(int(x))},
-        'Credits': {'default value': 0, 'to string': currency, 'to value': lambda x : -abs(int(x))},
-        'Ending Balance': {'default value': 0, 'to string': currency, 'to value': lambda x : int(x)}
+        'Entity': {'default value': '', 'to string': lambda x: str(x), 'to value': lambda x: str(x)},
+        'Cost Center': {'default value': '', 'to string': lambda x: str(x), 'to value': lambda x: str(x)},
+        'Account': {'default value': '', 'to string': lambda x: str(x), 'to value': lambda x: str(x)},
+        'Beginning Balance': {'default value': 0, 'to string': currency, 'to value': lambda x: int(x)},
+        'Debits': {'default value': 0, 'to string': currency, 'to value': lambda x: abs(int(x))},
+        'Credits': {'default value': 0, 'to string': currency, 'to value': lambda x: -abs(int(x))},
+        'Ending Balance': {'default value': 0, 'to string': currency, 'to value': lambda x: int(x)}
     }
 
     oracle_tb = {
-        'PAGEBREAK_SEGMENT_DESC': {'default value': '', 'to string': lambda x : str(x), 'to value': lambda x : str(x)},
-        'ADDITIONAL_SEGMENT_DESC': {'default value': '', 'to string': lambda x : str(x), 'to value': lambda x : str(x)},
-        'NAS_DESC': {'default value': '', 'to string': lambda x : str(x), 'to value': lambda x : str(x)},
-        'BEGIN_BALANCE': {'default value': 0, 'to string': currency, 'to value': lambda x : int(round(float(x),0))},
-        'TOTAL_DR': {'default value': 0, 'to string': currency, 'to value': lambda x : abs(int(round(float(x),0)))},
-        'TOTAL_CR': {'default value': 0, 'to string': currency, 'to value': lambda x : -abs(int(round(float(x),0)))},
-        'END_BALANCE': {'default value': 0, 'to string': currency, 'to value': lambda x : int(round(float(x),0))}
+        'PAGEBREAK_SEGMENT_DESC': {'default value': '', 'to string': lambda x: str(x), 'to value': lambda x: str(x)},
+        'ADDITIONAL_SEGMENT_DESC': {'default value': '', 'to string': lambda x: str(x), 'to value': lambda x: str(x)},
+        'NAS_DESC': {'default value': '', 'to string': lambda x: str(x), 'to value': lambda x: str(x)},
+        'BEGIN_BALANCE': {'default value': 0, 'to string': currency, 'to value': lambda x: int(round(float(x), 0))},
+        'TOTAL_DR': {'default value': 0, 'to string': currency, 'to value': lambda x: abs(int(round(float(x), 0)))},
+        'TOTAL_CR': {'default value': 0, 'to string': currency, 'to value': lambda x: -abs(int(round(float(x), 0)))},
+        'END_BALANCE': {'default value': 0, 'to string': currency, 'to value': lambda x: int(round(float(x), 0))}
     }
 
     def __init__(self, parent):
         super().__init__(parent)
         self.signals = TableSignals()
-    
+
     def sumColumn(self, fieldname: str) -> int:
         return locale.format_string('$%d', sum(x[fieldname] for x in self._data_), grouping=True)
-    
+
     def getAlignment(self, fieldname: str):
         if fieldname == 'Beginning Balance' or fieldname == 'Debits' or fieldname == 'Credits' or fieldname == 'Ending Balance':
             return QtCore.Qt.AlignRight
-        return QtCore.Qt.AlignLeft # QtCore.Qt.AlignLeft or QtCore.Qt.AlignVCenter or QtCore.Qt.AlignRight
-    
+        return QtCore.Qt.AlignLeft  # QtCore.Qt.AlignLeft or QtCore.Qt.AlignVCenter or QtCore.Qt.AlignRight
+
     def flags(self, index: QtCore.QModelIndex) -> QtCore.Qt.ItemFlags:
         if index.isValid():
             field = self._fieldnames_[index.column()]
@@ -199,7 +200,7 @@ class TrialBalanceTableModel(BaseTableModel):
             else:
                 return QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEditable
         return QtCore.Qt.NoItemFlags
-    
+
     def setTableData(self, data: list[dict]) -> None:
         super().setTableData(data)
         if not self.signalsBlocked():
@@ -238,14 +239,14 @@ class TrialBalanceTableModel(BaseTableModel):
                         else:
                             data[field] = new_value
                         self.parent().horizontalHeader().resizeSections(QtWidgets.QHeaderView.ResizeToContents)
-                    except:
+                    except BaseException:
                         pass
 
                     if not self.signalsBlocked():
                         self.signals.dataChanged.emit()
                         #self.signals.sumBeginBalChanged.emit(self.sumColumn('Beginning Balance'))
-                        #self.signals.sumDebitsChanged.emit(self.sumColumn('Debits'))
-                        #self.signals.sumCreditsChanged.emit(self.sumColumn('Credits'))
+                        # self.signals.sumDebitsChanged.emit(self.sumColumn('Debits'))
+                        # self.signals.sumCreditsChanged.emit(self.sumColumn('Credits'))
                         #self.signals.sumEndBalChanged.emit(self.sumColumn('Ending Balance'))
 
                     return True
@@ -260,7 +261,7 @@ class TrialBalanceTableModel(BaseTableModel):
                 self.signals.sumEndBalChanged.emit(self.sumColumn('Ending Balance'))
             return True
         return False
-    
+
     def load_csv(self, file_name: str, replace: bool) -> None:
         super().load_csv(file_name, replace)
         if not self.signalsBlocked():
@@ -268,7 +269,7 @@ class TrialBalanceTableModel(BaseTableModel):
             self.signals.sumDebitsChanged.emit(self.sumColumn('Debits'))
             self.signals.sumCreditsChanged.emit(self.sumColumn('Credits'))
             self.signals.sumEndBalChanged.emit(self.sumColumn('Ending Balance'))
-    
+
     def import_oracle_tb(self, file_name: str, replace: bool) -> None:
         if replace:
             self._data_.clear()
@@ -279,7 +280,7 @@ class TrialBalanceTableModel(BaseTableModel):
             if not set(desc.keys()).issubset(set(reader.fieldnames)):
                 raise ValueError('CSV file has incorrect field names.')
             for row in reader:
-                data.append({n:h['to value'](row[n].strip()) for n,h in desc.items()})
+                data.append({n: h['to value'](row[n].strip()) for n, h in desc.items()})
         self.convert_oracle_tb(data)
         self._data_.extend(data)
         self.layoutChanged.emit()
@@ -288,7 +289,7 @@ class TrialBalanceTableModel(BaseTableModel):
             self.signals.sumDebitsChanged.emit(self.sumColumn('Debits'))
             self.signals.sumCreditsChanged.emit(self.sumColumn('Credits'))
             self.signals.sumEndBalChanged.emit(self.sumColumn('Ending Balance'))
-    
+
     def convert_oracle_tb(self, oracle_tb: list[dict]) -> None:
         '''
         Converts all the fieldnames in an oracle trial balance to useable names.
@@ -313,14 +314,14 @@ class TrialBalanceTableModel(BaseTableModel):
 class TopSidesTableModel(TrialBalanceTableModel):
 
     descriptors = {
-        'Entity': {'default value': '', 'to string': lambda x : str(x), 'to value': lambda x : str(x)},
-        'Cost Center': {'default value': '', 'to string': lambda x : str(x), 'to value': lambda x : str(x)},
-        'Account': {'default value': '', 'to string': lambda x : str(x), 'to value': lambda x : str(x)},
-        'Beginning Balance': {'default value': 0, 'to string': currency, 'to value': lambda x : int(x)},
-        'Debits': {'default value': 0, 'to string': currency, 'to value': lambda x : abs(int(x))},
-        'Credits': {'default value': 0, 'to string': currency, 'to value': lambda x : -abs(int(x))},
-        'Ending Balance': {'default value': 0, 'to string': currency, 'to value': lambda x : int(x)},
-        'Description' : {'default value': '', 'to string': lambda x : str(x), 'to value': lambda x : str(x)}
+        'Entity': {'default value': '', 'to string': lambda x: str(x), 'to value': lambda x: str(x)},
+        'Cost Center': {'default value': '', 'to string': lambda x: str(x), 'to value': lambda x: str(x)},
+        'Account': {'default value': '', 'to string': lambda x: str(x), 'to value': lambda x: str(x)},
+        'Beginning Balance': {'default value': 0, 'to string': currency, 'to value': lambda x: int(x)},
+        'Debits': {'default value': 0, 'to string': currency, 'to value': lambda x: abs(int(x))},
+        'Credits': {'default value': 0, 'to string': currency, 'to value': lambda x: -abs(int(x))},
+        'Ending Balance': {'default value': 0, 'to string': currency, 'to value': lambda x: int(x)},
+        'Description': {'default value': '', 'to string': lambda x: str(x), 'to value': lambda x: str(x)}
     }
 
     def __init__(self, parent):
@@ -330,9 +331,9 @@ class TopSidesTableModel(TrialBalanceTableModel):
 class EliminationsTableModel(BaseTableModel):
 
     descriptors = {
-        'Entity': {'default value': '', 'to string': lambda x : str(x), 'to value': lambda x : str(x)},
-        'Cost Center': {'default value': '', 'to string': lambda x : str(x), 'to value': lambda x : str(x)},
-        'Account': {'default value': '', 'to string': lambda x : str(x), 'to value': lambda x : str(x)}
+        'Entity': {'default value': '', 'to string': lambda x: str(x), 'to value': lambda x: str(x)},
+        'Cost Center': {'default value': '', 'to string': lambda x: str(x), 'to value': lambda x: str(x)},
+        'Account': {'default value': '', 'to string': lambda x: str(x), 'to value': lambda x: str(x)}
     }
 
     def __init__(self, parent):
@@ -342,7 +343,7 @@ class EliminationsTableModel(BaseTableModel):
 class DocumentationTableModel(BaseTableModel):
 
     descriptors = {
-        'Full Path or URL': {'default value': '', 'to string': lambda x : str(x), 'to value': lambda x : str(x)}
+        'Full Path or URL': {'default value': '', 'to string': lambda x: str(x), 'to value': lambda x: str(x)}
     }
 
     def __init__(self, parent):

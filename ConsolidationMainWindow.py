@@ -260,7 +260,7 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
 
     @QtCore.pyqtSlot()
     def import_oracle_tb(self):
-        #try:
+        # try:
         self.statusBar().showMessage('Importing Oracle TB...')
         file, _ = QtWidgets.QFileDialog.getOpenFileName(self, 'Select a file to open', filter='CSV Files (*.csv)')
         if file:
@@ -288,7 +288,7 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
         finally:
             self.statusBar().showMessage('Done exporting.')
-   
+
     @QtCore.pyqtSlot()
     def export_cost_centers_menu_item(self):
         try:
@@ -302,7 +302,7 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
         finally:
             self.statusBar().showMessage('Done exporting.')
-           
+
     @QtCore.pyqtSlot()
     def export_accounts_menu_item(self):
         try:
@@ -330,7 +330,7 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
         finally:
             self.statusBar().showMessage('Done exporting.')
-   
+
     @QtCore.pyqtSlot()
     def export_top_sides_menu_item(self):
         try:
@@ -418,22 +418,20 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
     ####################################################################################
     ####################################################################################
 
-    
     @QtCore.pyqtSlot()
     def insert_entity_table_row(self):
         try:
             self.Entities.model().appendRow()
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
-   
+
     @QtCore.pyqtSlot()
     def insert_cost_center_table_row(self):
         try:
             self.Cost_Centers.model().appendRow()
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
-    
-   
+
     @QtCore.pyqtSlot()
     def insert_account_table_row(self):
         try:
@@ -447,28 +445,28 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
             self.Trial_Balance.model().appendRow()
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
-   
+
     @QtCore.pyqtSlot()
     def insert_top_sides_table_row(self):
         try:
             self.Top_Sides.model().appendRow()
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
-   
+
     @QtCore.pyqtSlot()
     def insert_elimination_entry_table_row(self):
         try:
             self.Eliminations.model().appendRow()
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
-   
+
     @QtCore.pyqtSlot()
     def insert_elimination_doc_table_row(self):
         try:
             self.Documentation.model().appendRow()
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
-    
+
     @QtCore.pyqtSlot()
     def delete_entity_table_rows(self):
         try:
@@ -482,7 +480,7 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
             self.Cost_Centers.model().removeSelectedRows()
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
-    
+
     @QtCore.pyqtSlot()
     def delete_account_table_rows(self):
         try:
@@ -496,28 +494,28 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
             self.Trial_Balance.model().removeSelectedRows()
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
-   
+
     @QtCore.pyqtSlot()
     def delete_top_sides_table_rows(self):
         try:
             self.Top_Sides.model().removeSelectedRows()
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
-   
+
     @QtCore.pyqtSlot()
     def delete_elimination_entry_table_rows(self):
         try:
             self.Eliminations.model().removeSelectedRows()
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
-   
+
     @QtCore.pyqtSlot()
     def delete_elimination_doc_table_rows(self):
         try:
             self.Documentation.model().removeSelectedRows()
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
-   
+
     ####################################################################################
     ####################################################################################
     # Current Elimination Slots
@@ -561,7 +559,7 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
             self.console.clear()
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
-   
+
     @QtCore.pyqtSlot()
     def copy_elimination_description(self):
         try:
@@ -570,19 +568,17 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
             clipboard.setText(self.Elim_Desc.toPlainText())
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
-   
+
     @QtCore.pyqtSlot()
     def clear_elimination_description(self):
         try:
             self.Elim_Desc.clear()
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
-    
+
     @QtCore.pyqtSlot()
     def paste_elimination_description(self):
         try:
             self.Elim_Desc.clear()
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
-   
-

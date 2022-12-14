@@ -36,7 +36,7 @@
           <item row="0" column="3">
            <widget class="QLabel" name="label_2">
             <property name="text">
-             <string>Beginning Balance Date:</string>
+             <string>Beginning Trial Balance Date:</string>
             </property>
            </widget>
           </item>
@@ -60,7 +60,7 @@
           <item row="1" column="3">
            <widget class="QLabel" name="label_3">
             <property name="text">
-             <string>Ending Balance Date:</string>
+             <string>Ending Trial Balance Date:</string>
             </property>
            </widget>
           </item>
