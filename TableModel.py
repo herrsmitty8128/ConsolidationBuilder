@@ -289,7 +289,6 @@ class TrialBalanceTableModel(BaseTableModel):
             self.signals.sumCreditsChanged.emit(self.sumColumn('Credits'))
             self.signals.sumEndBalChanged.emit(self.sumColumn('Ending Balance'))
     
-
     def convert_oracle_tb(self, oracle_tb: list[dict]) -> None:
         '''
         Converts all the fieldnames in an oracle trial balance to useable names.
