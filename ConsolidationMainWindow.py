@@ -20,17 +20,11 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
         table = self.Entities
         table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
         model = TableModel.EntityTableModel(table)
-        # REMEMBER TO REMOVE THESE CONNECTIONS IN DESIGNER
-        self.addCostCenterButton.clicked.connect(model.appendRow)
-        self.deleteEntityButton.clicked.connect(model.removeSelectedRows)
         table.setModel(model)
 
         table = self.Cost_Centers
         table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
         model = TableModel.CostCenterTableModel(table)
-        # REMEMBER TO REMOVE THESE CONNECTIONS IN DESIGNER
-        self.addEntityButton.clicked.connect(model.appendRow)
-        self.deleteCostCenterButton.clicked.connect(model.removeSelectedRows)
         table.setModel(model)
 
         table = self.Accounts
