@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1200</width>
+    <width>1168</width>
     <height>860</height>
    </rect>
   </property>
@@ -33,37 +33,6 @@
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
          <layout class="QGridLayout" name="gridLayout_3">
-          <item row="0" column="3">
-           <widget class="QLabel" name="label_2">
-            <property name="text">
-             <string>Beginning Trial Balance Date:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_13">
-            <property name="text">
-             <string>Current File:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="4">
-           <widget class="QDateEdit" name="beginningBalanceDate">
-            <property name="toolTip">
-             <string>The date of the beginning balances in the trial balance</string>
-            </property>
-            <property name="displayFormat">
-             <string>M/d/yyyy</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="3">
-           <widget class="QLabel" name="label_3">
-            <property name="text">
-             <string>Ending Trial Balance Date:</string>
-            </property>
-           </widget>
-          </item>
           <item row="0" column="0">
            <widget class="QLabel" name="label">
             <property name="text">
@@ -88,6 +57,20 @@
             </property>
            </widget>
           </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_13">
+            <property name="text">
+             <string>Current File:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="3">
+           <widget class="QLabel" name="label_3">
+            <property name="text">
+             <string>Ending Trial Balance Date:</string>
+            </property>
+           </widget>
+          </item>
           <item row="1" column="2">
            <widget class="QLineEdit" name="currentFileName">
             <property name="enabled">
@@ -98,12 +81,29 @@
             </property>
            </widget>
           </item>
+          <item row="0" column="3">
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string>Beginning Trial Balance Date:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="4">
+           <widget class="QDateEdit" name="beginningBalanceDate">
+            <property name="toolTip">
+             <string>The date of the beginning balances in the trial balance</string>
+            </property>
+            <property name="displayFormat">
+             <string>M/d/yyyy</string>
+            </property>
+           </widget>
+          </item>
          </layout>
         </item>
         <item>
          <widget class="QTabWidget" name="tabWidget">
           <property name="currentIndex">
-           <number>1</number>
+           <number>6</number>
           </property>
           <widget class="QWidget" name="EntitiesTab">
            <attribute name="title">
@@ -152,7 +152,8 @@
                    <string>Add Entity</string>
                   </property>
                   <property name="icon">
-                   <iconset theme="list-add"/>
+                   <iconset theme="list-add">
+                    <normaloff>.</normaloff>.</iconset>
                   </property>
                  </widget>
                 </item>
@@ -178,7 +179,8 @@
                    <string>Delete Selected Entity(s)</string>
                   </property>
                   <property name="icon">
-                   <iconset theme="list-remove"/>
+                   <iconset theme="list-remove">
+                    <normaloff>.</normaloff>.</iconset>
                   </property>
                  </widget>
                 </item>
@@ -248,7 +250,8 @@
                    <string>Add Cost Center</string>
                   </property>
                   <property name="icon">
-                   <iconset theme="list-add"/>
+                   <iconset theme="list-add">
+                    <normaloff>.</normaloff>.</iconset>
                   </property>
                  </widget>
                 </item>
@@ -274,7 +277,8 @@
                    <string>Delete Selected Cost Center(s)</string>
                   </property>
                   <property name="icon">
-                   <iconset theme="list-remove"/>
+                   <iconset theme="list-remove">
+                    <normaloff>.</normaloff>.</iconset>
                   </property>
                  </widget>
                 </item>
@@ -344,7 +348,8 @@
                    <string>Add Account</string>
                   </property>
                   <property name="icon">
-                   <iconset theme="list-add"/>
+                   <iconset theme="list-add">
+                    <normaloff>.</normaloff>.</iconset>
                   </property>
                  </widget>
                 </item>
@@ -370,7 +375,8 @@
                    <string>Delete Selected Account(s)</string>
                   </property>
                   <property name="icon">
-                   <iconset theme="list-remove"/>
+                   <iconset theme="list-remove">
+                    <normaloff>.</normaloff>.</iconset>
                   </property>
                  </widget>
                 </item>
@@ -881,7 +887,8 @@
                    <string>Add Top-side</string>
                   </property>
                   <property name="icon">
-                   <iconset theme="list-add"/>
+                   <iconset theme="list-add">
+                    <normaloff>.</normaloff>.</iconset>
                   </property>
                  </widget>
                 </item>
@@ -907,7 +914,8 @@
                    <string>Delete Selected Top-side(s)</string>
                   </property>
                   <property name="icon">
-                   <iconset theme="list-remove"/>
+                   <iconset theme="list-remove">
+                    <normaloff>.</normaloff>.</iconset>
                   </property>
                  </widget>
                 </item>
@@ -947,7 +955,7 @@
                  </font>
                 </property>
                 <property name="title">
-                 <string>Supporting Documentation</string>
+                 <string>Documentation</string>
                 </property>
                 <property name="alignment">
                  <set>Qt::AlignCenter</set>
@@ -994,7 +1002,8 @@
                       <string>Add Document</string>
                      </property>
                      <property name="icon">
-                      <iconset theme="list-add"/>
+                      <iconset theme="list-add">
+                       <normaloff>.</normaloff>.</iconset>
                      </property>
                     </widget>
                    </item>
@@ -1020,7 +1029,8 @@
                       <string>Document(s)</string>
                      </property>
                      <property name="icon">
-                      <iconset theme="list-remove"/>
+                      <iconset theme="list-remove">
+                       <normaloff>.</normaloff>.</iconset>
                      </property>
                      <property name="autoDefault">
                       <bool>false</bool>
@@ -1098,7 +1108,8 @@
                       <string>Add Balance</string>
                      </property>
                      <property name="icon">
-                      <iconset theme="list-add"/>
+                      <iconset theme="list-add">
+                       <normaloff>.</normaloff>.</iconset>
                      </property>
                     </widget>
                    </item>
@@ -1118,7 +1129,8 @@
                       <string>Delete Balance(s)</string>
                      </property>
                      <property name="icon">
-                      <iconset theme="list-remove"/>
+                      <iconset theme="list-remove">
+                       <normaloff>.</normaloff>.</iconset>
                      </property>
                     </widget>
                    </item>
@@ -1137,7 +1149,7 @@
                  </font>
                 </property>
                 <property name="title">
-                 <string>Elimination Description</string>
+                 <string>Description</string>
                 </property>
                 <property name="alignment">
                  <set>Qt::AlignCenter</set>
@@ -1178,7 +1190,8 @@
                       <string>Clear Description</string>
                      </property>
                      <property name="icon">
-                      <iconset theme="edit-clear"/>
+                      <iconset theme="edit-clear">
+                       <normaloff>.</normaloff>.</iconset>
                      </property>
                     </widget>
                    </item>
@@ -1198,7 +1211,8 @@
                       <string>Copy Description</string>
                      </property>
                      <property name="icon">
-                      <iconset theme="edit-copy"/>
+                      <iconset theme="edit-copy">
+                       <normaloff>.</normaloff>.</iconset>
                      </property>
                     </widget>
                    </item>
@@ -1218,7 +1232,8 @@
                       <string>Paste</string>
                      </property>
                      <property name="icon">
-                      <iconset theme="edit-paste"/>
+                      <iconset theme="edit-paste">
+                       <normaloff>.</normaloff>.</iconset>
                      </property>
                     </widget>
                    </item>
@@ -1261,62 +1276,6 @@
                    <item row="1" column="1">
                     <layout class="QFormLayout" name="formLayout_2">
                      <item row="0" column="0">
-                      <widget class="QLabel" name="label_7">
-                       <property name="font">
-                        <font>
-                         <pointsize>10</pointsize>
-                         <weight>50</weight>
-                         <bold>false</bold>
-                        </font>
-                       </property>
-                       <property name="text">
-                        <string>Entity</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="0" column="1">
-                      <widget class="QLineEdit" name="Elim_Plug_Entity">
-                       <property name="font">
-                        <font>
-                         <pointsize>10</pointsize>
-                         <weight>50</weight>
-                         <bold>false</bold>
-                        </font>
-                       </property>
-                       <property name="toolTip">
-                        <string>Plug any remaining difference to this entity number</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="1" column="1">
-                      <widget class="QLineEdit" name="Elim_Plug_CC">
-                       <property name="font">
-                        <font>
-                         <pointsize>10</pointsize>
-                         <weight>50</weight>
-                         <bold>false</bold>
-                        </font>
-                       </property>
-                       <property name="toolTip">
-                        <string>Plug any remaining difference to this cost center number</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="2" column="1">
-                      <widget class="QLineEdit" name="Elim_Plug_Acct">
-                       <property name="font">
-                        <font>
-                         <pointsize>10</pointsize>
-                         <weight>50</weight>
-                         <bold>false</bold>
-                        </font>
-                       </property>
-                       <property name="toolTip">
-                        <string>Plug any remaining difference to this account number</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="1" column="0">
                       <widget class="QLabel" name="label_8">
                        <property name="font">
                         <font>
@@ -1330,7 +1289,21 @@
                        </property>
                       </widget>
                      </item>
-                     <item row="2" column="0">
+                     <item row="0" column="1">
+                      <widget class="QLineEdit" name="Elim_Plug_CC">
+                       <property name="font">
+                        <font>
+                         <pointsize>10</pointsize>
+                         <weight>50</weight>
+                         <bold>false</bold>
+                        </font>
+                       </property>
+                       <property name="toolTip">
+                        <string>Plug any remaining difference to this cost center number</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="1" column="0">
                       <widget class="QLabel" name="label_9">
                        <property name="font">
                         <font>
@@ -1341,6 +1314,20 @@
                        </property>
                        <property name="text">
                         <string>Account</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="1" column="1">
+                      <widget class="QLineEdit" name="Elim_Plug_Acct">
+                       <property name="font">
+                        <font>
+                         <pointsize>10</pointsize>
+                         <weight>50</weight>
+                         <bold>false</bold>
+                        </font>
+                       </property>
+                       <property name="toolTip">
+                        <string>Plug any remaining difference to this account number</string>
                        </property>
                       </widget>
                      </item>
@@ -1416,7 +1403,8 @@
                  <string/>
                 </property>
                 <property name="icon">
-                 <iconset theme="document-new"/>
+                 <iconset theme="document-new">
+                  <normaloff>.</normaloff>.</iconset>
                 </property>
                 <property name="iconSize">
                  <size>
@@ -1448,7 +1436,8 @@
                  <string/>
                 </property>
                 <property name="icon">
-                 <iconset theme="edit-delete"/>
+                 <iconset theme="edit-delete">
+                  <normaloff>.</normaloff>.</iconset>
                 </property>
                 <property name="iconSize">
                  <size>
@@ -1480,7 +1469,8 @@
                  <string/>
                 </property>
                 <property name="icon">
-                 <iconset theme="go-previous"/>
+                 <iconset theme="go-previous">
+                  <normaloff>.</normaloff>.</iconset>
                 </property>
                 <property name="iconSize">
                  <size>
@@ -1512,7 +1502,8 @@
                  <string/>
                 </property>
                 <property name="icon">
-                 <iconset theme="go-next"/>
+                 <iconset theme="go-next">
+                  <normaloff>.</normaloff>.</iconset>
                 </property>
                 <property name="iconSize">
                  <size>
@@ -1632,6 +1623,568 @@
            <attribute name="title">
             <string>Noncontrolling</string>
            </attribute>
+           <layout class="QHBoxLayout" name="horizontalLayout_21">
+            <item>
+             <widget class="QSplitter" name="splitter_2">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="handleWidth">
+               <number>10</number>
+              </property>
+              <widget class="QWidget" name="verticalLayoutWidget_3">
+               <layout class="QVBoxLayout" name="verticalLayout_12">
+                <item>
+                 <widget class="QGroupBox" name="groupBox_7">
+                  <property name="font">
+                   <font>
+                    <weight>75</weight>
+                    <bold>true</bold>
+                   </font>
+                  </property>
+                  <property name="title">
+                   <string>Entities and Ownership Percentages</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                  <layout class="QVBoxLayout" name="verticalLayout_16">
+                   <item>
+                    <widget class="QTableView" name="tableView">
+                     <property name="font">
+                      <font>
+                       <weight>50</weight>
+                       <bold>false</bold>
+                      </font>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <layout class="QHBoxLayout" name="horizontalLayout_5">
+                     <item>
+                      <widget class="QPushButton" name="pushButton_2">
+                       <property name="font">
+                        <font>
+                         <weight>50</weight>
+                         <bold>false</bold>
+                        </font>
+                       </property>
+                       <property name="text">
+                        <string>Add Entity</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QPushButton" name="pushButton">
+                       <property name="font">
+                        <font>
+                         <weight>50</weight>
+                         <bold>false</bold>
+                        </font>
+                       </property>
+                       <property name="text">
+                        <string>Delete Entity(ies)</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+              <widget class="QWidget" name="gridLayoutWidget">
+               <layout class="QVBoxLayout" name="verticalLayout_18">
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_20">
+                  <item>
+                   <layout class="QVBoxLayout" name="verticalLayout_17">
+                    <item>
+                     <widget class="QGroupBox" name="groupBox_9">
+                      <property name="font">
+                       <font>
+                        <pointsize>10</pointsize>
+                        <weight>75</weight>
+                        <bold>true</bold>
+                       </font>
+                      </property>
+                      <property name="title">
+                       <string>Balance Sheet</string>
+                      </property>
+                      <property name="alignment">
+                       <set>Qt::AlignCenter</set>
+                      </property>
+                      <layout class="QHBoxLayout" name="horizontalLayout_19">
+                       <item>
+                        <layout class="QGridLayout" name="gridLayout_7">
+                         <item row="0" column="1">
+                          <spacer name="verticalSpacer_5">
+                           <property name="orientation">
+                            <enum>Qt::Vertical</enum>
+                           </property>
+                           <property name="sizeHint" stdset="0">
+                            <size>
+                             <width>20</width>
+                             <height>40</height>
+                            </size>
+                           </property>
+                          </spacer>
+                         </item>
+                         <item row="1" column="1">
+                          <layout class="QFormLayout" name="formLayout_4">
+                           <item row="0" column="0">
+                            <widget class="QLabel" name="label_23">
+                             <property name="font">
+                              <font>
+                               <pointsize>10</pointsize>
+                               <weight>50</weight>
+                               <bold>false</bold>
+                              </font>
+                             </property>
+                             <property name="text">
+                              <string>Cost Center</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item row="0" column="1">
+                            <widget class="QLineEdit" name="Elim_Plug_CC_3">
+                             <property name="font">
+                              <font>
+                               <pointsize>10</pointsize>
+                               <weight>50</weight>
+                               <bold>false</bold>
+                              </font>
+                             </property>
+                             <property name="toolTip">
+                              <string>Plug any remaining difference to this cost center number</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item row="1" column="0">
+                            <widget class="QLabel" name="label_24">
+                             <property name="font">
+                              <font>
+                               <pointsize>10</pointsize>
+                               <weight>50</weight>
+                               <bold>false</bold>
+                              </font>
+                             </property>
+                             <property name="text">
+                              <string>Account</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item row="1" column="1">
+                            <widget class="QLineEdit" name="Elim_Plug_Acct_3">
+                             <property name="font">
+                              <font>
+                               <pointsize>10</pointsize>
+                               <weight>50</weight>
+                               <bold>false</bold>
+                              </font>
+                             </property>
+                             <property name="toolTip">
+                              <string>Plug any remaining difference to this account number</string>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </item>
+                         <item row="2" column="1">
+                          <spacer name="verticalSpacer_6">
+                           <property name="orientation">
+                            <enum>Qt::Vertical</enum>
+                           </property>
+                           <property name="sizeHint" stdset="0">
+                            <size>
+                             <width>20</width>
+                             <height>40</height>
+                            </size>
+                           </property>
+                          </spacer>
+                         </item>
+                         <item row="1" column="0">
+                          <spacer name="horizontalSpacer_35">
+                           <property name="orientation">
+                            <enum>Qt::Horizontal</enum>
+                           </property>
+                           <property name="sizeHint" stdset="0">
+                            <size>
+                             <width>40</width>
+                             <height>20</height>
+                            </size>
+                           </property>
+                          </spacer>
+                         </item>
+                         <item row="1" column="2">
+                          <spacer name="horizontalSpacer_36">
+                           <property name="orientation">
+                            <enum>Qt::Horizontal</enum>
+                           </property>
+                           <property name="sizeHint" stdset="0">
+                            <size>
+                             <width>40</width>
+                             <height>20</height>
+                            </size>
+                           </property>
+                          </spacer>
+                         </item>
+                        </layout>
+                       </item>
+                      </layout>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QGroupBox" name="groupBox_8">
+                      <property name="font">
+                       <font>
+                        <pointsize>10</pointsize>
+                        <weight>75</weight>
+                        <bold>true</bold>
+                       </font>
+                      </property>
+                      <property name="title">
+                       <string>Income Statement</string>
+                      </property>
+                      <property name="alignment">
+                       <set>Qt::AlignCenter</set>
+                      </property>
+                      <layout class="QHBoxLayout" name="horizontalLayout_18">
+                       <item>
+                        <layout class="QGridLayout" name="gridLayout_6">
+                         <item row="0" column="1">
+                          <spacer name="verticalSpacer_3">
+                           <property name="orientation">
+                            <enum>Qt::Vertical</enum>
+                           </property>
+                           <property name="sizeHint" stdset="0">
+                            <size>
+                             <width>20</width>
+                             <height>40</height>
+                            </size>
+                           </property>
+                          </spacer>
+                         </item>
+                         <item row="1" column="1">
+                          <layout class="QFormLayout" name="formLayout_3">
+                           <item row="0" column="0">
+                            <widget class="QLabel" name="label_21">
+                             <property name="font">
+                              <font>
+                               <pointsize>10</pointsize>
+                               <weight>50</weight>
+                               <bold>false</bold>
+                              </font>
+                             </property>
+                             <property name="text">
+                              <string>Cost Center</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item row="0" column="1">
+                            <widget class="QLineEdit" name="Elim_Plug_CC_2">
+                             <property name="font">
+                              <font>
+                               <pointsize>10</pointsize>
+                               <weight>50</weight>
+                               <bold>false</bold>
+                              </font>
+                             </property>
+                             <property name="toolTip">
+                              <string>Plug any remaining difference to this cost center number</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item row="1" column="0">
+                            <widget class="QLabel" name="label_22">
+                             <property name="font">
+                              <font>
+                               <pointsize>10</pointsize>
+                               <weight>50</weight>
+                               <bold>false</bold>
+                              </font>
+                             </property>
+                             <property name="text">
+                              <string>Account</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item row="1" column="1">
+                            <widget class="QLineEdit" name="Elim_Plug_Acct_2">
+                             <property name="font">
+                              <font>
+                               <pointsize>10</pointsize>
+                               <weight>50</weight>
+                               <bold>false</bold>
+                              </font>
+                             </property>
+                             <property name="toolTip">
+                              <string>Plug any remaining difference to this account number</string>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </item>
+                         <item row="2" column="1">
+                          <spacer name="verticalSpacer_4">
+                           <property name="orientation">
+                            <enum>Qt::Vertical</enum>
+                           </property>
+                           <property name="sizeHint" stdset="0">
+                            <size>
+                             <width>20</width>
+                             <height>40</height>
+                            </size>
+                           </property>
+                          </spacer>
+                         </item>
+                         <item row="1" column="0">
+                          <spacer name="horizontalSpacer_33">
+                           <property name="orientation">
+                            <enum>Qt::Horizontal</enum>
+                           </property>
+                           <property name="sizeHint" stdset="0">
+                            <size>
+                             <width>40</width>
+                             <height>20</height>
+                            </size>
+                           </property>
+                          </spacer>
+                         </item>
+                         <item row="1" column="2">
+                          <spacer name="horizontalSpacer_34">
+                           <property name="orientation">
+                            <enum>Qt::Horizontal</enum>
+                           </property>
+                           <property name="sizeHint" stdset="0">
+                            <size>
+                             <width>40</width>
+                             <height>20</height>
+                            </size>
+                           </property>
+                          </spacer>
+                         </item>
+                        </layout>
+                       </item>
+                      </layout>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <widget class="QGroupBox" name="groupBox_10">
+                    <property name="font">
+                     <font>
+                      <pointsize>10</pointsize>
+                      <weight>75</weight>
+                      <bold>true</bold>
+                     </font>
+                    </property>
+                    <property name="title">
+                     <string>Notes</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                    <property name="flat">
+                     <bool>false</bool>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayout_19">
+                     <item>
+                      <widget class="QTextEdit" name="Elim_Desc_2">
+                       <property name="font">
+                        <font>
+                         <pointsize>10</pointsize>
+                         <weight>50</weight>
+                         <bold>false</bold>
+                        </font>
+                       </property>
+                       <property name="toolTip">
+                        <string>Enter a full description of the eliminating entry here...</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <layout class="QHBoxLayout" name="horizontalLayout_22">
+                       <item>
+                        <widget class="QPushButton" name="clearElimDescriptionButton_2">
+                         <property name="font">
+                          <font>
+                           <pointsize>10</pointsize>
+                           <weight>50</weight>
+                           <bold>false</bold>
+                          </font>
+                         </property>
+                         <property name="toolTip">
+                          <string>Erase the elimination description box</string>
+                         </property>
+                         <property name="text">
+                          <string>Clear Notes</string>
+                         </property>
+                         <property name="icon">
+                          <iconset theme="edit-clear">
+                           <normaloff>.</normaloff>.</iconset>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QPushButton" name="copyElimDescriptionButton_2">
+                         <property name="font">
+                          <font>
+                           <pointsize>10</pointsize>
+                           <weight>50</weight>
+                           <bold>false</bold>
+                          </font>
+                         </property>
+                         <property name="toolTip">
+                          <string>Copy elimination description to the clipboard</string>
+                         </property>
+                         <property name="text">
+                          <string>Copy Notes</string>
+                         </property>
+                         <property name="icon">
+                          <iconset theme="edit-copy">
+                           <normaloff>.</normaloff>.</iconset>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QPushButton" name="pasteElimDescriptionButton_2">
+                         <property name="font">
+                          <font>
+                           <pointsize>10</pointsize>
+                           <weight>50</weight>
+                           <bold>false</bold>
+                          </font>
+                         </property>
+                         <property name="toolTip">
+                          <string>Paste text from the clipboard into the description at the current cursor position</string>
+                         </property>
+                         <property name="text">
+                          <string>Paste Notes</string>
+                         </property>
+                         <property name="icon">
+                          <iconset theme="edit-paste">
+                           <normaloff>.</normaloff>.</iconset>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <widget class="QGroupBox" name="groupBox_5">
+                  <property name="font">
+                   <font>
+                    <pointsize>10</pointsize>
+                    <weight>75</weight>
+                    <bold>true</bold>
+                   </font>
+                  </property>
+                  <property name="title">
+                   <string>Documentation</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                  <layout class="QVBoxLayout" name="verticalLayout_15">
+                   <item>
+                    <widget class="QTableView" name="Documentation_2">
+                     <property name="font">
+                      <font>
+                       <pointsize>10</pointsize>
+                       <weight>50</weight>
+                       <bold>false</bold>
+                      </font>
+                     </property>
+                     <property name="toolTip">
+                      <string>Insert the file path of supporting documents here...</string>
+                     </property>
+                     <property name="alternatingRowColors">
+                      <bool>true</bool>
+                     </property>
+                     <property name="selectionBehavior">
+                      <enum>QAbstractItemView::SelectRows</enum>
+                     </property>
+                     <property name="sortingEnabled">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <layout class="QHBoxLayout" name="horizontalLayout_17">
+                     <item>
+                      <widget class="QPushButton" name="addElimDocButton_2">
+                       <property name="font">
+                        <font>
+                         <pointsize>10</pointsize>
+                         <weight>50</weight>
+                         <bold>false</bold>
+                        </font>
+                       </property>
+                       <property name="toolTip">
+                        <string>Add a new supporting document to the table</string>
+                       </property>
+                       <property name="text">
+                        <string>Add Document</string>
+                       </property>
+                       <property name="icon">
+                        <iconset theme="list-add">
+                         <normaloff>.</normaloff>.</iconset>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QPushButton" name="deleteElimDocButton_2">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="font">
+                        <font>
+                         <pointsize>10</pointsize>
+                         <weight>50</weight>
+                         <bold>false</bold>
+                        </font>
+                       </property>
+                       <property name="toolTip">
+                        <string>Delete the selected supporting documents from the table</string>
+                       </property>
+                       <property name="text">
+                        <string>Document(s)</string>
+                       </property>
+                       <property name="icon">
+                        <iconset theme="list-remove">
+                         <normaloff>.</normaloff>.</iconset>
+                       </property>
+                       <property name="autoDefault">
+                        <bool>false</bool>
+                       </property>
+                       <property name="default">
+                        <bool>false</bool>
+                       </property>
+                       <property name="flat">
+                        <bool>false</bool>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </widget>
+            </item>
+           </layout>
           </widget>
          </widget>
         </item>
@@ -1667,7 +2220,8 @@
              <string>Clear Console</string>
             </property>
             <property name="icon">
-             <iconset theme="edit-clear"/>
+             <iconset theme="edit-clear">
+              <normaloff>.</normaloff>.</iconset>
             </property>
            </widget>
           </item>
@@ -1680,7 +2234,8 @@
              <string>Copy Console</string>
             </property>
             <property name="icon">
-             <iconset theme="edit-copy"/>
+             <iconset theme="edit-copy">
+              <normaloff>.</normaloff>.</iconset>
             </property>
            </widget>
           </item>
@@ -1710,7 +2265,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1200</width>
+     <width>1168</width>
      <height>22</height>
     </rect>
    </property>
