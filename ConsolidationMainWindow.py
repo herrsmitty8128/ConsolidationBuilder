@@ -67,7 +67,7 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
 
         table = self.nciDocumentation
         table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
-        model = TableModel.NCIDocumentationTableModel(table)
+        model = TableModel.DocumentationTableModel(table)
         table.setModel(model)
 
     ####################################################################################

@@ -21,3 +21,12 @@ class TableView(QtWidgets.QTableView):
             self.model().appendRow()
         except Exception as err:
             QtWidgets.QMessageBox.critical(self, 'Error', str(err))
+    
+    @QtCore.pyqtSlot()
+    def appendFilePathRow(self):
+        try:
+            file, _ = QtWidgets.QFileDialog.getOpenFileName(self, 'Select a file') #, filter='JSON Files (*.json)')
+            if file:
+                self.model().appendFilePathRow(file)
+        except Exception as err:
+            QtWidgets.QMessageBox.critical(self, 'Error', str(err))

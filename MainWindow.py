@@ -1042,7 +1042,7 @@ class Ui_MainWindow(object):
         self.deleteTopSideButton.clicked.connect(self.Top_Sides.removeSelectedRows) # type: ignore
         self.addElimEntryButton.clicked.connect(self.Eliminations.appendRow) # type: ignore
         self.deleteElimEntryButton.clicked.connect(self.Eliminations.removeSelectedRows) # type: ignore
-        self.addElimDocButton.clicked.connect(self.Documentation.appendRow) # type: ignore
+        self.addElimDocButton.clicked.connect(self.Documentation.appendFilePathRow) # type: ignore
         self.deleteElimDocButton.clicked.connect(self.Documentation.removeSelectedRows) # type: ignore
         self.addNewElimButton.clicked.connect(self.Eliminations.appendRow) # type: ignore
         self.deleteCurrElimButton.clicked.connect(MainWindow.del_current_elimination) # type: ignore
@@ -1054,7 +1054,7 @@ class Ui_MainWindow(object):
         self.pasteElimDescriptionButton.clicked.connect(self.Elim_Desc.paste) # type: ignore
         self.addNCIPercentButton.clicked.connect(self.nciPercents.appendRow) # type: ignore
         self.deleteNCIPercentButton.clicked.connect(self.nciPercents.removeSelectedRows) # type: ignore
-        self.addNCIDocumentationButton.clicked.connect(self.nciDocumentation.appendRow) # type: ignore
+        self.addNCIDocumentationButton.clicked.connect(self.nciDocumentation.appendFilePathRow) # type: ignore
         self.deleteNCIDocumentationButton.clicked.connect(self.nciDocumentation.removeSelectedRows) # type: ignore
         self.clearNCINotes.clicked.connect(self.nciNotes.clear) # type: ignore
         self.copyNCINotes.clicked.connect(self.nciNotes.copy) # type: ignore

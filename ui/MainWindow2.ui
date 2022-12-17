@@ -2488,6 +2488,7 @@
    <slots>
     <slot>removeSelectedRows()</slot>
     <slot>appendRow()</slot>
+    <slot>appendFilePathRow()</slot>
    </slots>
   </customwidget>
  </customwidgets>
@@ -3009,7 +3010,7 @@
    <sender>addElimDocButton</sender>
    <signal>clicked()</signal>
    <receiver>Documentation</receiver>
-   <slot>appendRow()</slot>
+   <slot>appendFilePathRow()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>751</x>
@@ -3201,7 +3202,7 @@
    <sender>addNCIDocumentationButton</sender>
    <signal>clicked()</signal>
    <receiver>nciDocumentation</receiver>
-   <slot>appendRow()</slot>
+   <slot>appendFilePathRow()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>563</x>

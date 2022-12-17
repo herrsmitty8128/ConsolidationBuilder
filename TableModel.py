@@ -348,8 +348,18 @@ class DocumentationTableModel(BaseTableModel):
 
     def __init__(self, parent):
         super().__init__(parent)
+    
+    def appendFilePathRow(self, file):
+        row = len(self._data_)
+        self.beginInsertRows(QtCore.QModelIndex(), row, row)
+        x = {n: h['default value'] for n, h in self._descriptors_.items()}
+        x['Full Path or URL'] = file
+        self._data_.append(x)
+        self.endInsertRows()
+        self.parent().scrollTo(self.index(row, 0))
+        self.parent().horizontalHeader().resizeSections(QtWidgets.QHeaderView.ResizeToContents)
 
-
+'''
 class NCIDocumentationTableModel(BaseTableModel):
 
     descriptors = {
@@ -358,7 +368,7 @@ class NCIDocumentationTableModel(BaseTableModel):
 
     def __init__(self, parent):
         super().__init__(parent)
-
+'''
 class NCIPercentsTableModel(BaseTableModel):
 
     descriptors = {
