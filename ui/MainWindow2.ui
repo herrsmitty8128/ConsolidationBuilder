@@ -113,7 +113,7 @@
             <item>
              <layout class="QVBoxLayout" name="verticalLayout_3">
               <item>
-               <widget class="QTableView" name="Entities">
+               <widget class="TableView" name="Entities">
                 <property name="alternatingRowColors">
                  <bool>true</bool>
                 </property>
@@ -211,7 +211,7 @@
             <item>
              <layout class="QVBoxLayout" name="verticalLayout_4">
               <item>
-               <widget class="QTableView" name="Cost_Centers">
+               <widget class="TableView" name="Cost_Centers">
                 <property name="alternatingRowColors">
                  <bool>true</bool>
                 </property>
@@ -309,7 +309,7 @@
             <item>
              <layout class="QVBoxLayout" name="verticalLayout_5">
               <item>
-               <widget class="QTableView" name="Accounts">
+               <widget class="TableView" name="Accounts">
                 <property name="alternatingRowColors">
                  <bool>true</bool>
                 </property>
@@ -848,7 +848,7 @@
                </layout>
               </item>
               <item>
-               <widget class="QTableView" name="Top_Sides">
+               <widget class="TableView" name="Top_Sides">
                 <property name="alternatingRowColors">
                  <bool>true</bool>
                 </property>
@@ -962,7 +962,7 @@
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_9">
                  <item>
-                  <widget class="QTableView" name="Documentation">
+                  <widget class="TableView" name="Documentation">
                    <property name="font">
                     <font>
                      <pointsize>10</pointsize>
@@ -1068,7 +1068,7 @@
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_14">
                  <item>
-                  <widget class="QTableView" name="Eliminations">
+                  <widget class="TableView" name="Eliminations">
                    <property name="font">
                     <font>
                      <pointsize>10</pointsize>
@@ -1635,7 +1635,7 @@
               <widget class="QWidget" name="verticalLayoutWidget_3">
                <layout class="QVBoxLayout" name="verticalLayout_12">
                 <item>
-                 <widget class="QGroupBox" name="groupBox_7">
+                 <widget class="QGroupBox" name="nci_percents_groupbox">
                   <property name="font">
                    <font>
                     <weight>75</weight>
@@ -1650,19 +1650,28 @@
                   </property>
                   <layout class="QVBoxLayout" name="verticalLayout_16">
                    <item>
-                    <widget class="QTableView" name="tableView">
+                    <widget class="TableView" name="nciPercents">
                      <property name="font">
                       <font>
                        <weight>50</weight>
                        <bold>false</bold>
                       </font>
                      </property>
+                     <property name="alternatingRowColors">
+                      <bool>true</bool>
+                     </property>
+                     <property name="selectionBehavior">
+                      <enum>QAbstractItemView::SelectRows</enum>
+                     </property>
+                     <property name="sortingEnabled">
+                      <bool>true</bool>
+                     </property>
                     </widget>
                    </item>
                    <item>
                     <layout class="QHBoxLayout" name="horizontalLayout_5">
                      <item>
-                      <widget class="QPushButton" name="pushButton_2">
+                      <widget class="QPushButton" name="addNCIPercentButton">
                        <property name="font">
                         <font>
                          <weight>50</weight>
@@ -1675,7 +1684,7 @@
                       </widget>
                      </item>
                      <item>
-                      <widget class="QPushButton" name="pushButton">
+                      <widget class="QPushButton" name="deleteNCIPercentButton">
                        <property name="font">
                         <font>
                          <weight>50</weight>
@@ -1748,7 +1757,7 @@
                             </widget>
                            </item>
                            <item row="0" column="1">
-                            <widget class="QLineEdit" name="Elim_Plug_CC_3">
+                            <widget class="QLineEdit" name="nciBSCostCenter">
                              <property name="font">
                               <font>
                                <pointsize>10</pointsize>
@@ -1776,7 +1785,7 @@
                             </widget>
                            </item>
                            <item row="1" column="1">
-                            <widget class="QLineEdit" name="Elim_Plug_Acct_3">
+                            <widget class="QLineEdit" name="nciBSAccount">
                              <property name="font">
                               <font>
                                <pointsize>10</pointsize>
@@ -1883,7 +1892,7 @@
                             </widget>
                            </item>
                            <item row="0" column="1">
-                            <widget class="QLineEdit" name="Elim_Plug_CC_2">
+                            <widget class="QLineEdit" name="nciISCostCenter">
                              <property name="font">
                               <font>
                                <pointsize>10</pointsize>
@@ -1911,7 +1920,7 @@
                             </widget>
                            </item>
                            <item row="1" column="1">
-                            <widget class="QLineEdit" name="Elim_Plug_Acct_2">
+                            <widget class="QLineEdit" name="nciISAccount">
                              <property name="font">
                               <font>
                                <pointsize>10</pointsize>
@@ -1992,7 +2001,7 @@
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_19">
                      <item>
-                      <widget class="QTextEdit" name="Elim_Desc_2">
+                      <widget class="QTextEdit" name="nciNotes">
                        <property name="font">
                         <font>
                          <pointsize>10</pointsize>
@@ -2008,7 +2017,7 @@
                      <item>
                       <layout class="QHBoxLayout" name="horizontalLayout_22">
                        <item>
-                        <widget class="QPushButton" name="clearElimDescriptionButton_2">
+                        <widget class="QPushButton" name="clearNCINotes">
                          <property name="font">
                           <font>
                            <pointsize>10</pointsize>
@@ -2029,7 +2038,7 @@
                         </widget>
                        </item>
                        <item>
-                        <widget class="QPushButton" name="copyElimDescriptionButton_2">
+                        <widget class="QPushButton" name="copyNCINotes">
                          <property name="font">
                           <font>
                            <pointsize>10</pointsize>
@@ -2050,7 +2059,7 @@
                         </widget>
                        </item>
                        <item>
-                        <widget class="QPushButton" name="pasteElimDescriptionButton_2">
+                        <widget class="QPushButton" name="pasteNCINotes">
                          <property name="font">
                           <font>
                            <pointsize>10</pointsize>
@@ -2094,7 +2103,7 @@
                   </property>
                   <layout class="QVBoxLayout" name="verticalLayout_15">
                    <item>
-                    <widget class="QTableView" name="Documentation_2">
+                    <widget class="TableView" name="nciDocumentation">
                      <property name="font">
                       <font>
                        <pointsize>10</pointsize>
@@ -2119,7 +2128,7 @@
                    <item>
                     <layout class="QHBoxLayout" name="horizontalLayout_17">
                      <item>
-                      <widget class="QPushButton" name="addElimDocButton_2">
+                      <widget class="QPushButton" name="addNCIDocumentationButton">
                        <property name="font">
                         <font>
                          <pointsize>10</pointsize>
@@ -2140,7 +2149,7 @@
                       </widget>
                      </item>
                      <item>
-                      <widget class="QPushButton" name="deleteElimDocButton_2">
+                      <widget class="QPushButton" name="deleteNCIDocumentationButton">
                        <property name="sizePolicy">
                         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                          <horstretch>0</horstretch>
@@ -2471,6 +2480,17 @@
    </property>
   </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>TableView</class>
+   <extends>QTableView</extends>
+   <header>TableView</header>
+   <slots>
+    <slot>removeSelectedRows()</slot>
+    <slot>appendRow()</slot>
+   </slots>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
   <connection>
@@ -2780,80 +2800,80 @@
   <connection>
    <sender>addEntityButton</sender>
    <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>insert_entity_table_row()</slot>
+   <receiver>Entities</receiver>
+   <slot>appendRow()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>62</x>
      <y>454</y>
     </hint>
     <hint type="destinationlabel">
-     <x>501</x>
-     <y>383</y>
+     <x>583</x>
+     <y>367</y>
     </hint>
    </hints>
   </connection>
   <connection>
    <sender>deleteEntityButton</sender>
    <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>delete_entity_table_rows()</slot>
+   <receiver>Entities</receiver>
+   <slot>removeSelectedRows()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>924</x>
      <y>454</y>
     </hint>
     <hint type="destinationlabel">
-     <x>501</x>
-     <y>383</y>
+     <x>583</x>
+     <y>367</y>
     </hint>
    </hints>
   </connection>
   <connection>
    <sender>addAccountButton</sender>
    <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>insert_account_table_row()</slot>
+   <receiver>Accounts</receiver>
+   <slot>appendRow()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>358</x>
      <y>606</y>
     </hint>
     <hint type="destinationlabel">
-     <x>501</x>
-     <y>383</y>
+     <x>583</x>
+     <y>367</y>
     </hint>
    </hints>
   </connection>
   <connection>
    <sender>deleteCostCenterButton</sender>
    <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>delete_cost_center_table_rows()</slot>
+   <receiver>Cost_Centers</receiver>
+   <slot>removeSelectedRows()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>905</x>
      <y>454</y>
     </hint>
     <hint type="destinationlabel">
-     <x>501</x>
-     <y>383</y>
+     <x>583</x>
+     <y>367</y>
     </hint>
    </hints>
   </connection>
   <connection>
    <sender>deleteAccountButton</sender>
    <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>delete_account_table_rows()</slot>
+   <receiver>Accounts</receiver>
+   <slot>removeSelectedRows()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>917</x>
      <y>454</y>
     </hint>
     <hint type="destinationlabel">
-     <x>501</x>
-     <y>383</y>
+     <x>583</x>
+     <y>367</y>
     </hint>
    </hints>
   </connection>
@@ -2892,144 +2912,144 @@
   <connection>
    <sender>clearConsoleButton</sender>
    <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>clear_console()</slot>
+   <receiver>console</receiver>
+   <slot>clear()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>458</x>
      <y>721</y>
     </hint>
     <hint type="destinationlabel">
-     <x>501</x>
-     <y>383</y>
+     <x>583</x>
+     <y>724</y>
     </hint>
    </hints>
   </connection>
   <connection>
    <sender>copyConsoleButton</sender>
    <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>copy_console()</slot>
+   <receiver>console</receiver>
+   <slot>copy()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>544</x>
      <y>721</y>
     </hint>
     <hint type="destinationlabel">
-     <x>501</x>
-     <y>383</y>
+     <x>583</x>
+     <y>724</y>
     </hint>
    </hints>
   </connection>
   <connection>
    <sender>addTopSideButton</sender>
    <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>insert_top_sides_table_row()</slot>
+   <receiver>Top_Sides</receiver>
+   <slot>appendRow()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>68</x>
      <y>442</y>
     </hint>
     <hint type="destinationlabel">
-     <x>501</x>
-     <y>383</y>
+     <x>583</x>
+     <y>381</y>
     </hint>
    </hints>
   </connection>
   <connection>
    <sender>deleteTopSideButton</sender>
    <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>delete_top_sides_table_rows()</slot>
+   <receiver>Top_Sides</receiver>
+   <slot>removeSelectedRows()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>886</x>
      <y>442</y>
     </hint>
     <hint type="destinationlabel">
-     <x>501</x>
-     <y>383</y>
+     <x>583</x>
+     <y>381</y>
     </hint>
    </hints>
   </connection>
   <connection>
    <sender>addElimEntryButton</sender>
    <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>insert_elimination_entry_table_row()</slot>
+   <receiver>Eliminations</receiver>
+   <slot>appendRow()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>170</x>
      <y>347</y>
     </hint>
     <hint type="destinationlabel">
-     <x>599</x>
-     <y>429</y>
+     <x>301</x>
+     <y>240</y>
     </hint>
    </hints>
   </connection>
   <connection>
    <sender>deleteElimEntryButton</sender>
    <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>delete_elimination_entry_table_rows()</slot>
+   <receiver>Eliminations</receiver>
+   <slot>removeSelectedRows()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>448</x>
      <y>347</y>
     </hint>
     <hint type="destinationlabel">
-     <x>599</x>
-     <y>429</y>
+     <x>301</x>
+     <y>240</y>
     </hint>
    </hints>
   </connection>
   <connection>
    <sender>addElimDocButton</sender>
    <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>insert_elimination_doc_table_row()</slot>
+   <receiver>Documentation</receiver>
+   <slot>appendRow()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>751</x>
      <y>560</y>
     </hint>
     <hint type="destinationlabel">
-     <x>599</x>
-     <y>429</y>
+     <x>866</x>
+     <y>467</y>
     </hint>
    </hints>
   </connection>
   <connection>
    <sender>deleteElimDocButton</sender>
    <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>delete_elimination_doc_table_rows()</slot>
+   <receiver>Documentation</receiver>
+   <slot>removeSelectedRows()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>1029</x>
      <y>560</y>
     </hint>
     <hint type="destinationlabel">
-     <x>599</x>
-     <y>429</y>
+     <x>866</x>
+     <y>467</y>
     </hint>
    </hints>
   </connection>
   <connection>
    <sender>addNewElimButton</sender>
    <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>add_new_elimination()</slot>
+   <receiver>Eliminations</receiver>
+   <slot>appendRow()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>225</x>
      <y>607</y>
     </hint>
     <hint type="destinationlabel">
-     <x>599</x>
-     <y>429</y>
+     <x>301</x>
+     <y>240</y>
     </hint>
    </hints>
   </connection>
@@ -3084,64 +3104,176 @@
   <connection>
    <sender>addCostCenterButton</sender>
    <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>insert_cost_center_table_row()</slot>
+   <receiver>Cost_Centers</receiver>
+   <slot>appendRow()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>355</x>
      <y>606</y>
     </hint>
     <hint type="destinationlabel">
-     <x>599</x>
-     <y>429</y>
+     <x>583</x>
+     <y>367</y>
     </hint>
    </hints>
   </connection>
   <connection>
    <sender>clearElimDescriptionButton</sender>
    <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>clear_elimination_description()</slot>
+   <receiver>Elim_Desc</receiver>
+   <slot>clear()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>751</x>
      <y>348</y>
     </hint>
     <hint type="destinationlabel">
-     <x>599</x>
-     <y>429</y>
+     <x>866</x>
+     <y>240</y>
     </hint>
    </hints>
   </connection>
   <connection>
    <sender>copyElimDescriptionButton</sender>
    <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>copy_elimination_description()</slot>
+   <receiver>Elim_Desc</receiver>
+   <slot>copy()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>1029</x>
      <y>348</y>
     </hint>
     <hint type="destinationlabel">
-     <x>599</x>
-     <y>429</y>
+     <x>866</x>
+     <y>240</y>
     </hint>
    </hints>
   </connection>
   <connection>
    <sender>pasteElimDescriptionButton</sender>
    <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>paste_elimination_description()</slot>
+   <receiver>Elim_Desc</receiver>
+   <slot>paste()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>1075</x>
      <y>342</y>
     </hint>
     <hint type="destinationlabel">
-     <x>599</x>
-     <y>429</y>
+     <x>866</x>
+     <y>240</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>addNCIPercentButton</sender>
+   <signal>clicked()</signal>
+   <receiver>nciPercents</receiver>
+   <slot>appendRow()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>109</x>
+     <y>605</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>186</x>
+     <y>377</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>deleteNCIPercentButton</sender>
+   <signal>clicked()</signal>
+   <receiver>nciPercents</receiver>
+   <slot>removeSelectedRows()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>263</x>
+     <y>605</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>186</x>
+     <y>377</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>addNCIDocumentationButton</sender>
+   <signal>clicked()</signal>
+   <receiver>nciDocumentation</receiver>
+   <slot>appendRow()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>563</x>
+     <y>605</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>754</x>
+     <y>535</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>deleteNCIDocumentationButton</sender>
+   <signal>clicked()</signal>
+   <receiver>nciDocumentation</receiver>
+   <slot>removeSelectedRows()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>945</x>
+     <y>605</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>754</x>
+     <y>535</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>clearNCINotes</sender>
+   <signal>clicked()</signal>
+   <receiver>nciNotes</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>828</x>
+     <y>420</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>951</x>
+     <y>285</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>copyNCINotes</sender>
+   <signal>clicked()</signal>
+   <receiver>nciNotes</receiver>
+   <slot>copy()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>951</x>
+     <y>420</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>951</x>
+     <y>285</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pasteNCINotes</sender>
+   <signal>clicked()</signal>
+   <receiver>nciNotes</receiver>
+   <slot>paste()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1073</x>
+     <y>420</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>951</x>
+     <y>285</y>
     </hint>
    </hints>
   </connection>
@@ -3198,5 +3330,9 @@
   <slot>export_trial_balance_menu_item()</slot>
   <slot>export_top_sides_menu_item()</slot>
   <slot>paste_elimination_description()</slot>
+  <slot>insert_nci_percent_table_row()</slot>
+  <slot>insert_nci_documentation_table_row()</slot>
+  <slot>delete_nci_documentation_table_rows()</slot>
+  <slot>delete_nci_percent_table_rows()</slot>
  </slots>
 </ui>

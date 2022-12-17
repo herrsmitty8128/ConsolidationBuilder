@@ -35,6 +35,10 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
         table = self.Trial_Balance
         table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
         model = TableModel.TrialBalanceTableModel(table)
+        model.signals.sumBeginBalChanged[str].connect(self.totalTBBeginning.setText)
+        model.signals.sumDebitsChanged[str].connect(self.totalTBDebits.setText)
+        model.signals.sumCreditsChanged[str].connect(self.totalTBCredits.setText)
+        model.signals.sumEndBalChanged[str].connect(self.totalTBEnding.setText)
         table.setModel(model)
 
         table = self.Top_Sides
@@ -54,6 +58,16 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
         table = self.Documentation
         table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
         model = TableModel.DocumentationTableModel(table)
+        table.setModel(model)
+
+        table = self.nciPercents
+        table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
+        model = TableModel.NCIPercentsTableModel(table)
+        table.setModel(model)
+
+        table = self.nciDocumentation
+        table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
+        model = TableModel.NCIDocumentationTableModel(table)
         table.setModel(model)
 
     ####################################################################################
@@ -408,110 +422,6 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
 
     ####################################################################################
     ####################################################################################
-    # Table Slots
-    ####################################################################################
-    ####################################################################################
-
-    @QtCore.pyqtSlot()
-    def insert_entity_table_row(self):
-        try:
-            self.Entities.model().appendRow()
-        except Exception as err:
-            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
-
-    @QtCore.pyqtSlot()
-    def insert_cost_center_table_row(self):
-        try:
-            self.Cost_Centers.model().appendRow()
-        except Exception as err:
-            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
-
-    @QtCore.pyqtSlot()
-    def insert_account_table_row(self):
-        try:
-            self.Accounts.model().appendRow()
-        except Exception as err:
-            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
-
-    @QtCore.pyqtSlot()
-    def insert_trial_balance_table_row(self):
-        try:
-            self.Trial_Balance.model().appendRow()
-        except Exception as err:
-            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
-
-    @QtCore.pyqtSlot()
-    def insert_top_sides_table_row(self):
-        try:
-            self.Top_Sides.model().appendRow()
-        except Exception as err:
-            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
-
-    @QtCore.pyqtSlot()
-    def insert_elimination_entry_table_row(self):
-        try:
-            self.Eliminations.model().appendRow()
-        except Exception as err:
-            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
-
-    @QtCore.pyqtSlot()
-    def insert_elimination_doc_table_row(self):
-        try:
-            self.Documentation.model().appendRow()
-        except Exception as err:
-            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
-
-    @QtCore.pyqtSlot()
-    def delete_entity_table_rows(self):
-        try:
-            self.Entities.model().removeSelectedRows()
-        except Exception as err:
-            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
-
-    @QtCore.pyqtSlot()
-    def delete_cost_center_table_rows(self):
-        try:
-            self.Cost_Centers.model().removeSelectedRows()
-        except Exception as err:
-            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
-
-    @QtCore.pyqtSlot()
-    def delete_account_table_rows(self):
-        try:
-            self.Accounts.model().removeSelectedRows()
-        except Exception as err:
-            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
-
-    @QtCore.pyqtSlot()
-    def delete_trial_balance_table_rows(self):
-        try:
-            self.Trial_Balance.model().removeSelectedRows()
-        except Exception as err:
-            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
-
-    @QtCore.pyqtSlot()
-    def delete_top_sides_table_rows(self):
-        try:
-            self.Top_Sides.model().removeSelectedRows()
-        except Exception as err:
-            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
-
-    @QtCore.pyqtSlot()
-    def delete_elimination_entry_table_rows(self):
-        try:
-            self.Eliminations.model().removeSelectedRows()
-        except Exception as err:
-            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
-
-    @QtCore.pyqtSlot()
-    def delete_elimination_doc_table_rows(self):
-        try:
-            self.Documentation.model().removeSelectedRows()
-        except Exception as err:
-            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
-
-    ####################################################################################
-    ####################################################################################
     # Current Elimination Slots
     ####################################################################################
     ####################################################################################
@@ -531,48 +441,3 @@ class ConsolidationMainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
     @QtCore.pyqtSlot()
     def goto_prev_elimination(self):
         pass
-
-    ####################################################################################
-    ####################################################################################
-    # Text Slots
-    ####################################################################################
-    ####################################################################################
-
-    @QtCore.pyqtSlot()
-    def copy_console(self):
-        try:
-            clipboard = self.application.clipboard()
-            clipboard.clear()
-            clipboard.setText(self.console.toPlainText())
-        except Exception as err:
-            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
-
-    @QtCore.pyqtSlot()
-    def clear_console(self):
-        try:
-            self.console.clear()
-        except Exception as err:
-            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
-
-    @QtCore.pyqtSlot()
-    def copy_elimination_description(self):
-        try:
-            clipboard = self.application.clipboard()
-            clipboard.clear()
-            clipboard.setText(self.Elim_Desc.toPlainText())
-        except Exception as err:
-            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
-
-    @QtCore.pyqtSlot()
-    def clear_elimination_description(self):
-        try:
-            self.Elim_Desc.clear()
-        except Exception as err:
-            QtWidgets.QMessageBox.critical(self, 'Error', str(err))
-
-    @QtCore.pyqtSlot()
-    def paste_elimination_description(self):
-        try:
-            self.Elim_Desc.clear()
-        except Exception as err:
-            QtWidgets.QMessageBox.critical(self, 'Error', str(err))

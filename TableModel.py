@@ -348,3 +348,24 @@ class DocumentationTableModel(BaseTableModel):
 
     def __init__(self, parent):
         super().__init__(parent)
+
+
+class NCIDocumentationTableModel(BaseTableModel):
+
+    descriptors = {
+        'Full Path or URL': {'default value': '', 'to string': lambda x: str(x), 'to value': lambda x: str(x)}
+    }
+
+    def __init__(self, parent):
+        super().__init__(parent)
+
+class NCIPercentsTableModel(BaseTableModel):
+
+    descriptors = {
+        'Enitity': {'default value': '', 'to string': lambda x: str(x), 'to value': lambda x: str(x)},
+        'NCI Percent': {'default value': '', 'to string': lambda x: str(x), 'to value': lambda x: str(x)},
+        'Description': {'default value': '', 'to string': lambda x: str(x), 'to value': lambda x: str(x)}
+    }
+
+    def __init__(self, parent):
+        super().__init__(parent)
