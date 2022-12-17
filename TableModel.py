@@ -308,7 +308,7 @@ class TrialBalanceTableModel(BaseTableModel):
             if set(row.keys()) != fields:
                 raise KeyError(f'Not all rows in the Oracle trial balance contain the correct fields: {row}')
             for old_key, new_key in field_crosswalk.items():
-                row[old_key] = row.pop(new_key)
+                row[new_key] = row.pop(old_key)
 
 
 class TopSidesTableModel(TrialBalanceTableModel):
